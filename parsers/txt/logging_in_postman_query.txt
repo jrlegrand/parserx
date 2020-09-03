@@ -1,0 +1,19 @@
+1.) Authenticate with user
+POST 192.168.1.12:8000/auth/token/login/
+Headers
+Content-Type application/json
+Body
+{
+	"username": "<username>",
+	"password": "<password>"
+}
+Response
+{
+    "auth_token": "<auth token>"
+}
+
+2.) Run query via API
+POST 192.168.1.12:8000/sig/
+Headers
+Content-Type    application/json
+Authorization   Token <auth token>

@@ -1,0 +1,14 @@
+Password for all this stored in LastPass
+
+Migrate frontend to tmp folder
+rsync -e "/usr/bin/ssh" --bwlimit=2000 -av ~/dev/parserx/frontend/dist parserx@ps603466.dreamhostps.com:/home/parserx/parserx.io
+
+After migrating to parserx/tmp, need to migrate files to parserx/parserx.io/public folder
+
+NOTE: eventually want to make this easier
+
+Migrate parsers
+rsync -e "/usr/bin/ssh" --bwlimit=2000 -av ~/dev/parserx/parsers parserx@ps603466.dreamhostps.com:/home/parserx/api.parserx.io
+
+Migrate sig project
+rsync -e "/usr/bin/ssh" --bwlimit=2000 -av ~/dev/parserx/sig parserx@ps603466.dreamhostps.com:/home/parserx/api.parserx.io

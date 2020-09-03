@@ -1,0 +1,29 @@
+misc
+*****
+mwf - normalize?
+q. 5 mins doesn't map
+patches should have transdermal route, not topical
+mucous membrane should trump oral
+should puff trigger inhalation route by itself?
+"use as directed" as a fallback frequency
+q4h-q6h evaluates to q4h
+"inhale 1 puff by inhalation route 4 times per day ; may take additional puffs as needed not to exceed 6 puffs in 24hrs" should not map to PRN = 1 - do negative lookbehind?
+for indication parser, don't count "take one tablet daily for diabetes" as PRN = 1 - if the PRN segment is just "for", then PRN = 0, but capture the indication
+optimize the text to number functions in normalize - had to hard code some fraction stuff
+
+VUMC specific
+****
+chewable tablets -> tablet
+
+
+infer frequency from meals
+*****
+with every meal --> TID
+with breakfast --> qd
+in the morning --> qd
+(copy the when parser and put it at the bottom of the frequency parser)
+
+
+fix common measurements
+*****
+tsp -> 5mL, tablespoon -> 15 mL

@@ -1,0 +1,368 @@
+sig_text,method,method_text_start,method_text_end,method_text,dose,dose_max,dose_unit,dose_text_start,dose_text_end,dose_text,strength,strength_max,strength_unit,strength_text_start,strength_text_end,strength_text,route,route_text_start,route_text_end,route_text,frequency,frequency_max,period,period_max,period_unit,time_duration,time_duration_unit,day_of_week,time_of_day,offset,bounds,count,frequency_text_start,frequency_text_end,frequency_text,frequency_readable,when,when_text_start,when_text_end,when_text,duration,duration_max,duration_unit,duration_text_start,duration_text_end,duration_text,as_needed,indication,indication_text_start,indication_text_end,indication_text
+take 1-2 tablets by mouth bid prn pain,take,0,4,take,1,2,tablet,4,16, 1-2 tablets,,,,,,,by mouth,17,25,by mouth,2,,1,,day,,,,,,,,26,29,bid,twice daily,,,,,,,,,,,1,pain,30,38,prn pain
+prn (pain score 1-3) or respiratory distress,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"pain score 1-3,respiratory distress",0,44,prn (pain score 1-3) or respiratory distress
+prn (pain score > = 4-6) or respiratory distress,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"pain,respiratory distress",0,48,prn (pain score > = 4-6) or respiratory distress
+prn pain >= 1-5 on 1-10 scale,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain score greater than or equal to 1-5,0,29,prn pain >= 1-5 on 1-10 scale
+prn acute pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,acute pain,0,14,prn acute pain
+"prn after reaching goal cpot, maintain cpot less than or equal to 3",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,67,"prn after reaching goal cpot, maintain cpot less than or equal to 3"
+"prn agitation/discomfort as determined by nursing, keeping in mind his o2 status",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"agitation,discomfort",0,80,"prn agitation/discomfort as determined by nursing, keeping in mind his o2 status"
+prn any level of pain--do not use if patient has significant hepatic disease,use,30,33,use,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,any level of pain,0,76,prn any level of pain--do not use if patient has significant hepatic disease
+prn background pain rated 3-6 on pain scale,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"pain score 3-6,pain",0,43,prn background pain rated 3-6 on pain scale
+prn background pain rated 7-10 on pain scale,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"pain score 7-10,pain",0,44,prn background pain rated 7-10 on pain scale
+prn breakthrough,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,16,prn breakthrough
+prn extra analgesia during sedation for burn dressing change,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"sedation,dressing change",0,60,prn extra analgesia during sedation for burn dressing change
+prn first line for pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,23,prn first line for pain
+prn for breakthrough pain greater than 7/10,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,breakthrough pain score greater than 7/10,0,43,prn for breakthrough pain greater than 7/10
+prn for breakthrough pain not releaved by oral medication score 5-10,,,,,,,,,,,,,,,,,by mouth,42,46,oral,,,,,,,,,,,,,,,,,,,,,,,,,,,1,breakthrough pain,0,68,prn for breakthrough pain not releaved by oral medication score 5-10
+prn for breakthrough pain not relieved by po dilaudid,,,,,,,,,,,,,,,,,by mouth,42,44,po,,,,,,,,,,,,,,,,,,,,,,,,,,,1,breakthrough pain,0,53,prn for breakthrough pain not relieved by po dilaudid
+prn for breakthrough pain or unable to take oral medication ; for pain score 7-10,take,39,43,take,,,,,,,,,,,,,by mouth,44,48,oral,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"breakthrough pain,pain score 7-10",0,81,prn for breakthrough pain or unable to take oral medication ; for pain score 7-10
+prn for dressing change,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,dressing change,0,23,prn for dressing change
+prn for fever greater than of equal to 101 degrees f (38.3 degrees c) if not responsive to 325 mg dose,,,,,,,,,,,325,,mg,90,97, 325 mg,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,fever,0,102,prn for fever greater than of equal to 101 degrees f (38.3 degrees c) if not responsive to 325 mg dose
+prn for md use for dht placement,use,11,14,use,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,32,prn for md use for dht placement
+prn for pain >1/10,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain score greater than 1/10,0,18,prn for pain >1/10
+"prn for pain score 3-6, may give additional 5 mg dose if pain score is still 3-6 after 30 mins",give,28,32,give,,,,,,,5,,mg,43,48, 5 mg,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"pain score 3-6,pain",0,94,"prn for pain score 3-6, may give additional 5 mg dose if pain score is still 3-6 after 30 mins"
+prn for pain score 7-10,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain score 7-10,0,23,prn for pain score 7-10
+prn for pain unrelieved by po medications or unable to take po (pain scale greater than 7-10),take,55,59,take,,,,,,,,,,,,,by mouth,27,29,po,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"pain unrelieved by PO medications,pain score greater than 7-10,unable to take po",0,93,prn for pain unrelieved by po medications or unable to take po (pain scale greater than 7-10)
+prn for post-op pain 1-4,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,post-operative pain score 1-4,0,24,prn for post-op pain 1-4
+prn give for pain score 4/10; may give additional 5 mg dose if pain score is > 8 after 30 minutes,give,4,8,give,,,,,,,5,,mg,49,54, 5 mg,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"pain score 4/10,pain",0,97,prn give for pain score 4/10; may give additional 5 mg dose if pain score is > 8 after 30 minutes
+prn hold for sedation,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,sedation,0,21,prn hold for sedation
+prn lower back pain.,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,lower back pain,0,20,prn lower back pain.
+prn mild pain (1-5/10),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,mild pain,0,22,prn mild pain (1-5/10)
+prn moderate-severe pain (6-10/10),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,moderate to severe pain,0,34,prn moderate-severe pain (6-10/10)
+"prn only to be given for wound vac changes, 30 minutes prior to change.",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,71,"prn only to be given for wound vac changes, 30 minutes prior to change."
+prn pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,8,prn pain
+"prn pain 1-5 on pain scale, until discontinued",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"pain score 1-5,pain",0,46,"prn pain 1-5 on pain scale, until discontinued"
+prn pain 6-10,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain score 6-10,0,13,prn pain 6-10
+prn pain scale 1-2 / 10,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain score 1-2,0,23,prn pain scale 1-2 / 10
+prn pain scale 1-2 / 10; do not give for fever without first notifying md,give,32,36,give,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"pain score 1-2,fever",0,73,prn pain scale 1-2 / 10; do not give for fever without first notifying md
+prn pain scale 3-6,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain score 3-6,0,18,prn pain scale 3-6
+prn pain scale 3-6 / 10,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain score 3-6,0,23,prn pain scale 3-6 / 10
+prn pain scale 7-10,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain score 7-10,0,19,prn pain scale 7-10
+prn pain scale 7-10 / 10,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain score 7-10,0,24,prn pain scale 7-10 / 10
+prn pain score 1-4,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain score 1-4,0,18,prn pain score 1-4
+prn pain score 3-6,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain score 3-6,0,18,prn pain score 3-6
+prn pain score 4-7,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain score 4-7,0,18,prn pain score 4-7
+prn pain score 5-10,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain score 5-10,0,19,prn pain score 5-10
+prn pain score 6-8 on 1-10 scale,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain score 6-8,0,32,prn pain score 6-8 on 1-10 scale
+prn pain score 7-10,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain score 7-10,0,19,prn pain score 7-10
+prn pain score 7-10 and able to take oral medications,take,32,36,take,,,,,,,,,,,,,by mouth,37,41,oral,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain score 7-10,0,53,prn pain score 7-10 and able to take oral medications
+prn pain score 8-10,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain score 8-10,0,19,prn pain score 8-10
+prn pain score greater than or equal to 5,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain score greater than or equal to 5,0,41,prn pain score greater than or equal to 5
+prn pain unrelieved by po medications or unable to take po (pain scale 7-10 / 10),take,51,55,take,,,,,,,,,,,,,by mouth,23,25,po,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"pain unrelieved by PO medications,pain score 7-10,unable to take po",0,81,prn pain unrelieved by po medications or unable to take po (pain scale 7-10 / 10)
+prn pain/agitation (5th line),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"pain,agitation",0,29,prn pain/agitation (5th line)
+"prn prn headache/ pain score 1-4, or if pt declines opioids",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"pain score 1-4,headache",0,59,"prn prn headache/ pain score 1-4, or if pt declines opioids"
+prn to reach goal cpot less than or equal to 3,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,46,prn to reach goal cpot less than or equal to 3
+prn 1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,5,prn 1
+prn 3,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,5,prn 3
+prn 25,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,6,prn 25
+prn 780,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,7,prn 780
+prn 1 by mouth daily,,,,,,,,,,,,,,,,,by mouth,6,14,by mouth,1,,1,,day,,,,,,,,15,20,daily,daily,,,,,,,,,,,1,,0,20,prn 1 by mouth daily
+prn 1 po daily,,,,,,,,,,,,,,,,,by mouth,6,8,po,1,,1,,day,,,,,,,,9,14,daily,daily,,,,,,,,,,,1,,0,14,prn 1 po daily
+prn 10 days,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,11,prn 10 days
+prn 10 days as needed for pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,30,prn 10 days as needed for pain
+prn 14 days,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,11,prn 14 days
+prn 14 days as needed for pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,30,prn 14 days as needed for pain
+prn 2 day,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,9,prn 2 day
+prn 2 days as needed for pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,29,prn 2 days as needed for pain
+prn 2 wks at a time,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,19,prn 2 wks at a time
+prn 3 days as needed for dysuria,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,dysuria,0,32,prn 3 days as needed for dysuria
+prn 3 days as needed for nausea,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,nausea,0,31,prn 3 days as needed for nausea
+prn 3 days as needed for pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,29,prn 3 days as needed for pain
+prn 5 day,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,9,prn 5 day
+prn 5 days as needed for pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,29,prn 5 days as needed for pain
+prn 6 months as needed,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,22,prn 6 months as needed
+prn 7 days,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,10,prn 7 days
+prn 7 days as needed for bladder spasms,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,bladder spasm,0,39,prn 7 days as needed for bladder spasms
+prn 7 days as needed for pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,29,prn 7 days as needed for pain
+prn abdominal pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,abdominal pain,0,18,prn abdominal pain
+prn acne,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,acne,0,8,prn acne
+prn acute migraine,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,acute migraine,0,18,prn acute migraine
+prn administer if ear starts draining,administer,4,14,administer,,,,,,,,,,,,,in ear(s),18,21,ear,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,37,prn administer if ear starts draining
+prn agitation,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,agitation,0,13,prn agitation
+prn allergic reaction,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,allergic reaction,0,21,prn allergic reaction
+prn allergies,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,allergies,0,13,prn allergies
+prn allergy,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,allergy,0,11,prn allergy
+prn allergy symptoms,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,allergy,0,20,prn allergy symptoms
+prn anaphylaxis,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,anaphylaxis,0,15,prn anaphylaxis
+prn and directed,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,16,prn and directed
+prn anxiety,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,anxiety,0,11,prn anxiety
+prn approximately 1 hour before sexual activity,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,sexual activity,0,47,prn approximately 1 hour before sexual activity
+prn arthritis,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,arthritis,0,13,prn arthritis
+prn arthritis pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"arthritis pain,arthritis",0,18,prn arthritis pain
+prn as directed,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,4,15,as directed,,,,,,,,,,,,1,,0,15,prn as directed
+prn as needed,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,13,prn as needed
+prn as needed for anaphylaxis,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,anaphylaxis,0,29,prn as needed for anaphylaxis
+prn as needed for cough,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,cough,0,23,prn as needed for cough
+prn as needed for headache,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,headache,0,26,prn as needed for headache
+prn as needed for headaches,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,headache,0,27,prn as needed for headaches
+prn as needed for insomnia,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,insomnia,0,26,prn as needed for insomnia
+prn as needed for intercourse,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,intercourse,0,29,prn as needed for intercourse
+prn as needed for migraine,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,migraine,0,26,prn as needed for migraine
+prn as needed for muscle spasm,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,muscle spasm,0,30,prn as needed for muscle spasm
+prn as needed for nausea,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,nausea,0,24,prn as needed for nausea
+prn as needed for one hour prior to intercourse,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,intercourse,0,47,prn as needed for one hour prior to intercourse
+prn as needed for pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,22,prn as needed for pain
+prn as needed for seizures lasting more than 5 minutes,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,seizures lasting more than,0,54,prn as needed for seizures lasting more than 5 minutes
+prn as needed for severe hypoglycemia,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,severe hypoglycemia,0,37,prn as needed for severe hypoglycemia
+prn as needed for shortness of breath,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,shortness of breath,0,37,prn as needed for shortness of breath
+prn as needed for tonic clonic seizures lasting longer than 5 minutes,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,seizures lasting longer than,0,69,prn as needed for tonic clonic seizures lasting longer than 5 minutes
+prn as needed for wheezing,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,wheezing,0,26,prn as needed for wheezing
+prn asthma,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,asthma,0,10,prn asthma
+prn asthma symptoms,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,asthma,0,19,prn asthma symptoms
+prn at bedtime,,,,,,,,,,,,,,,,,,,,,1,,1,,day,,,,,,,,4,14,at bedtime,daily,at bedtime,4,14,at bedtime,,,,,,,1,,0,14,prn at bedtime
+prn at night,,,,,,,,,,,,,,,,,,,,,1,,1,,day,,,,,,,,4,12,at night,daily,at night,4,12,at night,,,,,,,1,,0,12,prn at night
+prn back pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,back pain,0,13,prn back pain
+prn based on sx,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,15,prn based on sx
+prn bedwetting,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,bedwetting,0,14,prn bedwetting
+prn bee stings,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,bee sting,0,14,prn bee stings
+prn bladder irritation,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,bladder irritation,0,22,prn bladder irritation
+prn bladder pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,16,prn bladder pain
+prn bladder spasm,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,bladder spasm,0,17,prn bladder spasm
+prn bladder spasm pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"pain,bladder spasm",0,22,prn bladder spasm pain
+prn bladder spasms,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,bladder spasm,0,18,prn bladder spasms
+prn blood sugar less than 70,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,blood sugar less than,0,28,prn blood sugar less than 70
+prn both eyes,,,,,,,,,,,,,,,,,in both eyes,4,13,both eyes,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,13,prn both eyes
+prn breakthrough pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,breakthrough pain,0,21,prn breakthrough pain
+prn bs less than 60,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,19,prn bs less than 60
+prn bulizer as needed,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,21,prn bulizer as needed
+prn bulizer every 4 hours as needed,,,,,,,,,,,,,,,,,,,,,1,,4,,hour,,,,,,,,12,24,every 4 hour,every 4 hours,,,,,,,,,,,1,,0,35,prn bulizer every 4 hours as needed
+prn bulizer every 6 hours as needed,,,,,,,,,,,,,,,,,,,,,1,,6,,hour,,,,,,,,12,24,every 6 hour,every 6 hours,,,,,,,,,,,1,,0,35,prn bulizer every 6 hours as needed
+prn bulizer every four hours as needed,,,,,,,,,,,,,,,,,,,,,1,,4,,hour,,,,,,,,12,27,every four hour,every 4 hours,,,,,,,,,,,1,,0,38,prn bulizer every four hours as needed
+prn burning,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,11,prn burning
+prn burning with urination,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,burning with urination,0,26,prn burning with urination
+prn by mouth,,,,,,,,,,,,,,,,,by mouth,4,12,by mouth,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,12,prn by mouth
+prn by mouth,,,,,,,,,,,,,,,,,by mouth,4,12,by mouth,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,12,prn by mouth
+prn by mouth daily,,,,,,,,,,,,,,,,,by mouth,4,12,by mouth,1,,1,,day,,,,,,,,13,18,daily,daily,,,,,,,,,,,1,,0,18,prn by mouth daily
+prn by mouth for pain,,,,,,,,,,,,,,,,,by mouth,4,12,by mouth,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,21,prn by mouth for pain
+prn chest pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"pain,chest pain",0,14,prn chest pain
+prn chest pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"pain,chest pain",0,14,prn chest pain
+prn chest pain for a total of 3 tablets in 24 hours,,,,,3,,tablet,29,39, 3 tablets,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"pain,chest pain",0,51,prn chest pain for a total of 3 tablets in 24 hours
+prn cold,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,cold,0,8,prn cold
+prn cold sore,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,cold sore,0,13,prn cold sore
+prn cold sores,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,cold sore,0,14,prn cold sores
+prn congestion,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,congestion,0,14,prn congestion
+prn constipation,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,constipation,0,16,prn constipation
+prn constipation,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,constipation,0,16,prn constipation
+prn cough,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,cough,0,9,prn cough
+prn cough,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,cough,0,9,prn cough
+prn cough and congestion,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"cough,congestion",0,24,prn cough and congestion
+prn cough and wheezing,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"cough,wheezing",0,22,prn cough and wheezing
+prn cough for up to 7 days,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,cough,0,26,prn cough for up to 7 days
+prn cough or difficulty breathing,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"cough,difficulty breathing",0,33,prn cough or difficulty breathing
+prn cough or shortness of breath,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"cough,shortness of breath",0,32,prn cough or shortness of breath
+prn cough or wheeze,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"cough,wheeze",0,19,prn cough or wheeze
+prn cough or wheezing,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"cough,wheezing",0,21,prn cough or wheezing
+prn cough with spacer,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,cough,0,21,prn cough with spacer
+prn coughing,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,cough,0,12,prn coughing
+prn cramping,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,cramping,0,12,prn cramping
+prn cramps,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,10,prn cramps
+prn cravings,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,cravings,0,12,prn cravings
+prn cs,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,6,prn cs
+prn day,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,7,prn day
+prn diarrhea,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,diarrhea,0,12,prn diarrhea
+prn diarrhea,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,diarrhea,0,12,prn diarrhea
+prn difficulty breathing,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,difficulty breathing,0,24,prn difficulty breathing
+prn discomfort,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,discomfort,0,14,prn discomfort
+prn discontinued,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,16,prn discontinued
+prn dizziness,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,dizziness,0,13,prn dizziness
+prn drainage,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,drainage,0,12,prn drainage
+prn dry eyes,,,,,,,,,,,,,,,,,in both eyes,8,12,eyes,,,,,,,,,,,,,,,,,,,,,,,,,,,1,dry eyes,0,12,prn dry eyes
+prn during allergy season,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,allergy,0,25,prn during allergy season
+prn during lactation,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,20,prn during lactation
+prn dysmenorrhea,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,dysmenorrhea,0,16,prn dysmenorrhea
+prn dyspnea,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,dyspnea,0,11,prn dyspnea
+prn dysuria,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,dysuria,0,11,prn dysuria
+prn e11,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,7,prn e11
+prn ear drainage,,,,,,,,,,,,,,,,,in ear(s),4,7,ear,,,,,,,,,,,,,,,,,,,,,,,,,,,1,ear drainage,0,16,prn ear drainage
+prn ear fullness,,,,,,,,,,,,,,,,,in ear(s),4,7,ear,,,,,,,,,,,,,,,,,,,,,,,,,,,1,ear fullness,0,16,prn ear fullness
+prn ear pain,,,,,,,,,,,,,,,,,in ear(s),4,7,ear,,,,,,,,,,,,,,,,,,,,,,,,,,,1,ear pain,0,12,prn ear pain
+prn eczema,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,eczema,0,10,prn eczema
+prn ed,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,erectile dysfunction,0,6,prn ed
+prn edema,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,edema,0,9,prn edema
+prn emergency,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,13,prn emergency
+prn erectile dysfunction,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,erectile dysfunction,0,24,prn erectile dysfunction
+prn erectile function,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,21,prn erectile function
+prn every 4 hours,,,,,,,,,,,,,,,,,,,,,1,,4,,hour,,,,,,,,4,16,every 4 hour,every 4 hours,,,,,,,,,,,1,,0,17,prn every 4 hours
+prn eye itching,,,,,,,,,,,,,,,,,in eye(s),4,7,eye,,,,,,,,,,,,,,,,,,,,,,,,,,,1,itching,0,15,prn eye itching
+prn eye pain,,,,,,,,,,,,,,,,,in eye(s),4,7,eye,,,,,,,,,,,,,,,,,,,,,,,,,,,1,eye pain,0,12,prn eye pain
+prn fever,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,fever,0,9,prn fever
+prn fever,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,fever,0,9,prn fever
+prn fever blisters,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,fever,0,18,prn fever blisters
+prn flares,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,flares,0,10,prn flares
+prn food allergy,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,food allergy,0,16,prn food allergy
+prn for 3 days pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3,,day,4,13,3 day,1,pain,0,19,prn for 3 days pain
+prn for 3 days prn for pain score 3,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3,,day,4,13,3 day,1,pain score 3,0,35,prn for 3 days prn for pain score 3
+prn for 30 days for constipation,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,30,,day,4,14,30 day,1,constipation,0,32,prn for 30 days for constipation
+prn for 6 days for pain and inflammation,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,6,,day,4,13,6 day,1,"pain,inflammation",0,40,prn for 6 days for pain and inflammation
+prn for 72 hours pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,21,prn for 72 hours pain
+prn for muscle spasm,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,muscle spasm,0,20,prn for muscle spasm
+prn for nausea,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,nausea,0,14,prn for nausea
+prn for pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,12,prn for pain
+prn for sexual activity,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,sexual activity,0,23,prn for sexual activity
+prn for shortness of breath or cough,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"shortness of breath,cough",0,36,prn for shortness of breath or cough
+prn gas,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,gas,0,7,prn gas
+prn give 1 tab q 5 min,give,4,8,give,1,,tablet,8,14, 1 tab,,,,,,,,,,,1,,5,,minute,,,,,,,,15,22,q 5 min,every 5 minutes,,,,,,,,,,,1,,0,22,prn give 1 tab q 5 min
+prn give for constipation,give,4,8,give,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,constipation,0,25,prn give for constipation
+prn give if bg less than or equal 60 and nho,give,4,8,give,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,44,prn give if bg less than or equal 60 and nho
+prn give if bg less than or equal 70 and nho,give,4,8,give,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,44,prn give if bg less than or equal 70 and nho
+prn gout,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,gout,0,8,prn gout
+prn ha,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,6,prn ha
+prn headache,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,headache,0,12,prn headache
+prn headaches,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,headache,0,13,prn headaches
+prn heartburn,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,heartburn,0,13,prn heartburn
+prn hiccups,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,hiccups,0,11,prn hiccups
+prn high blood sugar or vomiting,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"high blood sugar,vomiting",0,32,prn high blood sugar or vomiting
+prn hives,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,hives,0,9,prn hives
+prn hour,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,8,prn hour
+prn hypoglycemia,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,hypoglycemia,0,16,prn hypoglycemia
+prn hypoglycemia with bg,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,hypoglycemia,0,24,prn hypoglycemia with bg
+prn hypoglycemic coma,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,21,prn hypoglycemic coma
+prn if glucose less than 60,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,27,prn if glucose less than 60
+prn in affected ear,,,,,,,,,,,,,,,,,in ear(s),4,19,in affected ear,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,19,prn in affected ear
+prn in both eyes,,,,,,,,,,,,,,,,,in both eyes,4,16,in both eyes,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,16,prn in both eyes
+prn in left eye,,,,,,,,,,,,,,,,,in left eye,4,15,in left eye,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,15,prn in left eye
+prn indigestion,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,indigestion,0,15,prn indigestion
+prn inflamation,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,15,prn inflamation
+prn inhaler,,,,,,,,,,,,,,,,,via inhalation,4,11,inhaler,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,11,prn inhaler
+prn insomnia,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,insomnia,0,12,prn insomnia
+prn insomnia,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,insomnia,0,12,prn insomnia
+prn intercourse,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,intercourse,0,15,prn intercourse
+prn intolerable pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,intolerable pain,0,20,prn intolerable pain
+prn itchiness,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,itchiness,0,13,prn itchiness
+prn itching,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,itching,0,11,prn itching
+prn itchy eyes,,,,,,,,,,,,,,,,,in both eyes,10,14,eyes,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,14,prn itchy eyes
+prn itchy rash,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,rash,0,14,prn itchy rash
+prn joint pains,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,joint pain,0,15,prn joint pains
+prn knee pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,knee pain,0,13,prn knee pain
+prn leg pain and numbness,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"leg pain,numbness",0,25,prn leg pain and numbness
+prn ly and rub gently into the affected area,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,44,prn ly and rub gently into the affected area
+prn ly to eczema flare 2 times a day for 2 wks,,,,,,,,,,,,,,,,,,,,,2,,1,,day,,,,,,,,23,36,2 times a day,twice daily,,,,,,,,,,,1,eczema,0,46,prn ly to eczema flare 2 times a day for 2 wks
+prn ly to flared eczema areas 2 times a day as needed for 2 wks at a time,,,,,,,,,,,,,,,,,,,,,2,,1,,day,,,,,,,,30,43,2 times a day,twice daily,,,,,,,,,,,1,eczema,0,73,prn ly to flared eczema areas 2 times a day as needed for 2 wks at a time
+prn migraine,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,migraine,0,12,prn migraine
+prn migraines,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,migraine,0,13,prn migraines
+prn mild pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,mild pain,0,13,prn mild pain
+prn moderate,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,12,prn moderate
+prn moderate pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,moderate pain,0,17,prn moderate pain
+prn moderate pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,moderate pain,0,17,prn moderate pain
+prn moderate to severe pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,moderate to severe pain,0,27,prn moderate to severe pain
+prn muscle spasm,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,muscle spasm,0,16,prn muscle spasm
+prn muscle spasms,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,muscle spasm,0,17,prn muscle spasms
+prn nasal congestion,,,,,,,,,,,,,,,,,in nostril(s),4,9,nasal,,,,,,,,,,,,,,,,,,,,,,,,,,,1,nasal congestion,0,20,prn nasal congestion
+prn nasal dryness,,,,,,,,,,,,,,,,,in nostril(s),4,9,nasal,,,,,,,,,,,,,,,,,,,,,,,,,,,1,nasal dryness,0,17,prn nasal dryness
+prn nausea,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,nausea,0,10,prn nausea
+prn nausea,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,nausea,0,10,prn nausea
+prn nausea and vomiting,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"nausea,vomiting",0,23,prn nausea and vomiting
+prn nausea or vomiting,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"nausea,vomiting",0,22,prn nausea or vomiting
+prn nighttime cough,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,cough,0,19,prn nighttime cough
+prn noc cough,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,cough,0,13,prn noc cough
+prn not to exceed 4 tablets per 24hrs,,,,,4,,tablet,18,27,4 tablets,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,37,prn not to exceed 4 tablets per 24hrs
+prn not to exceed 6 puffs in 24hrs,,,,,6,,puff,18,24,6 puff,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,34,prn not to exceed 6 puffs in 24hrs
+prn one time only as needed for hypoglycemia,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,4,17,one time only,once,,,,,,,,,,,1,hypoglycemia,0,44,prn one time only as needed for hypoglycemia
+prn only,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,8,prn only
+prn oral soreness,,,,,,,,,,,,,,,,,by mouth,4,8,oral,,,,,,,,,,,,,,,,,,,,,,,,,,,1,soreness,0,17,prn oral soreness
+prn orally,,,,,,,,,,,,,,,,,by mouth,4,10,orally,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,10,prn orally
+prn orally for pain,,,,,,,,,,,,,,,,,by mouth,4,10,orally,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,19,prn orally for pain
+prn ou,,,,,,,,,,,,,,,,,in both eyes,4,6,ou,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,6,prn ou
+prn outbreak,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,outbreak,0,12,prn outbreak
+prn pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,8,prn pain
+prn pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,8,prn pain
+prn pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,8,prn pain
+prn pain and spasms,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"pain,spasm",0,19,prn pain and spasms
+prn pain by mouth,,,,,,,,,,,,,,,,,by mouth,9,17,by mouth,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,17,prn pain by mouth
+prn pain or fever,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"pain,fever",0,17,prn pain or fever
+prn pain po,,,,,,,,,,,,,,,,,by mouth,9,11,po,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,11,prn pain po
+prn pain then 1 tablet by mouth every 8 hours for 5 days as needed for pain then 1 tablet by mouth daily for 5 days as needed for pain,,,,,1,,tablet,13,22, 1 tablet,,,,,,,by mouth,23,31,by mouth,1,,8,,hour,,,,,,,,32,44,every 8 hour,every 8 hours,,,,,5,,day,46,55,5 day,1,"pain,pain,pain",0,134,prn pain then 1 tablet by mouth every 8 hours for 5 days as needed for pain then 1 tablet by mouth daily for 5 days as needed for pain
+prn pain thereafter,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,19,prn pain thereafter
+prn pain w,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,10,prn pain w
+prn pain with swallowing,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain with swallowing,0,24,prn pain with swallowing
+prn pain with urination,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain with urination,0,23,prn pain with urination
+prn pain x 1 week,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,week,9,17,1 week,1,pain,0,17,prn pain x 1 week
+prn painful urination,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,21,prn painful urination
+prn palpitations,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,palpitations,0,16,prn palpitations
+prn per mom,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,11,prn per mom
+prn perianal irritation,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,perianal irritation,0,23,prn perianal irritation
+prn pharyngitis,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pharyngitis,0,15,prn pharyngitis
+prn po,,,,,,,,,,,,,,,,,by mouth,4,6,po,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,6,prn po
+prn post operative pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,post-operative pain,0,23,prn post operative pain
+prn prn cramping,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,cramping,0,16,prn prn cramping
+prn prn pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,12,prn prn pain
+prn prn pain score 1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain score 1,0,20,prn prn pain score 1
+prn q 8 hours,,,,,,,,,,,,,,,,,,,,,1,,8,,hour,,,,,,,,4,12,q 8 hour,every 8 hours,,,,,,,,,,,1,,0,13,prn q 8 hours
+prn r42,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,7,prn r42
+prn rash,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,rash,0,8,prn rash
+prn re daily,,,,,,,,,,,,,,,,,,,,,1,,1,,day,,,,,,,,7,12,daily,daily,,,,,,,,,,,1,,0,12,prn re daily
+prn refills,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,11,prn refills
+prn reflux,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,reflux,0,10,prn reflux
+prn rhinitis,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,rhinitis,0,12,prn rhinitis
+prn seasonal allergies,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,seasonal allergies,0,22,prn seasonal allergies
+prn seizure clusters,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,seizure clusters,0,20,prn seizure clusters
+prn seizures,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,12,prn seizures
+prn seizures lasting more than 5 minutes,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,seizures lasting more than,0,40,prn seizures lasting more than 5 minutes
+prn severe allergic reaction,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,severe allergic reaction,0,28,prn severe allergic reaction
+prn severe allergic reaction or anaphylaxis,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"severe allergic reaction,anaphylaxis",0,43,prn severe allergic reaction or anaphylaxis
+prn severe allergy,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,allergy,0,18,prn severe allergy
+prn severe food allergies,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,severe food allergies,0,25,prn severe food allergies
+prn severe food allergy,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,food allergy,0,23,prn severe food allergy
+prn severe headache rescue,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,severe headache,0,26,prn severe headache rescue
+prn severe hypoglycemia,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,severe hypoglycemia,0,23,prn severe hypoglycemia
+prn severe low blood sugar,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,severe low blood sugar,0,26,prn severe low blood sugar
+prn severe pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,severe pain,0,15,prn severe pain
+prn sex,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,sex,0,7,prn sex
+prn sexual activity,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,sexual activity,0,19,prn sexual activity
+prn sexual intercourse,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"sex,intercourse",0,22,prn sexual intercourse
+prn shortness of breath,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,shortness of breath,0,23,prn shortness of breath
+prn shortness of breath,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,shortness of breath,0,23,prn shortness of breath
+prn shortness of breath or cough,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"shortness of breath,cough",0,32,prn shortness of breath or cough
+prn shortness of breath or wheezing,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"shortness of breath,wheezing",0,35,prn shortness of breath or wheezing
+prn sinus pressure,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,sinus pressure,0,18,prn sinus pressure
+prn sleep,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,sleep,0,9,prn sleep
+prn sob,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,shortness of breath,0,7,prn sob
+prn social situations,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,social situations,0,21,prn social situations
+prn sore throat,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,sore throat,0,15,prn sore throat
+prn sore throat x 3 days,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3,,day,16,23,3 day,1,sore throat,0,24,prn sore throat x 3 days
+prn sorethroat,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,14,prn sorethroat
+prn spasm,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,spasm,0,9,prn spasm
+prn spasms,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,spasm,0,10,prn spasms
+prn stent pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,stent pain,0,14,prn stent pain
+prn stril,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,9,prn stril
+prn stril as needed,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,19,prn stril as needed
+prn stril daily,,,,,,,,,,,,,,,,,,,,,1,,1,,day,,,,,,,,10,15,daily,daily,,,,,,,,,,,1,,0,15,prn stril daily
+prn stril daily as needed,,,,,,,,,,,,,,,,,,,,,1,,1,,day,,,,,,,,10,15,daily,daily,,,,,,,,,,,1,,0,25,prn stril daily as needed
+prn stril daily prn,,,,,,,,,,,,,,,,,,,,,1,,1,,day,,,,,,,,10,15,daily,daily,,,,,,,,,,,1,,0,19,prn stril daily prn
+prn stril daily x 2 weeks,,,,,,,,,,,,,,,,,,,,,1,,1,,day,,,,,,,,10,15,daily,daily,,,,,2,,week,16,24,2 week,1,,0,25,prn stril daily x 2 weeks
+prn stril once daily,,,,,,,,,,,,,,,,,,,,,1,,1,,day,,,,,,,,10,20,once daily,daily,,,,,,,,,,,1,,0,20,prn stril once daily
+prn stril qd,,,,,,,,,,,,,,,,,,,,,1,,1,,day,,,,,,,,10,12,qd,daily,,,,,,,,,,,1,,0,12,prn stril qd
+prn swelling,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,swelling,0,12,prn swelling
+prn sx,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,6,prn sx
+prn teething,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,teething,0,12,prn teething
+prn thol,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,8,prn thol
+prn throat pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,throat pain,0,15,prn throat pain
+prn throat pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,throat pain,0,15,prn throat pain
+prn to check for urine ketones when ill or experiencing significantly elevated bg,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,81,prn to check for urine ketones when ill or experiencing significantly elevated bg
+prn to foot 1 tube,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,18,prn to foot 1 tube
+prn to test for urine ketones,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,29,prn to test for urine ketones
+prn to treat a severe low blood sugar event,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,severe low blood sugar,0,43,prn to treat a severe low blood sugar event
+prn tonic clonic seizures lasting more than 5 minutes,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,seizures lasting more than,0,53,prn tonic clonic seizures lasting more than 5 minutes
+prn traveler,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,12,prn traveler
+prn tremor,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,tremor,0,10,prn tremor
+prn unbearable headaches,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,headache,0,24,prn unbearable headaches
+prn until discontinued,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,22,prn until discontinued
+prn up to 2 weeks at a time,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,27,prn up to 2 weeks at a time
+prn urge to smoke,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,urge to smoke,0,17,prn urge to smoke
+prn urinary burning,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,urinary burning,0,19,prn urinary burning
+prn urinary tract irritation,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,urinary tract irritation,0,28,prn urinary tract irritation
+prn urinary tract symptoms,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,urinary tract symptoms,0,26,prn urinary tract symptoms
+prn use while taking oxycodone,use,4,7,use,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,30,prn use while taking oxycodone
+prn vertigo,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,vertigo,0,11,prn vertigo
+prn vomiting,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,vomiting,0,12,prn vomiting
+prn weight gain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,weight gain,0,15,prn weight gain
+prn wheeze,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,wheeze,0,10,prn wheeze
+prn wheezing,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,wheezing,0,12,prn wheezing
+prn wheezing every 6 hrs,,,,,,,,,,,,,,,,,,,,,1,,6,,hour,,,,,,,,13,24,every 6 hrs,every 6 hours,,,,,,,,,,,1,wheezing,0,24,prn wheezing every 6 hrs
+prn wheezing or cough,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"wheezing,cough",0,21,prn wheezing or cough
+prn wheezing or shortness of breath,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,"wheezing,shortness of breath",0,35,prn wheezing or shortness of breath
+prn wheezing with spacer,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,wheezing,0,24,prn wheezing with spacer
+prn with food,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,13,prn with food
+prn with food as needed,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,23,prn with food as needed
+prn with spacer,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,0,15,prn with spacer
+prn yeast infection,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,yeast infection,0,19,prn yeast infection

@@ -1,0 +1,11 @@
+sig_text,method,method_text_start,method_text_end,method_text,dose,dose_max,dose_unit,dose_text_start,dose_text_end,dose_text,strength,strength_max,strength_unit,strength_text_start,strength_text_end,strength_text,route,route_text_start,route_text_end,route_text,frequency,frequency_max,period,period_max,period_unit,time_duration,time_duration_unit,day_of_week,time_of_day,offset,bounds,count,frequency_text_start,frequency_text_end,frequency_text,frequency_readable,when,when_text_start,when_text_end,when_text,duration,duration_max,duration_unit,duration_text_start,duration_text_end,duration_text,as_needed,indication,indication_text_start,indication_text_end,indication_text
+1 tablet by mouth daily,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,1,,1,,day,,,,,,,,18,23,daily,daily,,,,,,,,,,,,,,,
+1 tablet by mouth twice a day,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,2,,1,,day,,,,,,,,18,29,twice a day,twice daily,,,,,,,,,,,,,,,
+1 capsule by mouth daily,,,,,1,,capsule,0,9,1 capsule,,,,,,,by mouth,10,18,by mouth,1,,1,,day,,,,,,,,19,24,daily,daily,,,,,,,,,,,,,,,
+1 tab by mouth daily,,,,,1,,tablet,0,5,1 tab,,,,,,,by mouth,6,14,by mouth,1,,1,,day,,,,,,,,15,20,daily,daily,,,,,,,,,,,,,,,
+1 tablet by mouth every evening at bedtime,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,1,,1,,day,,,,,,,,18,42,every evening at bedtime,daily,in the evening at bedtime,18,42,every evening at bedtime,,,,,,,,,,,
+one tablet by mouth daily,,,,,1,,tablet,0,10,one tablet,,,,,,,by mouth,11,19,by mouth,1,,1,,day,,,,,,,,20,25,daily,daily,,,,,,,,,,,,,,,
+by mouth as needed,,,,,,,,,,,,,,,,,by mouth,0,8,by mouth,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,9,18,as needed
+1 capsule by mouth twice a day,,,,,1,,capsule,0,9,1 capsule,,,,,,,by mouth,10,18,by mouth,2,,1,,day,,,,,,,,19,30,twice a day,twice daily,,,,,,,,,,,,,,,
+(also known as norvasc) 1 tablet by mouth daily,,,,,1,,tablet,23,32, 1 tablet,,,,,,,by mouth,33,41,by mouth,1,,1,,day,,,,,,,,42,47,daily,daily,,,,,,,,,,,,,,,
+2 puffs from the inhaler twice a day,,,,,2,,puff,0,6,2 puff,,,,,,,via inhalation,8,24,from the inhaler,2,,1,,day,,,,,,,,25,36,twice a day,twice daily,,,,,,,,,,,,,,,

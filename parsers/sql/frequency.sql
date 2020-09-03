@@ -1,0 +1,15 @@
+select * from parserx.sig_sigparsed sig
+inner join vumc.frequency freq 
+	on (sig.frequency = freq.frequency or (sig.frequency is null and freq.frequency is null))
+	and (sig.frequency_max = freq.frequency_max or (sig.frequency_max is null and freq.frequency_max is null))
+    and (sig.period = freq.period or (sig.period is null and freq.period is null))
+    and (sig.period_max = freq.period_max or (sig.period_max is null and freq.period_max is null))
+    and (sig.period_unit = freq.period_unit or (sig.period_unit is null and freq.period_unit is null))
+    and (sig.time_duration = freq.time_duration or (sig.time_duration is null and freq.time_duration is null))
+    and (sig.day_of_week = freq.day_of_week or (sig.day_of_week is null and freq.day_of_week is null))
+    and (sig.time_of_day = freq.time_of_day or (sig.time_of_day is null and freq.time_of_day is null))
+    and (sig.when = freq.when or (sig.when is null and freq.when is null))
+    and (sig.offset = freq.offset or (sig.offset is null and freq.offset is null))
+    and (sig.bounds = freq.bounds or (sig.bounds is null and freq.bounds is null))
+    and (sig.count = freq.count or (sig.count is null and freq.count is null))
+    and (sig.as_needed = freq.as_needed or (sig.as_needed is null and freq.as_needed is null))

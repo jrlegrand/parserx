@@ -1,0 +1,59 @@
+Terminal
+
+mysql -u parserx -p
+<enter password>
+drop database parserx;
+create database parserx;
+quit
+source venv/bin/activate
+python manage.py makemigrations
+python manage.py makemigrations sig
+python manage.py migrate
+python manage.py createsuperuser
+<follow createsuperuser prompts>
+python manage.py runserver 0.0.0.0:8000
+
+Postman
+
+1.) Authenticate with superuser
+POST 192.168.1.16:8000/auth/token/login/
+Headers
+Content-Type application/json
+Body
+{
+	"username": "jrlegrand",
+	"password": "<password>"
+}
+Response
+{
+    "auth_token": "<auth token>"
+}
+
+2.) Run ParseRx on csv file via API
+POST 192.168.1.16:8000/csv_sig/
+Headers
+Content-Type application/json
+Authorization Token <auth token>
+
+NOTE: to change the csv file that the API runs:
+    - Go to parserx/sig/views
+    - Edit filepath in the create method of CsvSigCreateViewSet
+    - The csv file is stored in parserx/parsers/csv
+
+#########################################
+The instructions below are VUMC specific:
+#########################################
+
+phpMyAdmin
+
+Go to http://192.168.1.16/phpmyadmin/ (or whatever the current IP is)
+Open the parserx database
+Click SQL tab
+Paste in the overall.sql script from the parserx/parsers/sql folder
+Click Go
+When finished, click Export
+Export in CSV format, and show column names (template = csv w/ headers)
+
+Excel
+
+Filter on column parserx_correct_yn

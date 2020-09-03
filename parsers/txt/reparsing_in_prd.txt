@@ -1,0 +1,31 @@
+Likely, the first step is migrating the parsers folder to PRD.
+
+Edit the name of the csv file in parserx.io/sig/views.py to be the csv you have been working with locally.
+***NOTE: ensure you have converted it to just one column full of sigs with no header.
+
+Touch parserx/parserx.io/tmp/restart.txt to refresh Django.
+ssh parserx@ps603466.dreamhostps.com
+Password is on LastPass
+touch parserx.io/tmp/restart.txt
+
+Postman
+
+1.) Authenticate with superuser
+POST 192.168.1.12:8000/auth/token/login/
+Headers
+Content-Type application/json
+Body
+{
+	"username": "jrlegrand",
+	"password": "<password>"
+}
+Response
+{
+    "auth_token": "<auth token>"
+}
+
+2.) Run ParseRx on csv file via API
+POST 192.168.1.16:8000/csv_sig/
+Headers
+Content-Type	application/json
+Authorization	Token <auth token>
