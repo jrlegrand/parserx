@@ -183,25 +183,27 @@ ROUTES = {
   'vaginally': ['vaginal', r'(?:in to|into|in|to|per)(?: the)? vagina', r'p\.v\.', r'pv\b'],
   'sublingually': ['sublingual', r'under (?:the )?tongue', r'sub(?: |-)?lingual(?:ly)?', r'\bs\.l\.\b', r'\bsl\b'],
   'subcutaneously': ['subcutaneous', r'(?:in|under) the skin', r'sub(?: |-)*cutaneous(?:ly)?', r'subq\b', r'sub\.q\.', r'sc\b', r'subcu\b', r's\.c\.', r'sq\b', r's\.q\.'],
-  'topically': [r'(?:to|on)(?: the)? skin', r'(?:cleaned|clean|dry) skin', 'topical', r'(?:to|on) affected area', 'application', 'scalp', r'face\b'],
+  'topically': [r'(?:to|on)(?: the)? skin', r'(?:cleaned|clean|dry) skin', 'topical', r'(?:to|on) affected area', 'application', 'scalp', r'face\b', 'apply'],
   'rectally': ['rectal', r'p\.r\.\b', r'pr\b', r'in(?:to)* the (?:butt|anus|rectum)'],
   'intramuscularly': [r'i\.m\.\b', r'\bim\b', 'intramuscular', r'in(?:to)* the muscle' ],
   'intravenously': [r'i\.v\.', r'\biv\b', 'intravenous'],
   'cutaneously': [r'\bcutaneous'],
-  'transdermally': ['transdermal'],
+  'transdermally': ['transdermal', 'patch', 'patches'],
   'enterally': ['enteral'],
   'via g-tube': [r'via g(?:-| )?tube', 'gastrostomy'],
   'via j-tube': [r'via j(?:-| )?tube', 'jejunostomy'],
   'via ng-tube': [r'via (?:ng|n\.g\.)(?:-| )?tube', 'nasogastrically', 'nasogastricly', 'nasogastric'],
   'to the teeth': ['dentally', 'dental', r'to(?: the)? teeth'],
   'intra-articularly': [r'(?:in to|into|in|to|per) the joint', 'intra-articular'],
-  'via inhalation': ['respiratory tract', r'(?:via |using a |from the )?inhal(?:ation|ed|er|e)'],
+  'via inhalation': ['respiratory tract', r'(?:via |using a |from the )?inhal(?:ation|ed|er|e)', r'puff(?:s)?', r'inh\b'],
   'via nebulization': [r'(?:via |using a |from the )?nebuliz(?:ation|ed|er|e)'],
   'in urethra': [r'(?:into|via) urethra', 'urethrally', 'urethral'],
-  'translingually': ['translingual'],
+  'translingually': ['translingual', 'on the tongue'],
   'buccally': [r'between (?:the )?cheek and (?:the )?gums', 'buccal'],
-  'to mucous membrane': [r'to (?:the )?mucous membrane(?:s)?'],
+  'to mucous membrane': [r'to (?:the )?mucous membrane(?:s)?', r'mucous membrane(?:s)?'],
   'via injection': ['injection'],
+  'swish and spit': [],
+  'swish and swallow': [],
 }
 
 """
@@ -342,6 +344,11 @@ STRENGTH_UNITS = {
 }
 
 DOSE_UNITS = {
+  # to match ahead of one-letter dose form (L)
+  'lozenge': [r'\bloz\b'],
+  'liniment': [],
+  'lotion': [],
+  'liquid dose form': [],
   # volume
   'mL': [r'(?:milliliter)', r'mls\b'],
   'L': [r'(?:\bliter)'],
@@ -496,13 +503,10 @@ DOSE_UNITS = {
   'drug aerosol': [],
   'drug aerosol foam': [r'foam'],
   'cachet': [],
-  'liniment': [],
-  'lotion': [],
   'drug pledget': [],
   'oral lyophilisate': [],
   'oromucosal gel': [],
   'gingival gel': [],
-  'lozenge': [r'\bloz\b'],
   'dental gel': [],
   'dental insert': [],
   'dental powder': [],
@@ -521,7 +525,6 @@ DOSE_UNITS = {
   'implant dosage form': [],
   'extended-release insert': [],
   'vaginal insert': [],
-  'liquid dose form': [],
   'urethral suppository': [],
   'metered powder': [],
   'rectal suppository': [],
@@ -541,7 +544,7 @@ DOSE_UNITS = {
   'buccal film': [],
   'orodispersible film': [],
   'pen': [],
-  'applicatorful': [],
+  'applicatorful': ['applicatorsful'],
   'application': [],
   'capful': [],
   'injection': [],
@@ -663,6 +666,7 @@ INDICATIONS = {
   'food allergy': [],
   'flatulence': [],
   'gas': [],
+  'glaucoma': [],
   'gout': [],
   'hallucination': [],
   'headache': [],
@@ -742,6 +746,8 @@ INDICATIONS = {
   'wheezing': [],
   'wound care': [],
   'yeast infection': [],
+  # less specific
+  'blood pressure': [],
 }
 
 RE_INDICATION = []
@@ -826,7 +832,7 @@ def get_frequency_readable(frequency=None,frequency_max=None,period=None,period_
 
 # converts one to 1, thirty to 30, etc
 def number_text_to_int(textnum):
-  print(textnum)
+  #print(textnum)
   # convert 1 and 1/2 to 1 1/2
   # convert one and one half to one one half
   textnum = re.sub(r'(?:&\s|\band\s)', '', textnum)
