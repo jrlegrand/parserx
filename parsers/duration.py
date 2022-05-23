@@ -22,7 +22,7 @@ class DurationParserOnDayX(DurationParser):
     def normalize_match(self, match):
         duration_range = split_range(match.group('duration'))
         duration_text_start, duration_text_end = match.span()
-        duration = 1 if duration_range[0] == duration_range[1] else int(duration_range[1]) - int(duration_range[0]) + 1
+        duration = 1 if duration_range[0] == duration_range[1] or duration_range[1] == None else int(duration_range[1]) - int(duration_range[0]) + 1
         duration_unit = 'day'
         duration, duration_max = [duration, duration]
         duration_text = ' '.join(match.groups())

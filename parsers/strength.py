@@ -23,7 +23,7 @@ class StrengthParser(Parser):
             strength_text_start, strength_text_end = match.span()
             strength_text = match[0]
         else:
-            strength, strength_max, strength_unit, strength_text_start, strength_text_end, strength_text = None
+            strength = strength_max = strength_unit = strength_text_start = strength_text_end = strength_text = None
         return self.generate_match({'strength': strength, 'strength_max': strength_max, 'strength_unit': strength_unit, 'strength_text_start': strength_text_start, 'strength_text_end': strength_text_end, 'strength_text': strength_text})
 
 parsers = [

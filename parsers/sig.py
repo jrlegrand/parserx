@@ -21,10 +21,12 @@ class SigParser(Parser):
         'indication': indication.parsers,
     }
     # TODO: make this match_keys assignment more elegant
-    match_keys = ['sig_text'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys
+    match_keys = ['original_sig_text'] + ['sig_text'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys
     parser_type = 'sig'
 
     def parse(self, sig):
+        match_dict = dict(self.match_dict)
+        match_dict['original_sig_text'] = sig
         # standardize to lower case
         sig = sig.lower()
         # remove:
@@ -33,7 +35,6 @@ class SigParser(Parser):
         sig = re.sub(r'(?:(?<![0-9])\.(?![0-9])|,|;|#|\*|\"|\'|\(|\)|\t)', '', sig)
         # remove duplicate spaces, and in doing so, also trim whitespaces from around sig
         sig = ' '.join(sig.split())
-        match_dict = dict(self.match_dict)
         match_dict['sig_text'] = sig
         for parser_type, parsers in self.parsers.items():
             matches = []
@@ -63,7 +64,7 @@ class SigParser(Parser):
     # parse a csv
     def parse_sig_csv(self):
         file_path='parsers/csv/'
-        file_name='sig_prd_20200707'
+        file_name='vumc_sigs_second_batch'
         csv_columns = self.match_keys
         # create an empty list to collect the data
         parsed_sigs = []
@@ -166,7 +167,7 @@ def print_progress_bar (iteration, total, prefix = 'progress:', suffix = 'comple
     if iteration == total: 
         print()
 
-#parsed_sigs = SigParser().parse_sig_csv()
+parsed_sigs = SigParser().parse_sig_csv()
 #parsed_sigs = SigParser().parse_validate_sig_csv()
 #print(parsed_sigs)
 

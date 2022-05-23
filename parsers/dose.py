@@ -15,7 +15,7 @@ class DoseParser(Parser):
         return pattern
     def normalize_match(self, match):
         dose_range = split_range(match.group('dose'))
-        print(dose_range)
+        #print(dose_range) 
         dose, dose_max = dose_range
         dose_unit = get_normalized(DOSE_UNITS, match.group('dose_unit'))
         dose_text_start, dose_text_end = match.span()
