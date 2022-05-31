@@ -2,11 +2,20 @@ import collections
 import re
 from fractions import Fraction
 
-RE_WRITTEN_NUMBERS = r'one(?:-|\s)half|half|one(?:-|\s)quarter|quarter|one(?!-half| half|half|-quarter| quarter|quarter)|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|twenty(?: |-)?one|twenty(?: |-)?two|twenty(?: |-)?three|twenty(?: |-)?four|twenty(?: |-)?five|twenty(?: |-)?six|twenty(?: |-)?seven|twenty(?: |-)?eight|twenty(?: |-)?nine|thirty|thirty(?: |-)?five'
-#one (?:and |& )one(?:-|\s)half|
+RE_WRITTEN_NUMBERS = r'one(?:\s|-)?(?:quarter|half)|quarter|half|one point (?:one|two|three|four|five|six|seven|eight|nine)|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty(?:\s|-)?(?:one|two|three|four|five|six|seven|eight|nine)|twenty|thirty(?:\s|-)?five|thirty'
+#one (?:and |& )one(?:-|\s)half| 
 
 # NOTE: keep the x-y at the beginning and x at the end so that it finds the x-y first without stopping
-RE_RANGE = r'(?:(?:' + RE_WRITTEN_NUMBERS + r'|(?:(?:\d+\s*)*(?:\.|/|,))?\d+)\s*(?:to|-|or|/|&|and)\s*(?:' + RE_WRITTEN_NUMBERS + r'|(?:(?:\d+\s*)*(?:\.|/|,))?\d+)|(?:(?:\d+\s*)*(?:\.|/|,))?\d+|(?:' + RE_WRITTEN_NUMBERS + r'))'
+# (
+#   (
+#     (WRITTEN_NUMBER OR 1.5 OR 1/2)
+#     TO
+#     (WRITTEN_NUMBER OR 1.5 OR 1/2) 
+#   )
+#   OR (1.5 OR 1/2)
+#   OR WRITTEN_NUMBER
+# )
+RE_RANGE = r'(?:(?:' + RE_WRITTEN_NUMBERS + r'|(?:\d*(?:\.|/))?\d+)(?:\s*(?:to|-|or|/|&|and)\s*)(?:' + RE_WRITTEN_NUMBERS + r'|(?:\d*(?:\.|/))?\d+)|(?:\d*(?:\.|/))?\d+|(?:' + RE_WRITTEN_NUMBERS + r'))'
 
 RE_DAYS_OF_WEEK = r'monday|tuesday|wednesday|thursday|friday|saturday|sunday|mon\b|tue\b|tues\b|wed\b|thu\b|thur\b|thurs\b|fri\b|sat\b|sun\b|m\b|tu\b|w\b|th\b|t\b|f\b|sa\b|su\b|s\b'
  
@@ -183,27 +192,28 @@ ROUTES = {
   'vaginally': ['vaginal', r'(?:in to|into|in|to|per)(?: the)? vagina', r'p\.v\.', r'pv\b'],
   'sublingually': ['sublingual', r'under (?:the )?tongue', r'sub(?: |-)?lingual(?:ly)?', r'\bs\.l\.\b', r'\bsl\b'],
   'subcutaneously': ['subcutaneous', r'(?:in|under) the skin', r'sub(?: |-)*cutaneous(?:ly)?', r'subq\b', r'sub\.q\.', r'sc\b', r'subcu\b', r's\.c\.', r'sq\b', r's\.q\.'],
-  'topically': [r'(?:to|on)(?: the)? skin', r'(?:cleaned|clean|dry) skin', 'topical', r'(?:to|on) affected area', 'application', 'scalp', r'face\b', 'apply'],
+  'topically': [r'(?:to|on)(?: the)? skin', r'(?:cleaned|clean|dry) skin', 'topical', r'(?:to|on) affected (?:area|site)(?:s|\(s\))', 'application', 'scalp', r'face\b', 'apply', 'patch'],
   'rectally': ['rectal', r'p\.r\.\b', r'pr\b', r'in(?:to)* the (?:butt|anus|rectum)'],
   'intramuscularly': [r'i\.m\.\b', r'\bim\b', 'intramuscular', r'in(?:to)* the muscle' ],
   'intravenously': [r'i\.v\.', r'\biv\b', 'intravenous'],
   'cutaneously': [r'\bcutaneous'],
   'transdermally': ['transdermal', 'patch', 'patches'],
   'enterally': ['enteral'],
-  'via g-tube': [r'via g(?:-| )?tube', 'gastrostomy'],
-  'via j-tube': [r'via j(?:-| )?tube', 'jejunostomy'],
-  'via ng-tube': [r'via (?:ng|n\.g\.)(?:-| )?tube', 'nasogastrically', 'nasogastricly', 'nasogastric'],
+  'via g-tube': [r'(?:via|per) g(?:-| )?tube', 'gastrostomy'],
+  'via j-tube': [r'(?:via|per) j(?:-| )?tube', 'jejunostomy'],
+  'via ng-tube': [r'(?:via|per) (?:ng|n\.g\.)(?:-| )?tube', 'nasogastrically', 'nasogastricly', 'nasogastric'],
   'to the teeth': ['dentally', 'dental', r'to(?: the)? teeth'],
-  'intra-articularly': [r'(?:in to|into|in|to|per) the joint', 'intra-articular'],
-  'via inhalation': ['respiratory tract', r'(?:via |using a |from the )?inhal(?:ation|ed|er|e)', r'puff(?:s)?', r'inh\b'],
-  'via nebulization': [r'(?:via |using a |from the )?nebuliz(?:ation|ed|er|e)'],
-  'in urethra': [r'(?:into|via) urethra', 'urethrally', 'urethral'],
+  'intra-articularly': [r'(?:in to|into|in|to|per) (?:the|one|both|two|all) joint', 'intra-articular'],
+  'via inhalation': ['respiratory tract', r'(?:via |per |using a |from the )?inhal(?:ation|ed|er|e)', r'puff(?:s)?', r'inh\b', r'inhalation(?:s)?'],
+  'via nebulization': [r'(?:via |per|using a |from the )?nebuliz(?:ation|ed|er|e)'],
+  'in urethra': [r'(?:into|via|within the|within) urethra', 'urethrally', 'urethral','intrauterine'],
   'translingually': ['translingual', 'on the tongue'],
   'buccally': [r'between (?:the )?cheek and (?:the )?gums', 'buccal'],
-  'to mucous membrane': [r'to (?:the )?mucous membrane(?:s)?', r'mucous membrane(?:s)?'],
-  'via injection': ['injection'],
+  'to mucous membrane': [r'(?:to|on) (?:the )?mucous membrane(?:s)?', r'mucous membrane(?:s)?'],
+  'via injection': [r'(?:via |per )injection', r'injection(?:s)?'],
   'swish and spit': [],
   'swish and swallow': [],
+  'miscellaneous': ['misc'],
 }
 
 """
@@ -832,7 +842,6 @@ def get_frequency_readable(frequency=None,frequency_max=None,period=None,period_
 
 # converts one to 1, thirty to 30, etc
 def number_text_to_int(textnum):
-  #print(textnum)
   # convert 1 and 1/2 to 1 1/2
   # convert one and one half to one one half
   textnum = re.sub(r'(?:&\s|\band\s)', '', textnum)
@@ -861,18 +870,19 @@ def number_text_to_int(textnum):
             # NOTE: we also convert one-half to onehalf in split_range method
             numwords = []
             fractions = [ 'half', 'third', 'quarter', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth' ]
-            units = [ 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', ]
+            decimals = [ 'point one', 'point two', 'point three', 'point four', 'point five', 'point six', 'point seven', 'point eight', 'point nine' ]
+            units = [ 'zero', 'one', 'two', 'three', r'four(?!teen)', 'five', r'six(?!teen|ty)', r'seven(?!teen|ty)', r'eight(?!een|y)', r'nine(?!teen|ty)', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', ]
             tens = [ 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety' ]
             
             for idx, pattern in enumerate(fractions):   numwords.append((re.compile(r'(P<multiplier>' + r'|'.join(units) + r')?' + pattern, re.I), 1 / (idx + 2)))
-            for idx, pattern in enumerate(units):       numwords.append((re.compile(pattern + r'(?!' + r'|'.join(fractions) + r')', re.I), idx))
+            for idx, pattern in enumerate(decimals):    numwords.append((re.compile(pattern, re.I), (idx + 1) / 10))
+            for idx, pattern in enumerate(units):       numwords.append((re.compile('(?<!point )' + pattern + r'(?!\s*(?:' + r'|'.join(fractions) + r'))', re.I), idx))
             for idx, pattern in enumerate(tens):        numwords.append((re.compile(pattern, re.I), (idx + 2) * 10))
-            
+
             number = 0
             for pattern, increment in numwords:
               if re.search(pattern, textnum):
                 number += increment
-            
             return number
           except:
             return None
