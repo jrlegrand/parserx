@@ -1,0 +1,17 @@
+original_sig_text,sig_text,method,method_text_start,method_text_end,method_text,dose,dose_max,dose_unit,dose_text_start,dose_text_end,dose_text,strength,strength_max,strength_unit,strength_text_start,strength_text_end,strength_text,route,route_text_start,route_text_end,route_text,frequency,frequency_max,period,period_max,period_unit,time_duration,time_duration_unit,day_of_week,time_of_day,offset,bounds,count,frequency_text_start,frequency_text_end,frequency_text,frequency_readable,when,when_text_start,when_text_end,when_text,duration,duration_max,duration_unit,duration_text_start,duration_text_end,duration_text,as_needed,indication,indication_text_start,indication_text_end,indication_text
+DAILY P.O. TAB,daily po tab,,,,,,,tablet,8,12, tab,,,,,,,by mouth,6,8,po,1,,1,,day,,,,,,,,0,5,daily,daily,,,,,,,,,,,,,,,
+DAILY TAB BY MOUTH,daily tab by mouth,,,,,,,tablet,5,9, tab,,,,,,,by mouth,10,18,by mouth,1,,1,,day,,,,,,,,0,5,daily,daily,,,,,,,,,,,,,,,
+NASAL SPRAY DAILY,nasal spray daily,spray,6,11,spray,,,nasal aerosol,0,11,nasal spray,,,,,,,in nostril(s),0,5,nasal,1,,1,,day,,,,,,,,12,17,daily,daily,,,,,,,,,,,,,,,
+NASAL SPRAY DAILY AS NEEDED,nasal spray daily as needed,spray,6,11,spray,,,nasal aerosol,0,11,nasal spray,,,,,,,in nostril(s),0,5,nasal,1,,1,,day,,,,,,,,12,17,daily,daily,,,,,,,,,,,1,,18,27,as needed
+NASAL SPRAY ONCE DAILY,nasal spray once daily,spray,6,11,spray,,,nasal aerosol,0,11,nasal spray,,,,,,,in nostril(s),0,5,nasal,1,,1,,day,,,,,,,,12,22,once daily,daily,,,,,,,,,,,,,,,
+NASAL SPRAY PRN,nasal spray prn,spray,6,11,spray,,,nasal aerosol,0,11,nasal spray,,,,,,,in nostril(s),0,5,nasal,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,12,15,prn
+NASAL SPRAY TWICE DAILY,nasal spray twice daily,spray,6,11,spray,,,nasal aerosol,0,11,nasal spray,,,,,,,in nostril(s),0,5,nasal,2,,1,,day,,,,,,,,12,23,twice daily,twice daily,,,,,,,,,,,,,,,
+ORAL TABLET DAILY,oral tablet daily,,,,,,,oral tablet,0,11,oral tablet,,,,,,,by mouth,0,4,oral,1,,1,,day,,,,,,,,12,17,daily,daily,,,,,,,,,,,,,,,
+P.O. DAILY TAB,po daily tab,,,,,,,tablet,8,12, tab,,,,,,,by mouth,0,2,po,1,,1,,day,,,,,,,,3,8,daily,daily,,,,,,,,,,,,,,,
+TAB BY MOUTH DAILY,tab by mouth daily,,,,,,,tablet,0,3,tab,,,,,,,by mouth,4,12,by mouth,1,,1,,day,,,,,,,,13,18,daily,daily,,,,,,,,,,,,,,,
+TAB ORALLY AS NEEDED,tab orally as needed,,,,,,,tablet,0,3,tab,,,,,,,by mouth,4,10,orally,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,11,20,as needed
+TAB ORALLY ONCE DAILY,tab orally once daily,,,,,,,tablet,0,3,tab,,,,,,,by mouth,4,10,orally,1,,1,,day,,,,,,,,11,21,once daily,daily,,,,,,,,,,,,,,,
+TABLET BY MOUTH DAILY,tablet by mouth daily,,,,,,,tablet,0,6,tablet,,,,,,,by mouth,7,15,by mouth,1,,1,,day,,,,,,,,16,21,daily,daily,,,,,,,,,,,,,,,
+TABLET BY MOUTH ONCE DAILY,tablet by mouth once daily,,,,,,,tablet,0,6,tablet,,,,,,,by mouth,7,15,by mouth,1,,1,,day,,,,,,,,16,26,once daily,daily,,,,,,,,,,,,,,,
+TABLET ORALLY DAILY,tablet orally daily,,,,,,,tablet,0,6,tablet,,,,,,,by mouth,7,13,orally,1,,1,,day,,,,,,,,14,19,daily,daily,,,,,,,,,,,,,,,
+TAKE ? TABLET BY MOUTH EVERY OTHER DAY,take ? tablet by mouth every other day,take,0,4,take,,,tablet,7,13,tablet,,,,,,,by mouth,14,22,by mouth,1,,2,,day,,,,,,,,23,38,every other day,every 2 days,,,,,,,,,,,,,,,
