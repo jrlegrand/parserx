@@ -176,28 +176,29 @@ METHODS = {
 
 # TODO: laterality for ophthalmic, otic, nasal routes - likely as a get_laterality method or something
 ROUTES = {
-	'by mouth': ['oral', r'on (?:the )?tongue', r'orally(?! disintegrating)', r'po\b', r'p\.o\.', r'oral\b', r'\b(?!vaginal|sublingual)tab(?:let)?(?:s)?\b', r'\bcap(?:sule)?(?:s)?\b', r'\bchew\b', r'\dpo\b'],
+	'by mouth': ['oral', r'orally(?! disintegrating)', r'po\b', r'p\.o\.', 'pill', r'oral\b', r'\b(?!vaginal|sublingual)tab(?:let)?(?:s)?(?!.*(?:sublingual(?:ly)?|into|per|on the|between the|under|by sublingual route|by buccal route))\b', r'\bcap(?:sule)?(?:s)?\b', r'\bchew(?:able)?\b', r'\dpo\b', 'capful'],
   'in left ear': [r'(?:in to |into |in |to |per )?(?:the )?left ear', r'\ba\.s\.\b'],
   'in right ear': [r'(?:in to |into |in |to |per )?(?:the )?right ear', r'\ba\.d\.\b'],
   'in both ears': [r'(?:in to |into |in |to |per )?(?:both ears|each ear|ears)', r'\ba\.u\.\b', r'\bau\b'],
   'in ear(s)': ['by ear', 'otically', 'otic', r'(?:in to |into |in |to |per )?(?:the )?(?:affected )?ear\b'],
   'in left nostril': [r'(?:in to |into |in |to |per )?(?:the )?left (?:nose|nostril|nare)'],
   'in right nostril': [r'(?:in to |into |in |to |per )?(?:the )?right (?:nose|nostril|nare)'],
-  'in each nostril': [r'(?:in to |into |in |to |per )?(?:both nostrils|each nostril|nostrils|each nare)'],
-  'in nostril(s)': ['by nose', 'nasally', 'nasal',  r'(?:in to |into |in |to |per )?(?:the )?(?:affected)?(?:nose|nostril|nare)\b'],
+  'in each nostril': [r'(?:in to |into |in |to |per )?(?:both nostrils|each nostril|nostrils|each nare)', r'\bien\b'],
+  'in nostril(s)': ['by nose', 'nasally', 'nasal',  r'(?:in to |into |in |to |per )?(?:the )?(?!each|left|right|both)(?:affected)?(?:nose|nostril|nare)\b'],
   'in left eye': [r'(?:in to |into |in |to |per )?(?:the )?left eye', r'\bo\.s\.\b', r'\bos\b'],
   'in right eye': [r'(?:in to |into |in |to |per )?(?:the )?right eye', r'\bo\.d\.\b', r'\bod\b'],
   'in both eyes': [r'(?:in to |into |in |to |per )?(?:both eyes|each eye|eyes)', r'\bo\.u\.\b', r'\bou\b'],
   'in eye(s)': ['by eye', 'ophthalmically', 'ophthalmic', r'(?:in to |into |in |to |per )?(?:the )?(?:affected )?eye\b'],
   'vaginally': ['vaginal', r'(?:in to|into|in|to|per)(?: the)? vagina', r'p\.v\.', r'pv\b'],
+  'intrauterine': ['uterus'],
   'sublingually': ['sublingual', r'under (?:the )?tongue', r'sub(?: |-)?lingual(?:ly)?', r'\bs\.l\.\b', r'\bsl\b'],
   'subcutaneously': ['subcutaneous', r'(?:in|under) the skin', r'sub(?: |-)*cutaneous(?:ly)?', r'subq\b', r'sub\.q\.', r'sc\b', r'subcu\b', r's\.c\.', r'sq\b', r's\.q\.'],
   'rectally': ['rectal', r'p\.r\.\b', r'pr\b', r'in(?:to)* the (?:butt|anus|rectum)'],
-  'intramuscularly': [r'i\.m\.\b', r'\bim\b', 'intramuscular', r'in(?:to)* the muscle' ],
+  'intramuscularly': [r'i\.m\.\b', r'\bim\b', 'intramuscular', r'in(?:to)?(?: the)? muscle' ],
   'intravenously': [r'i\.v\.', r'\biv\b', 'intravenous'],
   'cutaneously': [r'\bcutaneous'],
   'transdermally': ['transdermal', 'patch', 'patches'],
-  'topically': [r'(?:to|on)(?: the)? skin', r'(?:cleaned|clean|dry) skin', 'topical', r'(?:to|on) affected (?:area|site)(?:s|\(s\))', 'application', 'scalp', r'face\b', 'apply', 'patch'],
+  'topically': [r'(?:to|on)(?: the)? skin', r'(?:cleaned|clean|dry) skin', 'topical', r'(?:to|on) affected (?:area|site)(?:s|\(s\))?', 'application', 'scalp', r'face\b', 'apply', 'patch'],
   'enterally': ['enteral'],
   'via g-tube': [r'(?:via|per) g(?:-| )?tube', 'gastrostomy'],
   'via j-tube': [r'(?:via|per) j(?:-| )?tube', 'jejunostomy'],
@@ -206,14 +207,14 @@ ROUTES = {
   'intra-articularly': [r'(?:in to|into|in|to|per) (?:the|one|both|two|all) joint', 'intra-articular'],
   'via nebulization': [r'(?:via |per|using a |from the |by )?nebuliz(?:ation|ed|er|e)'],
   'via inhalation': ['respiratory tract', r'(?:via |per |using a |from the )?inhal(?:ation|ed|er|e)', r'puff(?:s)?', r'inh\b', r'inhalation(?:s)?'],
-  'in urethra': [r'(?:into|via|within the|within) urethra', 'urethrally', 'urethral','intrauterine'],
+  'in urethra': [r'(?:into|via|within the|within) urethra', 'urethrally', 'urethral'],
   'translingually': ['translingual', 'on the tongue'],
   'buccally': [r'between (?:the )?cheek and (?:the )?gums', 'buccal'],
   'to mucous membrane': [r'(?:to|on) (?:the )?mucous membrane(?:s)?', r'mucous membrane(?:s)?'],
-  'via injection': [r'(?:via |per )injection', r'injection(?:s)?'],
+  'via injection': [r'(?:via |per )injection', r'injection?(?:s)?(?! intramuscularly| intravenously| cuteneously| subcutaneously| intra-articularly)'],
   'swish and spit': [],
   'swish and swallow': [],
-  'miscellaneous': ['misc'],
+  'miscellaneous': ['misc', 'device', 'strip', r'test(?:ing)?', r'check(?:ing)?', 'monitor'],
 }
 
 """
@@ -788,9 +789,9 @@ def split_range(text):
 # once -> [1,None], 3-4 times -> [3,4]
 def split_frequency_range(text):
   split = text
-  split = re.sub(r'(?:times|time|(?<=\d|\s)x|nights|days)', '', split, flags = re.I)
-  split = re.sub(r'once|a|per', '1', split, flags = re.I)
-  split = re.sub(r'twice', '2', split, flags = re.I)
+  split = re.sub(r'(?:times(?: a| per)?|time|(?<=\d|\s)x(?: a| per)?|nights|days)', '', split, flags = re.I)
+  split = re.sub(r'once(?: a| per)?|a|per', '1', split, flags = re.I)
+  split = re.sub(r'twice(?: a| per)?', '2', split, flags = re.I)
   split = split_range(split)
   return split
 

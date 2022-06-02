@@ -52,29 +52,6 @@ class FrequencyEveryXDay(FrequencyParser):
 		# TODO: normalize text numbers to integer numbers - maybe make separate normalize_period_unit function that also hits the text_to_int function?
 		return self.generate_match({'frequency': frequency, 'period': period, 'period_max': period_max, 'period_unit': period_unit, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
 
-# once | twice | 3-4 times
-# daily | nightly | weekly | monthly | yearly
-# NOTE: this is where 'daily' matches
-# once daily, twice monthly, daily
-# (a: remove 'times' or 'x')
-# frequency = a[0], frequencyMax = a[1], period = 1, periodUnit = b (normalize to d, wk, mo, yr)
-# frequency = a (1 if once, 2 if twice, 1 if null), period = 1, periodUnit = b (normalize to d, wk, mo, yr)
-class FrequencyXTimesDaily(FrequencyParser):
-	pattern = r'(?:(?P<frequency>' + RE_RANGE + r'\s*(?:time(?:s)?|x)|once|twice|\ba\b|per)\s?)?(?P<period_unit>day|\bd\b|daily|dialy|weekly|monthly|yearly|\bhs\b)'
-	def normalize_match(self, match):
-		frequency = frequency_max = match.group('frequency')
-		if (frequency):
-			frequency, frequency_max = split_frequency_range(frequency)
-		else:
-			frequency = 1
-		period = 1
-		period_unit = get_normalized(PERIOD_UNIT, match.group('period_unit'))
-		frequency_text_start, frequency_text_end = match.span()
-		frequency_text = match.group(0)
-		frequency_readable = get_frequency_readable(frequency=frequency,frequency_max=frequency_max,period=period,period_unit=period_unit)
-		# TODO: normalize text numbers to integer numbers - maybe make separate normalize_period_unit function that also hits the text_to_int function?
-		return self.generate_match({'frequency': frequency, 'frequency_max': frequency_max, 'period': period, 'period_unit': period_unit, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
-
 # 4 | four | 4-6 | 4 to 6 | 4 or 6 | four-six | four to six | four or six
 # time(s) | x
 # [per | a | each | /]
@@ -160,8 +137,31 @@ class FrequencyAtBedtime(FrequencyParser):
 		frequency_readable = get_frequency_readable(frequency=frequency,period=period,period_unit=period_unit)
 		return self.generate_match({'frequency': frequency, 'period': period, 'period_unit': period_unit, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
 
+# once | twice | 3-4 times
+# daily | nightly | weekly | monthly | yearly
+# NOTE: this is where 'daily' matches
+# once daily, twice monthly, daily
+# (a: remove 'times' or 'x')
+# frequency = a[0], frequencyMax = a[1], period = 1, periodUnit = b (normalize to d, wk, mo, yr)
+# frequency = a (1 if once, 2 if twice, 1 if null), period = 1, periodUnit = b (normalize to d, wk, mo, yr)
+class FrequencyXTimesDaily(FrequencyParser):
+	pattern = r'(?:(?P<frequency>' + RE_RANGE + r'\s*(?:time(?:s)?|x)|once|twice)(?: \ba\b| per)?\s?)?(?P<period_unit>day\b|\bd\b|daily|dialy|weekly|monthly|yearly|\bhs\b)'
+	def normalize_match(self, match):
+		frequency = frequency_max = match.group('frequency')
+		if (frequency):
+			frequency, frequency_max = split_frequency_range(frequency)
+		else:
+			frequency = 1
+		period = 1
+		period_unit = get_normalized(PERIOD_UNIT, match.group('period_unit'))
+		frequency_text_start, frequency_text_end = match.span()
+		frequency_text = match.group(0)
+		frequency_readable = get_frequency_readable(frequency=frequency,frequency_max=frequency_max,period=period,period_unit=period_unit)
+		# TODO: normalize text numbers to integer numbers - maybe make separate normalize_period_unit function that also hits the text_to_int function?
+		return self.generate_match({'frequency': frequency, 'frequency_max': frequency_max, 'period': period, 'period_unit': period_unit, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
+
 class FrequencyAsDirected(FrequencyParser):
-	pattern = r'as directed(?: on package)?|ad lib|as instructed|as needed|as need|if needed|see admin instructions|see notes'
+	pattern = r'as directed(?: on package)?|ad lib|as instructed|see admin instructions|see notes'
 	def normalize_match(self, match):
 		# TODO: how to capture just text?
 		# text = 'as directed'
@@ -181,11 +181,11 @@ parsers = [
 	FrequencyOneTime(),
 	FrequencyXID(),
 	FrequencyEveryXDay(),
-	FrequencyXTimesDaily(),
 	FrequencyXTimesPerDay(),
 	FrequencyEveryDay(),
 	FrequencySpecificDayOfWeek(),
 	FrequencyInTheX(),
 	FrequencyAtBedtime(),
+	FrequencyXTimesDaily(),
 	FrequencyAsDirected(),
 ]
