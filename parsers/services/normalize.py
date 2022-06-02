@@ -17,7 +17,7 @@ RE_WRITTEN_NUMBERS = r'one(?:\s|-)?(?:quarter|half)|quarter|half|one point (?:on
 # )
 RE_RANGE = r'(?:(?:' + RE_WRITTEN_NUMBERS + r'|(?:\d*(?:\.|/))?\d+)(?:\s*(?:to|-|or|/|&|and)\s*)(?:' + RE_WRITTEN_NUMBERS + r'|(?:\d*(?:\.|/))?\d+)|(?:\d*(?:\.|/))?\d+|(?:' + RE_WRITTEN_NUMBERS + r'))'
 
-RE_DAYS_OF_WEEK = r'monday|tuesday|wednesday|thursday|friday|saturday|sunday|mon\b|tue\b|tues\b|wed\b|thu\b|thur\b|thurs\b|fri\b|sat\b|sun\b|m\b|tu\b|w\b|th\b|t\b|f\b|sa\b|su\b|s\b'
+RE_DAYS_OF_WEEK = r'monday|tuesday|wednesday|thursday|friday|saturday|sunday|mon\b|tue\b|tues\b|wed\b|thu\b|thur\b|thurs\b|fri\b|sat\b|sun\b|m\b|tu\b|w\b|th\b|t\b|f\b|sa\b|su\b|s\b|mwf'
  
 """
   TODO: make all of the ac / pc / hs / etc
@@ -66,8 +66,8 @@ RE_DAYS_OF_WEEK = r'monday|tuesday|wednesday|thursday|friday|saturday|sunday|mon
 # NOTE: periodUnit 'day' should include pretty much all of 'when' array
 # for FHIR conversion: https://www.hl7.org/fhir/valueset-units-of-time.html
 PERIOD_UNIT = {
-  'day': [ 'daily', 'nightly', 'days', 'day', r'\bd\b', 'morning', 'morn', 'am', 'a.m.', 'afternoon', 'aft', 'pm', 'p.m.', 'evening at bedtime', 'bedtime', 'evening', 'eve', 'night', 'hs', 'h.s.' ],
-  'week': [ 'weekly', 'weeks', 'week', 'wk', r'\bw\b' ],
+  'day': [ 'daily', 'dialy', 'nightly', 'days', 'day', r'\bd\b', 'morning', 'morn', 'am', 'afternoon', 'aft', 'pm', 'evening at bedtime', 'bedtime', 'evening', 'eve', 'night', 'hs' ],
+  'week': [ 'weekly', 'weeks', 'week', 'wks', 'wk', r'\bw\b' ],
   'month': [ 'monthly', 'months', 'month', 'mon', 'mo' ],
   'hour': [ 'hourly', 'hours', 'hour', 'hrs', 'hr', r'\bh\b' ],
   'minute': [ 'minutes', 'minute', 'mins', 'min', r'\bm\b' ],
@@ -88,12 +88,12 @@ DAY_OF_WEEK = {
  
 #(?:with|\bc\.|before|\ba|\ba\.|after|\bp|\bp\.|in the|at|every)
 WHEN = {
-  'in the morning': [ r'(?:in the|every)\s?(?:morn(?:ing)?|a\.m\.|am)' ],
-  'in the afternoon': [ r'(?:in the|every)\s?(?:aft(?:ernoon)?|p\.m\.|pm)' ],
+  'in the morning': [ r'(?:in the|every|each)\s?(?:morn(?:ing)?|a\.m\.|am)', 'a.m.', r'\bam\b', r'\bqam\b' ],
+  'in the afternoon': [ r'(?:in the|every|each)\s?(?:aft(?:ernoon)?|p\.m\.|pm)', r'\bqpm\b' ],
   'in the evening at bedtime': [r'(?:in the|every)\s?evening at bedtime'],
-  'in the evening': [ r'(?:in the|every)\s?eve(?:ning)?' ],
-  'at night': [ r'(?:in the|at|every)\s?night', 'nightly' ],
-  'at bedtime': [ r'(?:in the|at|every)\s?bedtime', r'\bqhs\b', r'q\.h\.s\.' ],
+  'in the evening': [ r'(?:in the|every|each)\s?eve(?:ning)?' ],
+  'at night': [ r'(?:in the|at|every|each)\s?night', 'nightly' ],
+  'at bedtime': [ r'(?:in the|at|every|each)\s?bedtime', r'\bqhs\b', r'q\.h\.s\.', 'bedtime', r'\bhs\b' ],
   'with meal': [ r'(?:with|each|every|at)?\s?meal(?:s)?', r'c\.c\.', r'\bcc\b' ],
   'with breakfast': [ r'(?:with|each|every|at)? breakfast' ],
   'with lunch': [ r'(?:with|each|every|at)?\s?lunch', r'\bcd\b', r'c\.d\.' ],
@@ -176,7 +176,7 @@ METHODS = {
 
 # TODO: laterality for ophthalmic, otic, nasal routes - likely as a get_laterality method or something
 ROUTES = {
-	'by mouth': ['oral', r'on (?:the )?tongue', r'orally(?! disintegrating)', r'po\b', r'p\.o\.', r'oral\b', 'swish and swallow'],
+	'by mouth': ['oral', r'on (?:the )?tongue', r'orally(?! disintegrating)', r'po\b', r'p\.o\.', r'oral\b', r'\b(?!vaginal|sublingual)tab(?:let)?(?:s)?\b', r'\bcap(?:sule)?(?:s)?\b', r'\bchew\b', r'\dpo\b'],
   'in left ear': [r'(?:in to |into |in |to |per )?(?:the )?left ear', r'\ba\.s\.\b'],
   'in right ear': [r'(?:in to |into |in |to |per )?(?:the )?right ear', r'\ba\.d\.\b'],
   'in both ears': [r'(?:in to |into |in |to |per )?(?:both ears|each ear|ears)', r'\ba\.u\.\b', r'\bau\b'],
@@ -192,20 +192,20 @@ ROUTES = {
   'vaginally': ['vaginal', r'(?:in to|into|in|to|per)(?: the)? vagina', r'p\.v\.', r'pv\b'],
   'sublingually': ['sublingual', r'under (?:the )?tongue', r'sub(?: |-)?lingual(?:ly)?', r'\bs\.l\.\b', r'\bsl\b'],
   'subcutaneously': ['subcutaneous', r'(?:in|under) the skin', r'sub(?: |-)*cutaneous(?:ly)?', r'subq\b', r'sub\.q\.', r'sc\b', r'subcu\b', r's\.c\.', r'sq\b', r's\.q\.'],
-  'topically': [r'(?:to|on)(?: the)? skin', r'(?:cleaned|clean|dry) skin', 'topical', r'(?:to|on) affected (?:area|site)(?:s|\(s\))', 'application', 'scalp', r'face\b', 'apply', 'patch'],
   'rectally': ['rectal', r'p\.r\.\b', r'pr\b', r'in(?:to)* the (?:butt|anus|rectum)'],
   'intramuscularly': [r'i\.m\.\b', r'\bim\b', 'intramuscular', r'in(?:to)* the muscle' ],
   'intravenously': [r'i\.v\.', r'\biv\b', 'intravenous'],
   'cutaneously': [r'\bcutaneous'],
   'transdermally': ['transdermal', 'patch', 'patches'],
+  'topically': [r'(?:to|on)(?: the)? skin', r'(?:cleaned|clean|dry) skin', 'topical', r'(?:to|on) affected (?:area|site)(?:s|\(s\))', 'application', 'scalp', r'face\b', 'apply', 'patch'],
   'enterally': ['enteral'],
   'via g-tube': [r'(?:via|per) g(?:-| )?tube', 'gastrostomy'],
   'via j-tube': [r'(?:via|per) j(?:-| )?tube', 'jejunostomy'],
   'via ng-tube': [r'(?:via|per) (?:ng|n\.g\.)(?:-| )?tube', 'nasogastrically', 'nasogastricly', 'nasogastric'],
   'to the teeth': ['dentally', 'dental', r'to(?: the)? teeth'],
   'intra-articularly': [r'(?:in to|into|in|to|per) (?:the|one|both|two|all) joint', 'intra-articular'],
+  'via nebulization': [r'(?:via |per|using a |from the |by )?nebuliz(?:ation|ed|er|e)'],
   'via inhalation': ['respiratory tract', r'(?:via |per |using a |from the )?inhal(?:ation|ed|er|e)', r'puff(?:s)?', r'inh\b', r'inhalation(?:s)?'],
-  'via nebulization': [r'(?:via |per|using a |from the )?nebuliz(?:ation|ed|er|e)'],
   'in urethra': [r'(?:into|via|within the|within) urethra', 'urethrally', 'urethral','intrauterine'],
   'translingually': ['translingual', 'on the tongue'],
   'buccally': [r'between (?:the )?cheek and (?:the )?gums', 'buccal'],
@@ -789,7 +789,7 @@ def split_range(text):
 def split_frequency_range(text):
   split = text
   split = re.sub(r'(?:times|time|(?<=\d|\s)x|nights|days)', '', split, flags = re.I)
-  split = re.sub(r'once', '1', split, flags = re.I)
+  split = re.sub(r'once|a|per', '1', split, flags = re.I)
   split = re.sub(r'twice', '2', split, flags = re.I)
   split = split_range(split)
   return split

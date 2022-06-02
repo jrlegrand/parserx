@@ -64,7 +64,7 @@ class SigParser(Parser):
     # parse a csv
     def parse_sig_csv(self):
         file_path='parsers/csv/sig_fixes/'
-        file_name='missing_dose_unit'
+        file_name='wrong_route'
         csv_columns = self.match_keys
         # create an empty list to collect the data
         parsed_sigs = []
