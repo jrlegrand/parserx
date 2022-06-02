@@ -63,8 +63,8 @@ class SigParser(Parser):
 
     # parse a csv
     def parse_sig_csv(self):
-        file_path='parsers/csv/sig_fixes/'
-        file_name='wrong_route'
+        file_path='parsers/csv/'
+        file_name='vumc_sigs_phase_2'
         csv_columns = self.match_keys
         # create an empty list to collect the data
         parsed_sigs = []
