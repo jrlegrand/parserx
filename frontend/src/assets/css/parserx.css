@@ -79,6 +79,14 @@
     font-family: 'Sen', sans-serif;
   }
 
+  .letter-border {
+    border: 1px gray dotted;
+    display: inline-block;
+    width: 20px;
+    height: 40px;
+    text-align: center;
+  }
+
   .highlight-red {
     background: linear-gradient(180deg,rgba(255,255,255,0) 75%, #F44336 25%);
   }

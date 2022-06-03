@@ -145,7 +145,7 @@ class CsvSigCreateViewSet(mixins.CreateModelMixin,
     def create(self, request, *args, **kwargs):
         # NOTE: I have several different sizes of csv in the parsers/csv folder
         # 10, 100, 250, 500, 1000, and all 23000+ (sig.csv)
-        filepath = 'parsers/csv/sig_vumc.csv'
+        filepath = 'parsers/csv/vumc_sigs_phase_2.csv'
 
         with open(filepath) as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')

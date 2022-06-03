@@ -21,12 +21,13 @@ class SigParser(Parser):
         'indication': indication.parsers,
     }
     # TODO: make this match_keys assignment more elegant
-    match_keys = ['original_sig_text'] + ['sig_text'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys
+    #match_keys = ['original_sig_text'] + ['sig_text'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys
+    match_keys = ['sig_text'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys
     parser_type = 'sig'
 
     def parse(self, sig):
         match_dict = dict(self.match_dict)
-        match_dict['original_sig_text'] = sig
+        #match_dict['original_sig_text'] = sig
         # standardize to lower case
         sig = sig.lower()
         # remove:
@@ -64,7 +65,7 @@ class SigParser(Parser):
     # parse a csv
     def parse_sig_csv(self):
         file_path='parsers/csv/'
-        file_name='vumc_sigs_phase_2'
+        file_name='sig_100'
         csv_columns = self.match_keys
         # create an empty list to collect the data
         parsed_sigs = []

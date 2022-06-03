@@ -109,34 +109,6 @@ class FrequencySpecificDayOfWeek(FrequencyParser):
 		return self.generate_match({'day_of_week': day_of_week, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
 
 
-# in the
-# morning | evening | afternoon
-# frequency = 1, when = a
-class FrequencyInTheX(FrequencyParser):
-	pattern = r'in the\s*(morning|evening|afternoon)'
-	def normalize_match(self, match):
-		frequency = 1
-		period = 1
-		period_unit = 'day'
-		frequency_text_start, frequency_text_end = match.span()
-		frequency_text = match.group(0)
-		frequency_readable = get_frequency_readable(frequency=frequency,period=period,period_unit=period_unit)
-		return self.generate_match({'frequency': frequency, 'period': period, 'period_unit': period_unit, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
-
-# at
-# bedtime | night | nightly
-# frequency = 1, when = a (normalize to HS)
-class FrequencyAtBedtime(FrequencyParser):
-	pattern = r'((?:at )?bedtime|(?:at )night|nightly)'
-	def normalize_match(self, match):
-		frequency = 1
-		period = 1
-		period_unit = 'day'
-		frequency_text_start, frequency_text_end = match.span()
-		frequency_text = match.group(0)
-		frequency_readable = get_frequency_readable(frequency=frequency,period=period,period_unit=period_unit)
-		return self.generate_match({'frequency': frequency, 'period': period, 'period_unit': period_unit, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
-
 # once | twice | 3-4 times
 # daily | nightly | weekly | monthly | yearly
 # NOTE: this is where 'daily' matches
@@ -159,6 +131,37 @@ class FrequencyXTimesDaily(FrequencyParser):
 		frequency_readable = get_frequency_readable(frequency=frequency,frequency_max=frequency_max,period=period,period_unit=period_unit)
 		# TODO: normalize text numbers to integer numbers - maybe make separate normalize_period_unit function that also hits the text_to_int function?
 		return self.generate_match({'frequency': frequency, 'frequency_max': frequency_max, 'period': period, 'period_unit': period_unit, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
+
+
+# in the
+# morning | evening | afternoon
+# frequency = 1, when = a
+class FrequencyInTheX(FrequencyParser):
+	pattern = r'in the\s*(morning|evening|afternoon)'
+	def normalize_match(self, match):
+		frequency = 1
+		period = 1
+		period_unit = 'day'
+		frequency_text_start, frequency_text_end = match.span()
+		frequency_text = match.group(0)
+		frequency_readable = get_frequency_readable(frequency=frequency,period=period,period_unit=period_unit)
+		return self.generate_match({'frequency': frequency, 'period': period, 'period_unit': period_unit, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
+
+
+# at
+# bedtime | night | nightly
+# frequency = 1, when = a (normalize to HS)
+class FrequencyAtBedtime(FrequencyParser):
+	pattern = r'((?:at )?bedtime|(?:at )night|nightly)'
+	def normalize_match(self, match):
+		frequency = 1
+		period = 1
+		period_unit = 'day'
+		frequency_text_start, frequency_text_end = match.span()
+		frequency_text = match.group(0)
+		frequency_readable = get_frequency_readable(frequency=frequency,period=period,period_unit=period_unit)
+		return self.generate_match({'frequency': frequency, 'period': period, 'period_unit': period_unit, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
+
 
 class FrequencyAsDirected(FrequencyParser):
 	pattern = r'as directed(?: on package)?|ad lib|as instructed|see admin instructions|see notes'
@@ -184,8 +187,8 @@ parsers = [
 	FrequencyXTimesPerDay(),
 	FrequencyEveryDay(),
 	FrequencySpecificDayOfWeek(),
+	FrequencyXTimesDaily(),
 	FrequencyInTheX(),
 	FrequencyAtBedtime(),
-	FrequencyXTimesDaily(),
 	FrequencyAsDirected(),
 ]

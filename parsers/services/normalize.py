@@ -176,7 +176,7 @@ METHODS = {
 
 # TODO: laterality for ophthalmic, otic, nasal routes - likely as a get_laterality method or something
 ROUTES = {
-	'by mouth': ['oral', r'orally(?! disintegrating)', r'po\b', r'p\.o\.', 'pill', r'oral\b', r'\b(?!vaginal|sublingual)tab(?:let)?(?:s)?(?!.*(?:sublingual(?:ly)?|into|per|on the|between the|under|by sublingual route|by buccal route))\b', r'\bcap(?:sule)?(?:s)?\b', r'\bchew(?:able)?\b', r'\dpo\b', 'capful'],
+	'by mouth': ['by oral route', 'oral', r'orally(?! disintegrating)', r'po\b', r'p\.o\.', r'oral\b'],
   'in left ear': [r'(?:in to |into |in |to |per )?(?:the )?left ear', r'\ba\.s\.\b'],
   'in right ear': [r'(?:in to |into |in |to |per )?(?:the )?right ear', r'\ba\.d\.\b'],
   'in both ears': [r'(?:in to |into |in |to |per )?(?:both ears|each ear|ears)', r'\ba\.u\.\b', r'\bau\b'],
@@ -350,8 +350,8 @@ STRENGTH_UNITS = {
   'international units': [r'i\.u\.\b', r'iu\b', 'international unit', r'int\'l unit',  'intl unit'],
   'units': [r'unit'],
   'mEq': [r'milliequivalent(?:s)?'],
-  'teaspoon': [r'\btsp\b'],
-  'tablespoon': [r'\btbsp\b'],
+  'teaspoon': [r'\btsp\b', 'teaspoons', 'teaspoonsful', 'teaspoonfuls'],
+  'tablespoon': [r'\btbsp\b', 'tablespoon', 'tablespoonsful', 'tablespoonfuls'],
 }
 
 DOSE_UNITS = {

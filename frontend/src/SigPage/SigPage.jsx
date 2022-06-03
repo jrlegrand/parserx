@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { sigService } from '../_services';
-import { SigParsed } from '../_components';
+import { SigParsed, SigHighlighted } from '../_components';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -60,7 +60,7 @@ class SigPage extends React.Component {
                             <div key={"sig_" + sig.id} className="sig-parsed-review">
                                 <Row>
                                     <Col xs={12}>
-                                        <h3>{sig.sig_text}</h3>
+                                        {sig.sig_parsed && <SigHighlighted sig_parsed={sig.sig_parsed[0]} user={user} />}
                                     </Col>
                                 </Row>
                                 {sig.sig_parsed.length > 0 &&

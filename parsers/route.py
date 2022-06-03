@@ -19,8 +19,19 @@ class RouteParser(Parser):
         route_text = match[0]
         return self.generate_match({'route': route, 'route_text_start': route_text_start, 'route_text_end': route_text_end, 'route_text': route_text})
 
+class InferredOralRouteParser(RouteParser):
+    pattern = r'\b(?P<route>(?!vaginal|sublingual)tab(?:let)?(?:s)?(?!.*(?:sublingual(?:ly)?|into|per|on the|between the|under|by sublingual route|by buccal route))|cap(?:sule)?(?:s)?|chew(?:able)?|\dpo|capful|pill)\b'
+    def normalize_pattern(self):
+        return re.compile(self.pattern, flags = re.I)
+    def normalize_match(self, match):
+        route = 'by mouth'
+        route_text_start, route_text_end = match.span()
+        route_text = match[0]
+        return self.generate_match({'route': route, 'route_text_start': route_text_start, 'route_text_end': route_text_end, 'route_text': route_text})
+
 parsers = [
-    RouteParser()
+    RouteParser(),
+    InferredOralRouteParser()
 ]
 
 #print(RouteParser().parse('take one by mouth daily'))
