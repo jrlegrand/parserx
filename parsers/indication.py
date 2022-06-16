@@ -15,6 +15,15 @@ class IndicationParser(Parser):
         indication_text = match.group(0)
         return self.generate_match({'as_needed': as_needed, 'indication': indication, 'indication_text_start': indication_text_start, 'indication_text_end': indication_text_end, 'indication_text': indication_text})
 
+class ChronicIndicationParser(IndicationParser):
+    pattern = r'(?!as needed|prn|prf) for (?P<indication>.*)(?!' + RE_RANGE + r')'
+    def normalize_match(self, match):
+        indication_text = match.group('indication')
+        indication = (get_indication(indication_text) if indication_text != None else indication_text)
+        indication_text_start, indication_text_end = match.span()
+        indication_text = match.group(0)
+        return self.generate_match({'indication': indication, 'indication_text_start': indication_text_start, 'indication_text_end': indication_text_end, 'indication_text': indication_text})
+
 """
 # NOTE: Dosage does not capture indication unless it is a PRN indication
 NOTE: this should be "reasonCode"
@@ -46,5 +55,6 @@ standardize: (match: any[]) => {
 """
 
 parsers = [
-    IndicationParser()
+    IndicationParser(),
+    ChronicIndicationParser()
 ]

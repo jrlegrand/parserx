@@ -4,20 +4,6 @@ class FrequencyParser(Parser):
 	parser_type = 'frequency'
 	match_keys = ['frequency', 'frequency_max', 'period', 'period_max', 'period_unit', 'time_duration', 'time_duration_unit', 'day_of_week', 'time_of_day', 'offset', 'bounds', 'count', 'frequency_text_start', 'frequency_text_end', 'frequency_text', 'frequency_readable']
 
-# x1 | x 1
-# exclude if followed by: day | week | month
-# one time only
-# count = 1
-class FrequencyOneTime(FrequencyParser):
-	pattern = r'(?:x\s*1\\b(?!day| day|d\b| d\b|week| week|w\b| w\b|month| month|mon|m\b| m\b| mon\b)|(?:1|one) time(?: only)?|for (?:1|one) dose|once$|once in imaging|at (?:the )?(?:first|1st) (?:onset:sign) of symptoms)'
-	def normalize_match(self, match):
-		count = 1
-		frequency_text_start, frequency_text_end = match.span()
-		frequency_text = match.group(0)
-		frequency_readable = get_frequency_readable(count=count)
-		# TODO: normalize text numbers to integer numbers - maybe make separate normalize_period_unit function that also hits the text_to_int function?
-		return self.generate_match({'count': count, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
-
 # bid | tid | qid
 # bid-tid, bid or tid
 # TODO: account for bid-tid being min 2 and max 3 times per day - currently it only finds the max of 3
@@ -93,21 +79,6 @@ class FrequencyEveryDay(FrequencyParser):
 		frequency_readable = get_frequency_readable(frequency=frequency,period=period,period_unit=period_unit)
 		return self.generate_match({'frequency': frequency, 'period': period, 'period_unit': period_unit, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
 
-# every | on
-# Thursday
-# Monday, Tuesday, Wednesday, and Friday
-# dayOfWeek = a
-class FrequencySpecificDayOfWeek(FrequencyParser):
-	pattern = r'(?:every|on|q)\s+(?P<day_of_week>(?:(?:\s*(?:and|&|\+|,)\s*)*(?:' + RE_DAYS_OF_WEEK + '))+)'
-	def normalize_match(self, match):
-		# TODO: normalize days of week to be comma or pipe delimited - tuesday and thursday -> tuesday|thursday or tuesday,thursday
-		day_of_week = match.group('day_of_week')
-		frequency_text_start, frequency_text_end = match.span()
-		frequency_text = match.group(0)
-		frequency_readable = get_frequency_readable(day_of_week=day_of_week)
-		# TODO: normalize text numbers to integer numbers - maybe make separate normalize_period_unit function that also hits the text_to_int function?
-		return self.generate_match({'day_of_week': day_of_week, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
-
 
 # once | twice | 3-4 times
 # daily | nightly | weekly | monthly | yearly
@@ -131,6 +102,22 @@ class FrequencyXTimesDaily(FrequencyParser):
 		frequency_readable = get_frequency_readable(frequency=frequency,frequency_max=frequency_max,period=period,period_unit=period_unit)
 		# TODO: normalize text numbers to integer numbers - maybe make separate normalize_period_unit function that also hits the text_to_int function?
 		return self.generate_match({'frequency': frequency, 'frequency_max': frequency_max, 'period': period, 'period_unit': period_unit, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
+
+
+# every | on
+# Thursday
+# Monday, Tuesday, Wednesday, and Friday
+# dayOfWeek = a
+class FrequencySpecificDayOfWeek(FrequencyParser):
+	pattern = r'(?:every|on|q)\s+(?P<day_of_week>(?:(?:\s*(?:and|&|\+|,)\s*)*(?:' + RE_DAYS_OF_WEEK + '))+)'
+	def normalize_match(self, match):
+		# TODO: normalize days of week to be comma or pipe delimited - tuesday and thursday -> tuesday|thursday or tuesday,thursday
+		day_of_week = match.group('day_of_week')
+		frequency_text_start, frequency_text_end = match.span()
+		frequency_text = match.group(0)
+		frequency_readable = get_frequency_readable(day_of_week=day_of_week)
+		# TODO: normalize text numbers to integer numbers - maybe make separate normalize_period_unit function that also hits the text_to_int function?
+		return self.generate_match({'day_of_week': day_of_week, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
 
 
 # in the
@@ -163,6 +150,21 @@ class FrequencyAtBedtime(FrequencyParser):
 		return self.generate_match({'frequency': frequency, 'period': period, 'period_unit': period_unit, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
 
 
+# x1 | x 1
+# exclude if followed by: day | week | month
+# one time only
+# count = 1
+class FrequencyOneTime(FrequencyParser):
+	pattern = r'(?:x\s*1\\b(?!day| day|d\b| d\b|week| week|w\b| w\b|month| month|mon|m\b| m\b| mon\b)|(?:1|one) time(?: only)?(?! daily| per)|for (?:1|one) dose|once$|once in imaging|at (?:the )?(?:first|1st) (?:onset:sign) of symptoms)'
+	def normalize_match(self, match):
+		count = 1
+		frequency_text_start, frequency_text_end = match.span()
+		frequency_text = match.group(0)
+		frequency_readable = get_frequency_readable(count=count)
+		# TODO: normalize text numbers to integer numbers - maybe make separate normalize_period_unit function that also hits the text_to_int function?
+		return self.generate_match({'count': count, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
+
+
 class FrequencyAsDirected(FrequencyParser):
 	pattern = r'as directed(?: on package)?|ad lib|as instructed|see admin instructions|see notes'
 	def normalize_match(self, match):
@@ -181,14 +183,14 @@ Maybe check for "with meals" and infer three times daily?
 """
 
 parsers = [
-	FrequencyOneTime(),
 	FrequencyXID(),
 	FrequencyEveryXDay(),
 	FrequencyXTimesPerDay(),
 	FrequencyEveryDay(),
-	FrequencySpecificDayOfWeek(),
 	FrequencyXTimesDaily(),
+	FrequencySpecificDayOfWeek(),
 	FrequencyInTheX(),
 	FrequencyAtBedtime(),
+	FrequencyOneTime(),
 	FrequencyAsDirected(),
 ]
