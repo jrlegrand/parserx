@@ -78,10 +78,10 @@ class SigParsed(models.Model):
     duration_text = models.CharField(max_length=100, null=True)
     # indication
     as_needed = models.BooleanField(null=True)
-    indication = models.CharField(max_length=100, null=True)
+    indication = models.CharField(max_length=250, null=True)
     indication_text_start = models.IntegerField(null=True)
     indication_text_end = models.IntegerField(null=True)
-    indication_text = models.CharField(max_length=100, null=True)
+    indication_text = models.CharField(max_length=250, null=True)
 
     class Meta:
         ordering = ['-created']
