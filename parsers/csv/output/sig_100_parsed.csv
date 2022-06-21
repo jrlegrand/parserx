@@ -1,5 +1,5 @@
 sig_text,method,method_text_start,method_text_end,method_text,dose,dose_max,dose_unit,dose_text_start,dose_text_end,dose_text,strength,strength_max,strength_unit,strength_text_start,strength_text_end,strength_text,route,route_text_start,route_text_end,route_text,frequency,frequency_max,period,period_max,period_unit,time_duration,time_duration_unit,day_of_week,time_of_day,offset,bounds,count,frequency_text_start,frequency_text_end,frequency_text,frequency_readable,when,when_text_start,when_text_end,when_text,duration,duration_max,duration_unit,duration_text_start,duration_text_end,duration_text,as_needed,indication,indication_text_start,indication_text_end,indication_text
-1 tablet by mouth daily,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,1,,1,,day,,,,,,,,18,23,daily,daily,,,,,,,,,,,,,,,
+t 1 tablet by mouth daily,take,0,1,t,1,,tablet,1,10, 1 tablet,,,,,,,by mouth,11,19,by mouth,1,,1,,day,,,,,,,,20,25,daily,daily,,,,,,,,,,,,,,,
 1 tablet by mouth twice a day,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,2,,1,,day,,,,,,,,18,29,twice a day,twice daily,,,,,,,,,,,,,,,
 1 capsule by mouth daily,,,,,1,,capsule,0,9,1 capsule,,,,,,,by mouth,10,18,by mouth,1,,1,,day,,,,,,,,19,24,daily,daily,,,,,,,,,,,,,,,
 1 tab by mouth daily,,,,,1,,tablet,0,5,1 tab,,,,,,,by mouth,6,14,by mouth,1,,1,,day,,,,,,,,15,20,daily,daily,,,,,,,,,,,,,,,
