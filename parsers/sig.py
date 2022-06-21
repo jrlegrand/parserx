@@ -25,10 +25,21 @@ class SigParser(Parser):
     match_keys = ['sig_text'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys
     parser_type = 'sig'
 
+    def get_normalized_sig_text(self, sig_text):
+        # standardize to lower case
+        sig_text = sig_text.lower()
+        # remove:
+        # . if not bordered by a number (i.e. don't want to convert 2.5 to 25 or 0.5 to 05)
+        # , ; # * " ' ( ) \t
+        sig_text = re.sub(r'(?:(?<![0-9])\.(?![0-9])|,|;|#|\*|\"|\'|\(|\)|\t)', '', sig_text)
+        # remove duplicate spaces, and in doing so, also trim whitespaces from around sig
+        sig_text = ' '.join(sig_text.split())
+        return sig_text
+
     def parse(self, sig_text):
         match_dict = dict(self.match_dict)
         #match_dict['original_sig_text'] = sig_text
-        sig_text = get_normalized_sig_text(sig_text)
+        sig_text = self.get_normalized_sig_text(sig_text)
         match_dict['sig_text'] = sig_text
         for parser_type, parsers in self.parsers.items():
             matches = []

@@ -66,7 +66,8 @@ class SigViewSet(mixins.CreateModelMixin,
         return queryset
 
     def create(self, request, *args, **kwargs):
-        sig_text = request.data['sig_text']
+        original_sig_text = request.data['sig_text']
+        sig_text = SigParser().get_normalized_sig_text(original_sig_text)
         ndc = request.data['ndc'] if 'ndc' in request.data.keys() and request.data['ndc'].isnumeric() else None
         rxcui = request.data['rxcui'] if 'rxcui' in request.data.keys() and request.data['rxcui'].isnumeric() else None
         sigs = Sig.objects.filter(sig_text=sig_text)
@@ -82,6 +83,7 @@ class SigViewSet(mixins.CreateModelMixin,
             sig = serializer.data if request.user.is_staff else self.replace_sig_parsed_optimal(serializer.data)
             if ndc or rxcui:
                 sig['sig_inferred'] = self.get_sig_inferred(ndc=ndc, rxcui=rxcui)
+            sig['original_sig_text'] = original_sig_text
             return Response(sig, status=status.HTTP_201_CREATED, headers=headers)
         # if sig DOES exist...
         else:
@@ -98,6 +100,7 @@ class SigViewSet(mixins.CreateModelMixin,
             sig = serializer.data if request.user.is_staff else self.replace_sig_parsed_optimal(serializer.data)
             if ndc or rxcui:
                 sig['sig_inferred'] = self.get_sig_inferred(ndc=ndc, rxcui=rxcui)
+            sig['original_sig_text'] = original_sig_text
             return Response(sig)
 
     def get_sig_inferred(self, ndc=None, rxcui=None):

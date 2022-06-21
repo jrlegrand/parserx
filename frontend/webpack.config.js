@@ -57,8 +57,8 @@ module.exports = {
   externals: {
     // global app config object
     config: JSON.stringify({
-        //apiUrl: 'https://api.parserx.io'
-        apiUrl: 'http://192.168.1.20:8000'
+        apiUrl: 'https://api.parserx.io'
+        //apiUrl: 'http://192.168.1.20:8000'
     })
   }
 };

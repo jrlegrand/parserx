@@ -114,8 +114,9 @@ class DocsPage extends React.Component {
                             </p>
                             <ul>
                                 <li>
-                                A string containing the original <code>sig_text</code> from the request,
-                                converted to lower case, and duplicate spaces converted to single spaces.
+                                A string containing the modified <code>sig_text</code> from the request,
+                                converted to lower case, extraneous characters removed, and duplicate spaces
+                                converted to single spaces.
                                 </li>
                             </ul>
                             <p>
@@ -139,6 +140,14 @@ class DocsPage extends React.Component {
                                 <li>
                                 This entire object will only appear if a valid <code>ndc</code> or <code>rxcui</code> are included
                                 as a request parameter.  If both are included, <code>ndc</code> will take precedence over <code>rxcui</code>.
+                                </li>
+                            </ul>
+                            <p>
+                                <code>original_sig_text</code>
+                            </p>
+                            <ul>
+                                <li>
+                                A string containing the original, un-modified <code>sig_text</code> from the request.
                                 </li>
                             </ul>
                             <p>
