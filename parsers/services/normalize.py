@@ -901,6 +901,16 @@ def get_normalized(patterns, text):
         break
   return normalized
 
+def get_normalized_sig_text(sig_text):
+  # standardize to lower case
+  sig_text = sig_text.lower()
+  # remove:
+  # . if not bordered by a number (i.e. don't want to convert 2.5 to 25 or 0.5 to 05)
+  # , ; # * " ' ( ) \t
+  sig_text = re.sub(r'(?:(?<![0-9])\.(?![0-9])|,|;|#|\*|\"|\'|\(|\)|\t)', '', sig_text)
+  # remove duplicate spaces, and in doing so, also trim whitespaces from around sig
+  sig_text = ' '.join(sig_text.split())
+  return sig_text
 
 #print(split_range('2.5-fifty'))
 #print(get_frequency_readable(frequency=1,frequency_max=2,period=3,period_unit='day'))

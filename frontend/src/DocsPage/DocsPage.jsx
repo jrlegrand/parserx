@@ -81,7 +81,11 @@ class DocsPage extends React.Component {
                                     <td align="left">Body</td>
                                     <td>
                                     <code>
-                                        {"{"} "sig_text": "&lt;your sig text here&gt;" {"}"}
+                                        {"{"} <br/>
+                                            "sig_text": "tk 1-2 tab po qid x10d prn pain", (REQUIRED) string - your sig text here<br/>
+                                            "ndc": "12345678911", (optional) numeric ndc11 string - if you want to infer sig elements by ndc<br/>
+                                            "rxcui": "123456" (optional) numeric rxcui string - if you want to infer sig elements by rxcui<br/>
+                                        {"}"}
                                     </code>
                                     </td>
                                 </tr>
@@ -121,6 +125,20 @@ class DocsPage extends React.Component {
                                 <li>
                                 A JSON object containing all the parsed components of the free text sig.
                                 See details of each component below.
+                                </li>
+                            </ul>
+                            <p>
+                                <code>sig_inferred</code>
+                            </p>
+                            <ul>
+                                <li>
+                                A JSON object containing all the inferred sig components if the request included
+                                an <code>ndc</code> or <code>rxcui</code> parameter.
+                                See details of each component below.
+                                </li>
+                                <li>
+                                This entire object will only appear if a valid <code>ndc</code> or <code>rxcui</code> are included
+                                as a request parameter.  If both are included, <code>ndc</code> will take precedence over <code>rxcui</code>.
                                 </li>
                             </ul>
                             <p>
@@ -336,6 +354,26 @@ class DocsPage extends React.Component {
                                 it could be improved
                                 </li>
                             </ul>
+                            <p>
+                                <strong>Inferred sig components</strong>
+                            </p>
+                            <p>
+                                <code>method</code>
+                                <br/>
+                                <code>dose_unit</code>
+                                <br/>
+                                <code>route</code>
+                            </p>
+                            <ul>
+                                <li>
+                                This entire object will only appear if a valid <code>ndc</code> or <code>rxcui</code> are included
+                                as a request parameter.  If both are included, <code>ndc</code> will take precedence over <code>rxcui</code>.
+                                </li>
+                                <li>
+                                Any or all of the inferred sig components may be null if it is not possible to infer them.
+                                </li>
+                            </ul>
+
                             <h2 id="curl-example">Curl Example</h2>
                             <p>
                                 <strong>Request</strong>

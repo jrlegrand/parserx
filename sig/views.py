@@ -67,6 +67,8 @@ class SigViewSet(mixins.CreateModelMixin,
 
     def create(self, request, *args, **kwargs):
         sig_text = request.data['sig_text']
+        ndc = request.data['ndc'] if 'ndc' in request.data.keys() and request.data['ndc'].isnumeric() else None
+        rxcui = request.data['rxcui'] if 'rxcui' in request.data.keys() and request.data['rxcui'].isnumeric() else None
         sigs = Sig.objects.filter(sig_text=sig_text)
 
         # if sig does NOT exist, parse the new sig
@@ -78,6 +80,8 @@ class SigViewSet(mixins.CreateModelMixin,
             # if user is staff, return all sig_parsed
             # else, return optimal sig_parsed (for customers)
             sig = serializer.data if request.user.is_staff else self.replace_sig_parsed_optimal(serializer.data)
+            if ndc or rxcui:
+                sig['sig_inferred'] = self.get_sig_inferred(ndc=ndc, rxcui=rxcui)
             return Response(sig, status=status.HTTP_201_CREATED, headers=headers)
         # if sig DOES exist...
         else:
@@ -92,7 +96,14 @@ class SigViewSet(mixins.CreateModelMixin,
             # if user is staff, return all sig_parsed
             # else, return optimal sig_parsed (for customers)
             sig = serializer.data if request.user.is_staff else self.replace_sig_parsed_optimal(serializer.data)
+            if ndc or rxcui:
+                sig['sig_inferred'] = self.get_sig_inferred(ndc=ndc, rxcui=rxcui)
             return Response(sig)
+
+    def get_sig_inferred(self, ndc=None, rxcui=None):
+        sig_inferred_data = SigParser().infer(ndc, rxcui)
+        print(sig_inferred_data)
+        return sig_inferred_data
 
     def replace_sig_parsed_optimal(self, sig):
         # sig_parsed is sorted by created descending, so most recent are at top of list

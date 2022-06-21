@@ -25,23 +25,16 @@ class SigParser(Parser):
     match_keys = ['sig_text'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys
     parser_type = 'sig'
 
-    def parse(self, sig):
+    def parse(self, sig_text):
         match_dict = dict(self.match_dict)
-        #match_dict['original_sig_text'] = sig
-        # standardize to lower case
-        sig = sig.lower()
-        # remove:
-        # . if not bordered by a number (i.e. don't want to convert 2.5 to 25 or 0.5 to 05)
-        # , ; # * " ' ( ) \t
-        sig = re.sub(r'(?:(?<![0-9])\.(?![0-9])|,|;|#|\*|\"|\'|\(|\)|\t)', '', sig)
-        # remove duplicate spaces, and in doing so, also trim whitespaces from around sig
-        sig = ' '.join(sig.split())
-        match_dict['sig_text'] = sig
+        #match_dict['original_sig_text'] = sig_text
+        sig_text = get_normalized_sig_text(sig_text)
+        match_dict['sig_text'] = sig_text
         for parser_type, parsers in self.parsers.items():
             matches = []
             
             for parser in parsers:
-                match = parser.parse(sig)
+                match = parser.parse(sig_text)
                 if match:
                     matches += match
             
@@ -61,6 +54,14 @@ class SigParser(Parser):
         # in doing so, maybe also return a map of the parsed parts of the sig for use in frontend highlighting
         # i.e. 0,4|5,12|18,24
         return match_dict
+
+    # infer method, dose_unit, and route from NDC or RXCUI
+    def infer(self, ndc=None, rxcui=None):
+        sig_elements = ['method', 'dose_unit', 'route']
+        inferred = dict.fromkeys(sig_elements)
+        for sig_element in sig_elements:
+            inferred[sig_element] = infer_sig_element(sig_element, ndc, rxcui)
+        return inferred
 
     # parse a csv
     def parse_sig_csv(self):
@@ -168,7 +169,8 @@ def print_progress_bar (iteration, total, prefix = 'progress:', suffix = 'comple
     if iteration == total: 
         print()
 
-parsed_sigs = SigParser().parse_sig_csv()
+#print(SigParser().infer(ndc='68788640709'))
+#parsed_sigs = SigParser().parse_sig_csv()
 #parsed_sigs = SigParser().parse_validate_sig_csv()
 #print(parsed_sigs)
 
