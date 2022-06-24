@@ -5,7 +5,7 @@ from .classes.parser import *
 # TODO: replace wildcard indication search with INDICATIONS list from normalize.py
 class IndicationParser(Parser):
     parser_type = 'indication'
-    pattern = r'(?P<as_needed>as needed for|as needed|prn for|prf|prn)(?:\s+(?P<indication>.*))?'
+    pattern = r'(?P<as_needed>as needed for|as needed|prn for|prf|prn)(?:\s+(?P<indication>.{,250}))?'
     match_keys = ['as_needed', 'indication', 'indication_text_start', 'indication_text_end', 'indication_text']
     def normalize_match(self, match):
         as_needed = 1
@@ -16,7 +16,7 @@ class IndicationParser(Parser):
         return self.generate_match({'as_needed': as_needed, 'indication': indication, 'indication_text_start': indication_text_start, 'indication_text_end': indication_text_end, 'indication_text': indication_text})
 
 class ChronicIndicationParser(IndicationParser):
-    pattern = r'(?!as needed|prn|prf) for (?P<indication>.*)(?!' + RE_RANGE + r')'
+    pattern = r'(?!as needed|prn|prf) for (?P<indication>.{,250})(?!' + RE_RANGE + r')'
     def normalize_match(self, match):
         indication_text = match.group('indication')
         indication = (get_indication(indication_text) if indication_text != None else indication_text)

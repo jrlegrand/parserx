@@ -14,10 +14,12 @@ class SigReviewedOverall extends React.Component {
 
     render() {
         const { sig_reviewed, sig_parsed } = this.state;
+        console.log('sig_parsed', sig_parsed);
+        console.log('sig_reviewed', sig_reviewed);
         return (
             <ToggleButtonGroup type="radio" name="sig_correct" defaultValue={sig_reviewed && sig_reviewed.sig_correct} onChange={this.props.handleChange}>
-                <ToggleButton value={true} variant="light"><span className="material-icons">check_circle</span></ToggleButton>
-                <ToggleButton value={false} variant="light"><span className="material-icons">cancel</span></ToggleButton>
+                <ToggleButton value={true} variant="light" title="Correct"><span className="material-icons">check_circle</span></ToggleButton>
+                <ToggleButton value={false} variant="light" title="Incorrect"><span className="material-icons">cancel</span></ToggleButton>
             </ToggleButtonGroup>
         );
     }
@@ -42,12 +44,12 @@ class SigReviewedPart extends React.Component {
                 {sig_reviewed &&
                     <ToggleButtonGroup type="radio" name={name} defaultValue={sig_reviewed && sig_reviewed[name]} onChange={this.props.handleChange}>
                             {sig_parsed[sig_part] &&
-                                <ToggleButton value={0} variant="light"><span className="material-icons">cancel</span></ToggleButton>
+                                <ToggleButton value={0} variant="light" title="Incorrect"><span className="material-icons">cancel</span></ToggleButton>
                             }
                             {!sig_parsed[sig_part] &&
-                                <ToggleButton value={1} variant="light"><span className="material-icons">help</span></ToggleButton>
+                                <ToggleButton value={1} variant="light" title="Missing"><span className="material-icons">help</span></ToggleButton>
                             }
-                            <ToggleButton value={2} variant="light"><span className="material-icons">build_circle</span></ToggleButton>
+                            <ToggleButton value={2} variant="light" title="Optimize"><span className="material-icons">build_circle</span></ToggleButton>
                     </ToggleButtonGroup>
                 }         
             </div>

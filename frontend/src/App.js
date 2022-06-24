@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { PrivateRoute, Header, Footer } from './_components';
 import { HomePage } from './HomePage';
 import { LoginPage } from './LoginPage';
+import { LogoutPage } from './LogoutPage';
 import { SigPage } from './SigPage';
 import { DocsPage } from './DocsPage';
 import { TermsOfServicePage } from './TermsOfServicePage';
@@ -55,13 +56,14 @@ class App extends React.Component {
   }
 
   render() {
-    const {isLoggedIn } = this.state;
+    const { isLoggedIn } = this.state;
     return (
         <div>
             <Router>
-              <Header isLoggedIn={isLoggedIn} />
+              <Header isLoggedIn={this.state.isLoggedIn} />
                 <Switch>
                   <Route path="/login" component={LoginPage} />
+                  <Route path="/logout" component={LogoutPage} />
                   <PrivateRoute exact path="/sig" component={SigPage} />
                   <PrivateRoute exact path="/demo" component={DemoPage} />
                   <Route path="/docs" component={DocsPage} />

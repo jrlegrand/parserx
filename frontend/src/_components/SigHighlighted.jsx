@@ -64,7 +64,6 @@ class SigHighlighted extends React.Component {
         }
 
         className = className.join(' ');
-        console.log('className', className);
 
         return className;
     }
@@ -141,8 +140,6 @@ class SigHighlighted extends React.Component {
                 indication_text_end: sig_parsed.indication_text_end
             }      
         };
-        console.log('in component function',sig_parsed_components);
-        console.log('in component method  function',sig_parsed_components.method);
         this.setState({ sig_parsed_components });
     }
 
