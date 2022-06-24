@@ -3,19 +3,16 @@ import { Switch, Route, Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 import { userService } from '../_services';
 
 class Header extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            isLoggedIn: this.props.isLoggedIn
-        };
     }
 
     render() {
-        const { isLoggedIn } = this.state;
+        const { isLoggedIn } = this.props;
         return (
             <Navbar collapseOnSelect expand="md" fixed="top" bg="light" variant="light">
                 <Container>
@@ -23,11 +20,24 @@ class Header extends React.Component {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="mr-auto">
-                            { 1 == 0 && <Nav.Link as={Link} to="/sig">Sig</Nav.Link> }
+                            { 1 == 0 && <></> }
                         </Nav>
                         <Nav>
-                            { !isLoggedIn && <Nav.Link href="#contact">Contact</Nav.Link>}
-                            { isLoggedIn && <Nav.Link as={Link} to="logout">Logout</Nav.Link>}
+                            <Nav.Link as={Link} to="docs" className="mr-2">Documentation</Nav.Link>
+                            { !isLoggedIn && ( 
+                                <Link to="/login">
+                                    <Button size="md" variant="outline-dark">Login</Button>{' '}
+                                </Link>
+                            )}
+                            { isLoggedIn && (
+                                <>
+                                <Nav.Link as={Link} to="sig" className="mr-2">Review</Nav.Link>
+                                <Nav.Link as={Link} to="demo" className="mr-2">Demo</Nav.Link>
+                                <Link to="/logout">
+                                    <Button size="md" variant="outline-dark">Logout</Button>{' '}
+                                </Link>
+                                </>
+                            )}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

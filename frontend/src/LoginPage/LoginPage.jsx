@@ -46,7 +46,7 @@ class LoginPage extends React.Component {
         userService.login(username, password)
             .then(
                 user => {
-                    const { from } = this.props.location.state || { from: { pathname: "/sig" } };
+                    const { from } = this.props.location.state || { from: { pathname: "/" } };
                     this.props.history.push(from);
                 },
                 error => this.setState({ error, loading: false })

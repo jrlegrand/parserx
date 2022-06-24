@@ -11,7 +11,7 @@ class SigReviewedSerializer(serializers.ModelSerializer):
     class Meta:
         # NOTE: this is how we only show reviews that were completed by the currently logged in user
         model = SigReviewed
-        fields = ['id', 'sig_parsed', 'owner', 'sig_correct', 'method_status', 'dose_status', 'strength_status', 'route_status', 'frequency_status', 'duration_status', 'indication_status', 'themes', 'notes']
+        fields = ['id', 'created', 'sig_parsed', 'owner', 'sig_correct', 'method_status', 'dose_status', 'strength_status', 'route_status', 'frequency_status', 'duration_status', 'indication_status', 'themes', 'notes']
 
 class SigParsedSerializer(serializers.ModelSerializer):
     sig_reviewed = SigReviewedSerializer(many=True, read_only=True)

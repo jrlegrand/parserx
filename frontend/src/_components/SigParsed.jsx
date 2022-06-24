@@ -106,7 +106,6 @@ class SigParsed extends React.Component {
         const user = this.state.user;
         const sig_reviewed = this.state.sig_reviewed;
         const { name, value } = e.target;
-        console.log('name: '+ name + ', value: ' + value);
         if (name == 'sig_correct' && value == true) {
             
         }
@@ -117,7 +116,6 @@ class SigParsed extends React.Component {
                 .then(
                     sig_reviewed => {
                         this.setState({ sig_reviewed })
-                        console.log(this.state.sig_reviewed)
                     },
                     error => console.log(error)
                 );
@@ -130,7 +128,6 @@ class SigParsed extends React.Component {
                 .then(
                     sig_reviewed => {
                         this.setState({ sig_reviewed })
-                        console.log(this.state.sig_reviewed)
                     },
                     error => console.log(error) 
                 );
@@ -139,7 +136,6 @@ class SigParsed extends React.Component {
 
     render() {
         const { sig_parsed, sig_reviewed, sig_parsed_components } = this.state;
-        console.log(sig_reviewed)
         return (
             <Row>
                 <Col sm={12} md={9}>
@@ -185,7 +181,8 @@ class SigParsed extends React.Component {
                                 <td title={JSON.stringify(sig_parsed_components.route, null, 2)}>{sig_parsed.route}</td>
                                 <td><span title={JSON.stringify(sig_parsed_components.frequency, null, 2)}>{sig_parsed.frequency_readable}</span>{sig_parsed.when && <span title={JSON.stringify(sig_parsed_components.when, null, 2)}>{" " + sig_parsed.when}</span>}</td>
                                 <td title={JSON.stringify(sig_parsed_components.duration, null, 2)}>
-                                    {sig_parsed.duration} {sig_parsed.duration_unit}
+                                    {sig_parsed.duration}
+                                    {sig_parsed.duration_max && "-" + sig_parsed.duration_max} {sig_parsed.duration_unit}
                                 </td>
                                 <td title={JSON.stringify(sig_parsed_components.indication, null, 2)}>
                                     {sig_parsed.as_needed && "as needed"}
