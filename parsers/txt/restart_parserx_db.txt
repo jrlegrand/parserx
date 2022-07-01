@@ -1,5 +1,10 @@
 How to initially setup MySQL: https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04
 Info on MySQLClient: https://pypi.org/project/mysqlclient/
+Gunicorn/Nginx: https://realpython.com/django-nginx-gunicorn/#replacing-wsgiserver-with-gunicorn
+
+sudo mysql
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password by 'mynewpassword';
+GRANT ALL PRIVILEGES ON parserx.* TO 'parserx'@'localhost' WITH GRANT OPTION;
 
 python3 -m venv venv
 source venv/bin/activate

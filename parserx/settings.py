@@ -25,7 +25,9 @@ SECRET_KEY = '6)yv)a&nz#q%j03b_pp7j=5&vs9et4hwlvv+tob#e_&ytwo*ng'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '192.168.1.16', '192.168.1.12', '192.168.1.20']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '192.168.1.16', '192.168.1.12', '192.168.1.20', '139.144.27.208', 'api.parserx.io']
+
+CSRF_TRUSTED_ORIGINS=['https://api.parserx.io']
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
@@ -162,3 +164,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/var/www/parserx.io/static'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]

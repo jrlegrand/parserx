@@ -14,8 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
-from django.conf.urls import url
+from django.urls import include, re_path
 from django.shortcuts import render
 from rest_framework import routers
 from sig import views
@@ -24,8 +23,8 @@ from sig import views
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     # path('', include(router.urls)),
-    path('', include('sig.urls')),
-    path('admin/', admin.site.urls),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken')),
+    re_path('', include('sig.urls')),
+    re_path('admin/', admin.site.urls),
+    re_path('auth/', include('djoser.urls')),
+    re_path('auth/', include('djoser.urls.authtoken')),
 ]
