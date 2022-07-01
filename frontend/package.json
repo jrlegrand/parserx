@@ -14,7 +14,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "webpack-dev-server": "^4.9.1"
+    "webpack-dev-server": "^4.9.2"
   },
   "scripts": {
     "start": "webpack-dev-server --host 0.0.0.0 --mode development",
