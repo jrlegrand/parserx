@@ -192,7 +192,7 @@ ROUTES = {
   'vaginally': ['vaginal', r'(?:in to|into|in|to|per)(?: the)? vagina', r'p\.v\.', r'pv\b'],
   'intrauterine': ['uterus'],
   'sublingually': ['sublingual', r'under (?:the )?tongue', r'sub(?: |-)?lingual(?:ly)?', r'\bs\.l\.\b', r'\bsl\b'],
-  'subcutaneously': ['subcutaneous', r'(?:in|under) the skin', r'sub(?: |-)*cutaneous(?:ly)?', r'subq\b', r'sub\.q\.', r'sc\b', r'subcu\b', r's\.c\.', r'sq\b', r's\.q\.'],
+  'subcutaneously': ['subcutaneous', r'(?:into|in|under) (?:the )?skin', r'sub(?: |-)*cutaneous(?:ly)?', r'subq\b', r'sub\.q\.', r'sc\b', r'subcu\b', r's\.c\.', r'sq\b', r's\.q\.'],
   'rectally': ['rectal', r'p\.r\.\b', r'pr\b', r'in(?:to)* the (?:butt|anus|rectum)'],
   'intramuscularly': [r'i\.m\.\b', r'\bim\b', 'intramuscular', r'in(?:to)?(?: the)? muscle' ],
   'intravenously': [r'i\.v\.', r'\biv\b', 'intravenous'],
