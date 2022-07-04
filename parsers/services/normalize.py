@@ -564,6 +564,7 @@ DOSE_UNITS = {
   'syringe': [],
   'vial': [],
   'kit': [],
+  'each': ['eaches'],
 }
 
 PAIN_SEVERITIES = {
