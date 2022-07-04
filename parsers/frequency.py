@@ -9,7 +9,7 @@ class FrequencyParser(Parser):
 # TODO: account for bid-tid being min 2 and max 3 times per day - currently it only finds the max of 3
 # frequency = a (2 if b, 3 if t, 4 if q), period = 1, periodUnit = d
 class FrequencyXID(FrequencyParser):
-	pattern = r'(?:\b(?:\s*(?:to|-|or)\s*)?(?P<frequency>b|t|q)\.?i\.?d\b\.?\b)+'
+	pattern = r'(?:\b(?:\s?(?:to|-|or)\s?)?(?P<frequency>b|t|q)id)+'
 	def normalize_match(self, match):
 		frequency_dict = { 'b': 2, 't': 3, 'q': 4 }
 		frequency = frequency_dict.get(match.group('frequency').lower(), None)
