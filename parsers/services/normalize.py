@@ -188,7 +188,7 @@ ROUTES = {
   'in left eye': [r'(?:in to |into |in |to |per )?(?:the )?left eye', r'\bo\.s\.\b', r'\bos\b'],
   'in right eye': [r'(?:in to |into |in |to |per )?(?:the )?right eye', r'\bo\.d\.\b', r'\bod\b'],
   'in both eyes': [r'(?:in to |into |in |to |per )?(?:both eyes|each eye|eyes)', r'\bo\.u\.\b', r'\bou\b'],
-  'in eye(s)': ['by eye', 'ophthalmically', 'ophthalmic', r'(?:in to |into |in |to |per )?(?:the )?(?:affected )?eye\b'],
+  'in eye(s)': ['by eye', 'ophthalmically', 'ophthalmic', 'ophth', r'(?:in to |into |in |to |per )?(?:the )?(?:affected )?eye\b'],
   'vaginally': ['vaginal', r'(?:in to|into|in|to|per)(?: the)? vagina', r'p\.v\.', r'pv\b'],
   'intrauterine': ['uterus'],
   'sublingually': ['sublingual', r'under (?:the )?tongue', r'sub(?: |-)?lingual(?:ly)?', r'\bs\.l\.\b', r'\bsl\b'],
