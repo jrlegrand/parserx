@@ -368,7 +368,7 @@ DOSE_UNITS = {
   # tablet
   # TODO: add all synonyms to exclusion for tablet
   # ERROR: make sure "tablespoon" does not match on "tab" -- use a negative lookahead
-  'tablet': [r'(?<!film-coated)(?<!effervescentgastro-resistant)(?<!orodispersible)(?<!prolonged-release)(?<!vaginal)(?<!effervescent vaginal)(?<!modified-release)(?<!chewable)(?<!sublingual)(?<!buccalmuco-adhesive buccal)(?<!soluble)(?<!dispersible)(?<!delayed-release particles)(?<!oral)(?<!inhalation vapor)(?<!implantation)(?<!extended-release film coated)(?<!ultramicronized)(?<!extended-release)(?<!extended-release enteric coated)(?<!delayed-release)(?<!coated particles)(?<!sustained-release buccal)(?<!multilayer)\s*tab(?:let)?(?:s)?', r'\bt\b'],
+  'tablet': [r'(?<!film-coated)(?<!effervescentgastro-resistant)(?<!orodispersible)(?<!prolonged-release)(?<!vaginal)(?<!effervescent vaginal)(?<!modified-release)(?<!chewable)(?<!sublingual)(?<!buccalmuco-adhesive buccal)(?<!soluble)(?<!dispersible)(?<!delayed-release particles)(?<!oral)(?<!inhalation vapor)(?<!implantation)(?<!extended-release film coated)(?<!ultramicronized)(?<!extended-release)(?<!extended-release enteric coated)(?<!delayed-release)(?<!coated particles)(?<!sustained-release buccal)(?<!multilayer)\s*tab(?:let)?(?:s)?', r't\b'],
   'film-coated tablet': [r'(?:film-coated|film coated) tab(?:let)?(?:s)?'],
   'effervescent tablet': [r'effervescent tab(?:let)?(?:s)?'],
   'gastro-resistant tablet': [r'(?:gastro-resistant|gastro resistant) tab(?:let)?(?:s)?'],
@@ -396,7 +396,7 @@ DOSE_UNITS = {
   'sustained-release buccal tablet': [r'(?:sustained-release|sustained release|s.r.|sr) buccal tab(?:let)?(?:s)?'],
   'multilayer tablet': [r'(?:multilayer|multi-layer) tab(?:let)?(?:s)?'],		
   # capsule
-  'capsule': [r'cap(?:sule)?(?:s)?\b', r'\bc\b'],
+  'capsule': [r'cap(?:sule)?(?:s)?\b', r'c\b'],
   'hard capsule': [r'hard cap(?:sule)?(?:s)?\b'],
   'soft capsule': [r'soft cap(?:sule)?(?:s)?\b'],
   'vaginal capsule': [r'vaginal cap(?:sule)?(?:s)?\b'],
