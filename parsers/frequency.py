@@ -27,7 +27,7 @@ class FrequencyXID(FrequencyParser):
 # NOTE: optional duplicate RE_RANGE accounts for sigs like every 12 (twelve) hours
 # frequency = 1, period = a[0], periodUnit = b (normalize to h, d, wk, min), [periodMax = a[1]]
 class FrequencyEveryXDay(FrequencyParser):
-	pattern = r'(?:q|every|each)\s?(?P<period>' + RE_RANGE + r')(?:\s' + RE_RANGE + r'\s)?\s?(?P<period_unit>month|mon|hour|day|d\b|week|wks\b|wk\b|h\b|hrs\b|hr\b|min)'
+	pattern = r'(?:q|every|each)\s?(?P<period>' + RE_RANGE + r')(?:\s' + RE_RANGE + r'\s)?\s?(?P<period_unit>month|mon|hour|day|d|week|wks|wk|h|hrs|hr|min)'
 	def normalize_match(self, match):
 		frequency = 1
 		period, period_max = split_range(match.group('period'))
@@ -48,7 +48,7 @@ class FrequencyEveryXDay(FrequencyParser):
 # frequency = a (1 if once, 2 if twice), period = 1, periodUnit = b (normalize to d, wk, mo, yr)
 # NOTE: 'daily' won't match this pattern because it requires specific times *per* day
 class FrequencyXTimesPerDay(FrequencyParser):
-	pattern = r'(?P<frequency>' + RE_RANGE + r'\s*(?:time(?:s)?|x|nights|days)|once|twice)\s*(?:per|a|each|every|\/)\s*(?P<period_unit>day|week|month|year|d\b|w\b|mon|m\b|yr\b)'
+	pattern = r'(?P<frequency>' + RE_RANGE + r'\s*(?:time(?:s)?|x|nights|days)|once|twice)\s*(?:per|a|each|every|\/)\s*(?P<period_unit>day|week|month|year|d|w|mon|m|yr)'
 	def normalize_match(self, match):
 		frequency = frequency_max = match.group('frequency')
 		if (frequency):
@@ -69,7 +69,7 @@ class FrequencyXTimesPerDay(FrequencyParser):
 # TODO: combine with the qpm/qhs/qday/qdaily group above (not sure if this still applies)
 # frequency = 1, period = 1 (or 2 if a is not null), periodUnit = b (normalize to d, wk, mo), [when = b (normalize to MORN, AFT, EVE, etc]
 class FrequencyEveryDay(FrequencyParser):
-	pattern = r'(?:every|each|q|per)\s*(?P<period>other\b|o\b)?\s*(?:day (?:in the|at)\s*)?(?P<period_unit>hour|day|week|month|morning|afternoon|evening at bedtime|bedtime|evening|night|hs\b|pm\b|am\b|d\b)'
+	pattern = r'(?:every|each|q|per)\s*(?P<period>other\b|o\b)?\s*(?:day (?:in the|at)\s*)?(?P<period_unit>hour|day|week|month|morning|afternoon|evening at bedtime|bedtime|evening|night|hs|pm|am|d)'
 	def normalize_match(self, match):
 		frequency = 1
 		period = 2 if match.group('period') else 1
