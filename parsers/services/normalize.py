@@ -188,11 +188,11 @@ ROUTES = {
   'in left eye': [r'(?:in to |into |in |to |per )?(?:the )?left eye', r'\bo\.s\.\b', r'\bos\b'],
   'in right eye': [r'(?:in to |into |in |to |per )?(?:the )?right eye', r'\bo\.d\.\b', r'\bod\b'],
   'in both eyes': [r'(?:in to |into |in |to |per )?(?:both eyes|each eye|eyes)', r'\bo\.u\.\b', r'\bou\b'],
-  'in eye(s)': ['by eye', 'ophthalmically', 'ophthalmic', r'(?:in to |into |in |to |per )?(?:the )?(?:affected )?eye\b'],
+  'in eye(s)': ['by eye', 'ophthalmically', 'ophthalmic', 'ophth', r'(?:in to |into |in |to |per )?(?:the )?(?:affected )?eye\b'],
   'vaginally': ['vaginal', r'(?:in to|into|in|to|per)(?: the)? vagina', r'p\.v\.', r'pv\b'],
   'intrauterine': ['uterus'],
   'sublingually': ['sublingual', r'under (?:the )?tongue', r'sub(?: |-)?lingual(?:ly)?', r'\bs\.l\.\b', r'\bsl\b'],
-  'subcutaneously': ['subcutaneous', r'(?:in|under) the skin', r'sub(?: |-)*cutaneous(?:ly)?', r'subq\b', r'sub\.q\.', r'sc\b', r'subcu\b', r's\.c\.', r'sq\b', r's\.q\.'],
+  'subcutaneously': ['subcutaneous', r'(?:into|in|under) (?:the )?skin', r'sub(?: |-)*cutaneous(?:ly)?', r'subq\b', r'sub\.q\.', r'sc\b', r'subcu\b', r's\.c\.', r'sq\b', r's\.q\.'],
   'rectally': ['rectal', r'p\.r\.\b', r'pr\b', r'in(?:to)* the (?:butt|anus|rectum)'],
   'intramuscularly': [r'i\.m\.\b', r'\bim\b', 'intramuscular', r'in(?:to)?(?: the)? muscle' ],
   'intravenously': [r'i\.v\.', r'\biv\b', 'intravenous'],
@@ -368,7 +368,7 @@ DOSE_UNITS = {
   # tablet
   # TODO: add all synonyms to exclusion for tablet
   # ERROR: make sure "tablespoon" does not match on "tab" -- use a negative lookahead
-  'tablet': [r'(?<!film-coated)(?<!effervescentgastro-resistant)(?<!orodispersible)(?<!prolonged-release)(?<!vaginal)(?<!effervescent vaginal)(?<!modified-release)(?<!chewable)(?<!sublingual)(?<!buccalmuco-adhesive buccal)(?<!soluble)(?<!dispersible)(?<!delayed-release particles)(?<!oral)(?<!inhalation vapor)(?<!implantation)(?<!extended-release film coated)(?<!ultramicronized)(?<!extended-release)(?<!extended-release enteric coated)(?<!delayed-release)(?<!coated particles)(?<!sustained-release buccal)(?<!multilayer)\s*tab(?:let)?(?:s)?', r'\bt\b'],
+  'tablet': [r'(?<!film-coated)(?<!effervescentgastro-resistant)(?<!orodispersible)(?<!prolonged-release)(?<!vaginal)(?<!effervescent vaginal)(?<!modified-release)(?<!chewable)(?<!sublingual)(?<!buccalmuco-adhesive buccal)(?<!soluble)(?<!dispersible)(?<!delayed-release particles)(?<!oral)(?<!inhalation vapor)(?<!implantation)(?<!extended-release film coated)(?<!ultramicronized)(?<!extended-release)(?<!extended-release enteric coated)(?<!delayed-release)(?<!coated particles)(?<!sustained-release buccal)(?<!multilayer)\s*tab(?:let)?(?:s)?', r't\b'],
   'film-coated tablet': [r'(?:film-coated|film coated) tab(?:let)?(?:s)?'],
   'effervescent tablet': [r'effervescent tab(?:let)?(?:s)?'],
   'gastro-resistant tablet': [r'(?:gastro-resistant|gastro resistant) tab(?:let)?(?:s)?'],
@@ -396,7 +396,7 @@ DOSE_UNITS = {
   'sustained-release buccal tablet': [r'(?:sustained-release|sustained release|s.r.|sr) buccal tab(?:let)?(?:s)?'],
   'multilayer tablet': [r'(?:multilayer|multi-layer) tab(?:let)?(?:s)?'],		
   # capsule
-  'capsule': [r'cap(?:sule)?(?:s)?\b', r'\bc\b'],
+  'capsule': [r'cap(?:sule)?(?:s)?\b', r'c\b'],
   'hard capsule': [r'hard cap(?:sule)?(?:s)?\b'],
   'soft capsule': [r'soft cap(?:sule)?(?:s)?\b'],
   'vaginal capsule': [r'vaginal cap(?:sule)?(?:s)?\b'],
@@ -564,6 +564,7 @@ DOSE_UNITS = {
   'syringe': [],
   'vial': [],
   'kit': [],
+  'each': ['eaches'],
 }
 
 PAIN_SEVERITIES = {
@@ -690,6 +691,7 @@ INDICATIONS = {
   'hypoglycemia': [],
   'incontinence': [],
   'indigestion': [],
+  'infection': [],
   'inflammation': [],
   'insomnia': [],
   'intercourse': [],
@@ -743,6 +745,7 @@ INDICATIONS = {
   'swelling': [],
   'teething': [],
   'thrush': [],
+  'thyroid': [],
   'tremor': ['tremors'],
   'unable to take po': [],
   'urge to smoke': [],
