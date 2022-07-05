@@ -15,7 +15,6 @@ class DoseParser(Parser):
         return pattern
     def normalize_match(self, match):
         dose_range = split_range(match.group('dose'))
-        #print(dose_range) 
         dose, dose_max = dose_range
         dose_unit = get_normalized(DOSE_UNITS, match.group('dose_unit'))
         dose_text_start, dose_text_end = match.span()
@@ -39,17 +38,33 @@ class DoseUnitOnlyParser(DoseParser):
         dose_text = match[0]
         return self.generate_match({'dose_unit': dose_unit, 'dose_text_start': dose_text_start, 'dose_text_end': dose_text_end, 'dose_text': dose_text})
 
+class DoseOnlyParser(DoseParser):
+    def normalize_pattern(self):
+        method_patterns = []
+        for n, p in METHODS.items():
+            # add the name of the pattern to the list of matched patterns
+            p.append(n)
+            # and join them with a | character
+            # and add them to the dose_patterns array
+            method_patterns.append(r'|'.join(p))        
+        pattern = re.compile(r'^(?:' + r'|'.join(method_patterns) + r')?\s?(?P<dose>' + RE_RANGE + r')', flags = re.I)
+        print(pattern)
+        return pattern
+    def normalize_match(self, match):
+        dose_range = split_range(match.group('dose'))
+        dose, dose_max = dose_range
+        dose_text_start, dose_text_end = match.span()
+        dose_text = match[0]
+        return self.generate_match({'dose': dose, 'dose_max': dose_max, 'dose_text_start': dose_text_start, 'dose_text_end': dose_text_end, 'dose_text': dose_text})
 
 parsers = [
     DoseParser(),
-    DoseUnitOnlyParser()
+    DoseUnitOnlyParser(),
+    DoseOnlyParser(),
 ]
 
 #print(DoseParser().parse('take one capsule prn nausea for 5 days'))
 
-# TODO: write this after route and frequency parsers are complete
-def parse_lone_numeric_dose(sig):
-    return 0
 """
 // handle sigs like 1 qd or 1 po qd or one by mouth daily or one daily
 // in these cases, we know the 'value' (i.e. 1 or one) but not the 'dose.unit' (i.e. tablet, mL, etc)
