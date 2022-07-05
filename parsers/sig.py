@@ -29,7 +29,7 @@ class SigParser(Parser):
         # standardize to lower case
         sig_text = sig_text.lower()
         # remove , if bordered by numbers (i.e. 1,000 -> 1000 - not 1 000)
-        sig_text = re.sub(r'[0-9],[0-9]', '', sig_text)
+        sig_text = re.sub(r'(?<=[0-9]),(?=[0-9])', '', sig_text)
         # replace with space:
         # . if not bordered by a number (i.e. don't want to convert 2.5 to 25 or 0.5 to 05)
         # : if not bordered by a number (i.e. not 5:00 or 1:10000)
