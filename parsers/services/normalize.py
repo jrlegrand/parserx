@@ -88,24 +88,24 @@ DAY_OF_WEEK = {
  
 #(?:with|\bc\.|before|\ba|\ba\.|after|\bp|\bp\.|in the|at|every)
 WHEN = {
-  'in the morning': [ r'(?:in the|every|each)\s?(?:morn(?:ing)?|a\.m\.|am)', 'a.m.', r'\bam\b', r'\bqam\b' ],
-  'in the afternoon': [ r'(?:in the|every|each)\s?(?:aft(?:ernoon)?|p\.m\.|pm)', r'\bqpm\b' ],
+  'in the morning': [ r'(?:in the|every|each)\s?(?:morn(?:ing)?|a m\b|am)', r'a m\b', r'\bam\b', r'\bqam\b', r'q am\b' ],
+  'in the afternoon': [ r'(?:in the|every|each)\s?(?:aft(?:ernoon)?|p m\b|pm)', r'\bqpm\b', 'q afternoon' ],
   'in the evening at bedtime': [r'(?:in the|every)\s?evening at bedtime'],
   'in the evening': [ r'(?:in the|every|each)\s?eve(?:ning)?' ],
   'at night': [ r'(?:in the|at|every|each)\s?night', 'nightly' ],
-  'at bedtime': [ r'(?:in the|at|every|each)\s?bedtime', r'\bqhs\b', r'q\.h\.s\.', 'bedtime', r'\bhs\b' ],
-  'with meal': [ r'(?:with|each|every|at)?\s?meal(?:s)?', r'c\.c\.', r'\bcc\b' ],
+  'at bedtime': [ r'(?:in the|at|every|each)\s?bedtime', r'\bqhs\b', r'q hs\b', 'bedtime', r'\bhs\b' ],
+  'with meal': [ r'(?:with|each|every|at)?\s?meal(?:s)?', r'c c\b', r'\bcc\b' ],
   'with breakfast': [ r'(?:with|each|every|at)? breakfast' ],
-  'with lunch': [ r'(?:with|each|every|at)?\s?lunch', r'\bcd\b', r'c\.d\.' ],
-  'with dinner': [ r'(?:with|each|every|at)?\s?dinner', r'\bcv\b', r'c\.v\.' ],		
-  'before meal': [ r'before meal(?:s)?', r'\bac\b', r'a\.c\.' ],
-  'before breakfast': [ 'before breakfast', r'\bacm\b', r'a\.c\.m\.' ],
-  'before lunch': [ 'before lunch', r'\bacd\b', r'a\.c\.d\.' ],
-  'before dinner': [ 'before dinner', r'\bacv\b', r'a\.c\.v\.' ],
-  'after meal': [ r'after meal(?:s)?', r'\bpc\b', r'p\.c\.' ],
-  'after breakfast': [ 'after breakfast', r'\bpcm\b', r'p\.c\.m\.' ],
-  'after lunch': [ 'after lunch', r'\bpcd\b', r'p\.c\.d\.' ],
-  'after dinner': [ 'after dinner', r'\bpcv\b', r'p\.c\.v\.' ],
+  'with lunch': [ r'(?:with|each|every|at)?\s?lunch', r'\bcd\b', r'c d\b' ],
+  'with dinner': [ r'(?:with|each|every|at)?\s?dinner', r'\bcv\b', r'c v\b' ],		
+  'before meal': [ r'before meal(?:s)?', r'\bac\b', r'a c\b' ],
+  'before breakfast': [ 'before breakfast', r'\bacm\b', r'a c m\b' ],
+  'before lunch': [ 'before lunch', r'\bacd\b', r'a c d\b' ],
+  'before dinner': [ 'before dinner', r'\bacv\b', r'a c v\b' ],
+  'after meal': [ r'after meal(?:s)?', r'\bpc\b', r'p c\b' ],
+  'after breakfast': [ 'after breakfast', r'\bpcm\b', r'p c m\b' ],
+  'after lunch': [ 'after lunch', r'\bpcd\b', r'p c d\b' ],
+  'after dinner': [ 'after dinner', r'\bpcv\b', r'p c v\b' ],
 }
 
 METHODS = {
@@ -176,7 +176,7 @@ METHODS = {
 
 # TODO: laterality for ophthalmic, otic, nasal routes - likely as a get_laterality method or something
 ROUTES = {
-	'by mouth': ['by oral route', 'oral', r'orally(?! disintegrating)', r'po\b', r'p\.o\.', r'oral\b'],
+	'by mouth': ['by oral route', 'oral', r'orally(?! disintegrating)', r'po\b', r'p o\b', r'oral\b'],
   'in left ear': [r'(?:in to |into |in |to |per )?(?:the )?left ear', r'\ba\.s\.\b'],
   'in right ear': [r'(?:in to |into |in |to |per )?(?:the )?right ear', r'\ba\.d\.\b'],
   'in both ears': [r'(?:in to |into |in |to |per )?(?:both ears|each ear|ears)', r'\ba\.u\.\b', r'\bau\b'],
