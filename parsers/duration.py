@@ -2,7 +2,21 @@ from .classes.parser import *
 
 class DurationParser(Parser):
     parser_type = 'duration'
-    match_keys = ['duration', 'duration_max', 'duration_unit', 'duration_text_start', 'duration_text_end', 'duration_text']
+    match_keys = ['duration', 'duration_max', 'duration_unit', 'duration_text_start', 'duration_text_end', 'duration_text', 'duration_readable']
+    def get_readable(self, duration=None, duration_max=None, duration_unit=None):
+        plural = (duration and duration > 1) or (duration_max and duration_max > 1)
+        if duration_unit:
+            duration_unit += 's' if plural else ''
+        else:
+            duration_unit = ''
+
+        duration = str(duration) if duration else ''
+        if duration_max:
+            duration += '-' + str(duration_max)
+        
+        readable = 'for ' + duration + ' ' + duration_unit
+        readable = readable.strip()
+        return readable
 
 # for x [more] days
 class DurationParserForXDays(DurationParser):
@@ -14,7 +28,8 @@ class DurationParserForXDays(DurationParser):
         duration_unit = get_normalized(PERIOD_UNIT, match.group('duration_unit'))
         duration, duration_max = duration_range
         duration_text = ' '.join(match.groups())
-        return self.generate_match({'duration': duration, 'duration_max': duration_max, 'duration_unit': duration_unit, 'duration_text_start': duration_text_start, 'duration_text_end': duration_text_end, 'duration_text': duration_text})
+        duration_readable = self.get_readable(duration, duration_max, duration_unit)
+        return self.generate_match({'duration': duration, 'duration_max': duration_max, 'duration_unit': duration_unit, 'duration_text_start': duration_text_start, 'duration_text_end': duration_text_end, 'duration_text': duration_text, 'duration_readable': duration_readable})
 
 # on day x
 class DurationParserOnDayX(DurationParser):
@@ -26,7 +41,8 @@ class DurationParserOnDayX(DurationParser):
         duration_unit = 'day'
         duration, duration_max = [duration, duration]
         duration_text = ' '.join(match.groups())
-        return self.generate_match({'duration': duration, 'duration_max': duration_max, 'duration_unit': duration_unit, 'duration_text_start': duration_text_start, 'duration_text_end': duration_text_end, 'duration_text': duration_text})
+        duration_readable = self.get_readable(duration, duration_max, duration_unit)
+        return self.generate_match({'duration': duration, 'duration_max': duration_max, 'duration_unit': duration_unit, 'duration_text_start': duration_text_start, 'duration_text_end': duration_text_end, 'duration_text': duration_text, 'duration_readable': duration_readable})
 
 parsers = [
     DurationParserForXDays(),

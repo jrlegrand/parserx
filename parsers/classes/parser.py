@@ -11,6 +11,8 @@ class Parser:
     parser_type = ''
     pattern = r''
     match_keys = []
+    match_dict = {}
+    matches = []
     def __init__(self):
         self.pattern = self.normalize_pattern()
         self.match_dict = dict.fromkeys(self.match_keys)
@@ -26,6 +28,9 @@ class Parser:
 
     def get_match_dict(self):
         return self.match_dict
+    
+    def get_readable(self, match):
+        return ''
 
     def generate_match(self, match_fields):
         for k, v in match_fields.items():
@@ -47,4 +52,5 @@ class Parser:
             matches.append(self.normalize_match(match))
         if len(matches) == 0:
             matches = matches
+        self.matches = matches
         return matches

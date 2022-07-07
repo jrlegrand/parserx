@@ -89,11 +89,11 @@ DAY_OF_WEEK = {
 #(?:with|\bc\.|before|\ba|\ba\.|after|\bp|\bp\.|in the|at|every)
 WHEN = {
   'in the morning': [ r'(?:in the|every|each)\s?(?:morn(?:ing)?|a m\b|am)', r'a m\b', r'\bam\b', r'\bqam\b', r'q am\b' ],
-  'in the afternoon': [ r'(?:in the|every|each)\s?(?:aft(?:ernoon)?|p m\b|pm)', r'\bqpm\b', 'q afternoon' ],
+  'in the afternoon': [ r'(?:in the|every|each|at)\s?(?:aft(?:ernoon)?|p m\b|pm)', r'\bqpm\b', 'q afternoon' ],
   'in the evening at bedtime': [r'(?:in the|every)\s?evening at bedtime'],
-  'in the evening': [ r'(?:in the|every|each)\s?eve(?:ning)?' ],
+  'in the evening': [ r'(?:in the|every|each)\s?eve(?:ning)?(?! at bedtime)' ],
   'at night': [ r'(?:in the|at|every|each)\s?night', 'nightly' ],
-  'at bedtime': [ r'(?:in the|at|every|each)\s?bedtime', r'\bqhs\b', r'q hs\b', 'bedtime', r'\bhs\b' ],
+  'at bedtime': [ r'(?!eve(?:ning) )(?:in the|at|every|each)\s?bedtime', r'\bqhs\b', r'q hs\b', 'bedtime', r'\bhs\b' ],
   'with meal': [ r'(?:with|each|every|at)?\s?meal(?:s)?', r'c c\b', r'\bcc\b' ],
   'with breakfast': [ r'(?:with|each|every|at)? breakfast' ],
   'with lunch': [ r'(?:with|each|every|at)?\s?lunch', r'\bcd\b', r'c d\b' ],
@@ -123,7 +123,7 @@ METHODS = {
   'use': [],
   'push': [],
   'give': [],
-  'take': [r'\btk\b', r'^t\b'],
+  'take': [r'\btk(?:\b|\d)', r'^t(?:\b|\d)'],
   'swallow': [],
   'instill': [],
   'chew': [],
@@ -133,6 +133,8 @@ METHODS = {
   'place': [],
   'spray': [],
   'implant': [],
+  'rinse': [],
+  'test': [],
 }
 """
 # other "methods" from FHIR
@@ -179,25 +181,27 @@ ROUTES = {
 	'by mouth': ['by oral route', 'oral', r'orally(?! disintegrating)', r'po\b', r'p o\b', r'oral\b'],
   'in left ear': [r'(?:in to |into |in |to |per )?(?:the )?left ear', r'\ba\.s\.\b'],
   'in right ear': [r'(?:in to |into |in |to |per )?(?:the )?right ear', r'\ba\.d\.\b'],
-  'in both ears': [r'(?:in to |into |in |to |per )?(?:both ears|each ear|ears)', r'\ba\.u\.\b', r'\bau\b'],
-  'in ear(s)': ['by ear', 'otically', 'otic', r'(?:in to |into |in |to |per )?(?:the )?(?:affected )?ear\b'],
+  'in each ear': [r'(?:in to |into |in |to |per )?(?:both ears|each ear|(?!affected )ears)', r'\ba\.u\.\b', r'\bau\b'],
+  'in affected ear': [r'(?:in to |into |in |to |per )?(?:the )?affected ear\b'],
+  'in ear(s)': ['by ear', 'otically', 'otic', r'(?:in to |into |in |to |per )?(?:the )?(?!affected )ear\b'],
   'in left nostril': [r'(?:in to |into |in |to |per )?(?:the )?left (?:nose|nostril|nare)'],
   'in right nostril': [r'(?:in to |into |in |to |per )?(?:the )?right (?:nose|nostril|nare)'],
   'in each nostril': [r'(?:in to |into |in |to |per )?(?:both nostrils|each nostril|nostrils|each nare)', r'\bien\b'],
-  'in nostril(s)': ['by nose', 'nasally', 'nasal',  r'(?:in to |into |in |to |per )?(?:the )?(?!each|left|right|both)(?:affected)?(?:nose|nostril|nare)\b'],
+  'in nostril(s)': ['by nose', 'nasally', 'nasal', 'intranasal', r'(?:in to |into |in |to |per )?(?:the )?(?!each|left|right|both)(?:affected)?(?:nose|nostril|nare)\b'],
   'in left eye': [r'(?:in to |into |in |to |per )?(?:the )?left eye', r'\bo\.s\.\b', r'\bos\b'],
   'in right eye': [r'(?:in to |into |in |to |per )?(?:the )?right eye', r'\bo\.d\.\b', r'\bod\b'],
-  'in both eyes': [r'(?:in to |into |in |to |per )?(?:both eyes|each eye|eyes)', r'\bo\.u\.\b', r'\bou\b'],
-  'in eye(s)': ['by eye', 'ophthalmically', 'ophthalmic', 'ophth', r'(?:in to |into |in |to |per )?(?:the )?(?:affected )?eye\b'],
+  'in each eye': [r'(?:in to |into |in |to |per )?(?:both eyes|each eye|(?!affected )eyes)', r'\bo\.u\.\b', r'\bou\b'],
+  'in affected eye': [r'(?:in to |into |in |to |per )?(?:the )?affected eye\b'],
+  'in eye(s)': ['by eye', 'ophthalmically', 'ophthalmic', 'ophth', r'(?:in to |into |in |to |per )?(?:the )?(?!affected )eye\b'],
   'vaginally': ['vaginal', r'(?:in to|into|in|to|per)(?: the)? vagina', r'p\.v\.', r'pv\b'],
-  'intrauterine': ['uterus'],
-  'sublingually': ['sublingual', r'under (?:the )?tongue', r'sub(?: |-)?lingual(?:ly)?', r'\bs\.l\.\b', r'\bsl\b'],
-  'subcutaneously': ['subcutaneous', r'(?:into|in|under) (?:the )?skin', r'sub(?: |-)*cutaneous(?:ly)?', r'subq\b', r'sub\.q\.', r'sc\b', r'subcu\b', r's\.c\.', r'sq\b', r's\.q\.'],
-  'rectally': ['rectal', r'p\.r\.\b', r'pr\b', r'in(?:to)* the (?:butt|anus|rectum)'],
-  'intramuscularly': [r'i\.m\.\b', r'\bim\b', 'intramuscular', r'in(?:to)?(?: the)? muscle' ],
+  'into the uterus': ['intrauterine', 'uterus'],
+  'under the tongue': ['sublingually', 'sublingual', r'under (?:the )?tongue', r'sub(?: |-)?lingual(?:ly)?', r'\bs\.l\.\b', r'\bsl\b'],
+  'under the skin': ['subcutaneously', 'subcutaneous', r'(?:into|in|under) (?:the )?skin', r'sub(?: |-)*cutaneous(?:ly)?', r'subq\b', r'sub\.q\.', r'sc\b', r'subcu\b', r's\.c\.', r'sq\b', r's\.q\.', 's/q'],
+  'rectally': ['rectal', r'p\.r\.\b', r'pr\b', r'in(?:to)* (?:the )?(?:butt|anus|rectum)'],
+  'into the muscle': ['intramuscularly', r'i\.m\.\b', r'\bim\b', 'intramuscular', r'in(?:to)?(?: the)? muscle' ],
   'intravenously': [r'i\.v\.', r'\biv\b', 'intravenous'],
   'cutaneously': [r'\bcutaneous'],
-  'transdermally': ['transdermal', 'patch', 'patches'],
+  'to the skin': ['transdermally', 'transdermal', 'patch', 'patches'],
   'topically': [r'(?:to|on)(?: the)? skin', r'(?:cleaned|clean|dry) skin', 'topical', r'(?:to|on) affected (?:area|site)(?:s|\(s\))?', 'application', 'scalp', r'face\b', 'apply', 'patch'],
   'enterally': ['enteral'],
   'via g-tube': [r'(?:via|per) g(?:-| )?tube', 'gastrostomy'],
@@ -205,11 +209,12 @@ ROUTES = {
   'via ng-tube': [r'(?:via|per) (?:ng|n\.g\.)(?:-| )?tube', 'nasogastrically', 'nasogastricly', 'nasogastric'],
   'to the teeth': ['dentally', 'dental', r'to(?: the)? teeth'],
   'intra-articularly': [r'(?:in to|into|in|to|per) (?:the|one|both|two|all) joint', 'intra-articular'],
-  'via nebulization': [r'(?:via |per|using a |from the |by )?nebuliz(?:ation|ed|er|e)'],
-  'via inhalation': ['respiratory tract', r'(?:via |per |using a |from the )?inhal(?:ation|ed|er|e)', r'puff(?:s)?', r'inh\b', r'inhalation(?:s)?'],
+  'via nebulizer': ['via nebulization', r'(?:via |per|using a |from the |by )?nebuliz(?:ation|ed|er|e)'],
+  'into the lungs': ['via inhalation', 'respiratory tract', r'(?:via |per |using a |from the )?inhal(?:ation|ed|er|e)', r'puff(?:s)?', r'inh\b', r'inhalation(?:s)?'],
   'in urethra': [r'(?:into|via|within the|within) urethra', 'urethrally', 'urethral'],
-  'translingually': ['translingual', 'on the tongue'],
-  'buccally': [r'between (?:the )?cheek and (?:the )?gums', 'buccal'],
+  'on the tongue': ['translingual', 'translingually'],
+  'between the cheek and gums': ['buccally', r'between (?:the )?cheek and (?:the )?gums', 'buccal', 'inside the cheek'],
+  'to the gum': [],
   'to mucous membrane': [r'(?:to|on) (?:the )?mucous membrane(?:s)?', r'mucous membrane(?:s)?'],
   'via injection': ['by injection route', r'(?:via |per )injection', r'injection?(?:s)?(?! intramuscularly| intravenously| cuteneously| subcutaneously| intra-articularly)'],
   'swish and spit': [],
@@ -347,11 +352,11 @@ STRENGTH_UNITS = {
   'mg': [r'(?:milligram(?:s)?|mgs)\b'],
   'mcg': [r'(?:microgram(?:s)?|mcgs)\b'],
   'g': [r'(?:gm|gms|gram(?:s)?)\b'],
-  'international units': [r'i\.u\.\b', r'iu\b', 'international unit', r'int\'l unit',  'intl unit'],
-  'units': [r'unit'],
+  'international unit': [r'i\.u\.\b', r'iu\b', 'international units', r'int\'l unit',  'intl unit'],
+  'unit': [r'units'],
   'mEq': [r'milliequivalent(?:s)?'],
-  'teaspoon': [r'\btsp\b', 'teaspoons', 'teaspoonsful', 'teaspoonfuls'],
-  'tablespoon': [r'\btbsp\b', 'tablespoon', 'tablespoonsful', 'tablespoonfuls'],
+  'teaspoon': [r'\btsp\b', 'teaspoons', 'teaspoonsful', 'teaspoonful', 'teaspoonfuls'],
+  'tablespoon': [r'\btbsp\b', 'tablespoon', 'tablespoonsful', 'tablespoonful', 'tablespoonfuls'],
 }
 
 DOSE_UNITS = {
@@ -422,15 +427,15 @@ DOSE_UNITS = {
   'drug patch': [r'(?<!transdermal ) patch'],
   'transdermal patch': [r'patch'],
   # drops
-  'drops': [r'drop', r'gtt'],
-  'oral drops': [r'oral drop'],
-  'eye/ear drops': [r'eye/ear drop'],
-  'eye drops': [r'eye drop', r'ophthalmic drop'],
-  'prolonged-release eye drops': [r'(?:prolonged-release|prolonged release) eye drop'],
-  'nasal drops': [r'nasal drop', r'nose drop'],
-  'eye/ear/nose drops': [r'eye/ear/nose drop'],
-  'ear drops': [r'ear drop', r'otic drop'],
-  'modified release drops': [r'modified release drop', r'modified-release drop'],
+  'drop': ['drops', 'gtt', 'drp'],
+  'oral drop': ['oral drops'],
+  'eye/ear drop': ['eye/ear drops'],
+  'eye drop': ['eye drops', 'ophthalmic drop'],
+  'prolonged-release eye drop': [r'(?:prolonged-release|prolonged release) eye drops'],
+  'nasal drop': ['nasal drops', 'nose drop'],
+  'eye/ear/nose drop': ['eye/ear/nose drops'],
+  'ear drop': ['ear drops', 'otic drop'],
+  'modified release drop': ['modified release drops', 'modified-release drop'],
   # spray
   'spray': [],
   'oromucosal spray': [],
@@ -498,7 +503,7 @@ DOSE_UNITS = {
   'urethral stick': [],
   'wound stick': [],
   # tampon
-  'tampon dose form': [r'tampon'],
+  'tampon': [r'tampon dose form'],
   'ear tampon': [],
   'medicated vaginal tampon': [],
   'rectal tampon': [],
@@ -556,7 +561,7 @@ DOSE_UNITS = {
   'orodispersible film': [],
   'pen': [],
   'applicatorful': ['applicatorsful'],
-  'application': [],
+  'application': [r'app\b', r'applic\b'],
   'capful': [],
   'injection': [],
   'packet': [],
@@ -818,31 +823,6 @@ def get_indication(indication_text):
   indication = ','.join(indication)
   indication = None if indication == '' else indication
   return indication
-
-def get_frequency_readable(frequency=None,frequency_max=None,period=None,period_max=None,period_unit=None,time_duration=None,time_duration_unit=None,day_of_week=None,count=None):
-  frequency_readable = ''
-  frequency_range = str(frequency) + ('-' + str(frequency_max) if frequency_max else '') if frequency != None else ''
-  # period - don't show period if period = 1 (i.e. don't show every 1 day, just show every day -- or better yet, daily)
-  period_range = ('' if period == 1 and period_max == None else str(period) + ('-' + str(period_max) if period_max else '')) if period != None else ''
-
-  frequency_readable += 'once' if count == 1 else ''
-
-  if frequency != None and period_unit != None and frequency > 1:
-    if frequency_range == '2' and period_unit == 'day':
-      frequency_readable += 'twice daily'
-    else:
-      frequency_readable += frequency_range + ' times per ' + str(period_unit)
-  elif frequency != None and period_unit != None and frequency == 1:
-    if period_range == '' and period_unit == 'day':
-      frequency_readable += 'daily'
-    else:
-      frequency_readable += 'every ' + period_range + (' ' if period_range != '' else '') + period_unit + ('s' if period_range != '' else '')
-
-  frequency_readable += '' if time_duration == None and time_duration_unit == None else ' for ' + str(time_duration) + ' ' + time_duration_unit
-
-  frequency_readable += ' on ' + ', '.join(day_of_week.split('|')) if day_of_week != None else ''
-  
-  return frequency_readable
 
 # converts one to 1, thirty to 30, etc
 def number_text_to_int(textnum):
