@@ -5,7 +5,7 @@ from .classes.parser import *
 # NOTE: nightly is weird, but matches here too
 class WhenParser(Parser):
 	parser_type = 'when'
-	match_keys = ['when', 'when_text_start', 'when_text_end', 'when_text']
+	match_keys = ['when', 'when_text_start', 'when_text_end', 'when_text', 'when_readable']
 	pattern = r'(?P<when_relation>with|\bc\.|\bc|before|\ba|\ba\.|after|\bp|\bp\.|in the|at|every|each|\bq|\bq.|night)(?: each| every)?(?P<when_time>\s?(?:c\b|c\.\b|meal(?:s)? and at bedtime|meal(?:s)?|c\.m\.\b|cm\b|breakfast|c\.d\.\b|cd\b|lunch|c\.v\.\b|cv\b|dinner|morning|morn|a\.m\.\b|am\b|evening at bedtime|bedtime|evening|eve|aft(?:ernoon)?|p\.m\.\b|pm\b|night|hs\b|h\.s\.\b|ly))'
 	def normalize_match(self, match):
 		# TODO: normalize before to 'a' and after to 'p', etc
@@ -15,7 +15,11 @@ class WhenParser(Parser):
 		when = get_normalized(WHEN, when_relation + when_time)
 		when_text_start, when_text_end = match.span()
 		when_text = match.group(0)
-		return self.generate_match({'when': when, 'when_text_start': when_text_start, 'when_text_end': when_text_end, 'when_text': when_text})
+		when_readable = self.get_readable(when=when)
+		return self.generate_match({'when': when, 'when_text_start': when_text_start, 'when_text_end': when_text_end, 'when_text': when_text, 'when_readable': when_readable})
+	def get_readable(self, when=None):
+		readable = when if when else ''
+		return readable
 
 # Things that don't match the more common patterns above
 class OtherWhenParser(WhenParser):
@@ -25,7 +29,8 @@ class OtherWhenParser(WhenParser):
 		when = get_normalized(WHEN, when)
 		when_text_start, when_text_end = match.span()
 		when_text = match.group(0)
-		return self.generate_match({'when': when, 'when_text_start': when_text_start, 'when_text_end': when_text_end, 'when_text': when_text})
+		when_readable = self.get_readable(when=when)
+		return self.generate_match({'when': when, 'when_text_start': when_text_start, 'when_text_end': when_text_end, 'when_text': when_text, 'when_readable': when_readable})
 
 
 """

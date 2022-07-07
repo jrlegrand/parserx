@@ -2,7 +2,7 @@ from .classes.parser import *
 
 class RouteParser(Parser):
     parser_type = 'route'
-    match_keys = ['route', 'route_text_start', 'route_text_end', 'route_text']
+    match_keys = ['route', 'route_text_start', 'route_text_end', 'route_text', 'route_readable']
     def normalize_pattern(self):
         route_patterns = []
         for n, p in ROUTES.items():
@@ -17,7 +17,11 @@ class RouteParser(Parser):
         route = get_normalized(ROUTES, match.group('route'))
         route_text_start, route_text_end = match.span()
         route_text = match[0]
-        return self.generate_match({'route': route, 'route_text_start': route_text_start, 'route_text_end': route_text_end, 'route_text': route_text})
+        route_readable = self.get_readable(route=route)
+        return self.generate_match({'route': route, 'route_text_start': route_text_start, 'route_text_end': route_text_end, 'route_text': route_text, 'route_readable': route_readable})
+    def get_readable(self, route=None):
+        readable = route if route else ''
+        return readable
 
 class InferredOralRouteParser(RouteParser):
     pattern = r'\b(?P<route>(?!vaginal|sublingual)tab(?:let)?(?:s)?(?!.*(?:sublingual(?:ly)?|into|per|on the|between the|under|by sublingual route|by buccal route))|cap(?:sule)?(?:s)?|chew(?:able)?|\dpo|capful|pill)\b'
@@ -27,7 +31,8 @@ class InferredOralRouteParser(RouteParser):
         route = 'by mouth'
         route_text_start, route_text_end = match.span()
         route_text = match[0]
-        return self.generate_match({'route': route, 'route_text_start': route_text_start, 'route_text_end': route_text_end, 'route_text': route_text})
+        route_readable = self.get_readable(route=route)
+        return self.generate_match({'route': route, 'route_text_start': route_text_start, 'route_text_end': route_text_end, 'route_text': route_text, 'route_readable': route_readable})
 
 parsers = [
     RouteParser(),
