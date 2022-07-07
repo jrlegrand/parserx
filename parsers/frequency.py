@@ -93,7 +93,7 @@ class FrequencyXTimesPerDay(FrequencyParser):
 # TODO: combine with the qpm/qhs/qday/qdaily group above (not sure if this still applies)
 # frequency = 1, period = 1 (or 2 if a is not null), periodUnit = b (normalize to d, wk, mo), [when = b (normalize to MORN, AFT, EVE, etc]
 class FrequencyEveryDay(FrequencyParser):
-	pattern = r'(?:every|each|q|per)\s*(?P<period>other\b|o\b)?\s*(?:day (?:in the|at)\s*)?(?P<period_unit>hour|day|week|month|morning|afternoon|evening at bedtime|bedtime|evening|night|hs\b|pm\b|am\b|d\b)'
+	pattern = r'(?:every|each|q|per)\s*(?P<period>other\b|o\b)?\s*(?:day (?:in the|at)\s*)?(?P<period_unit>hour|day|week|month|morning|afternoon|evening at bedtime|bedtime|evening|night|hs|pm|am|d)'
 	def normalize_match(self, match):
 		frequency = 1
 		period = 2 if match.group('period') else 1
