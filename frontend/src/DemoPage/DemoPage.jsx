@@ -1,6 +1,6 @@
 import React from 'react';
 import { sigService } from '../_services';
-import { SigParsed, SigHighlighted } from '../_components';
+import { SigParsed, SigHighlighted, SigReadable } from '../_components';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -80,6 +80,7 @@ class DemoPage extends React.Component {
                         </Form.Group>
                       </Form>
                       {sig.sig_parsed && <SigHighlighted sig_parsed={sig.sig_parsed[0]} user={user} />}
+                      {sig.sig_parsed && <SigReadable sig_parsed={sig.sig_parsed[0]} user={user} />}
                       {sig.sig_parsed && <SigParsed sig_parsed={sig.sig_parsed[0]} user={user} />}
                       {sig.sig_parsed && <pre><code>{JSON.stringify(sig.sig_parsed,null,2)}</code></pre>}
                     </Col>

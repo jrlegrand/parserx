@@ -51,7 +51,7 @@ class FrequencyXID(FrequencyParser):
 # NOTE: optional duplicate RE_RANGE accounts for sigs like every 12 (twelve) hours
 # frequency = 1, period = a[0], periodUnit = b (normalize to h, d, wk, min), [periodMax = a[1]]
 class FrequencyEveryXDay(FrequencyParser):
-	pattern = r'(?:q|every|each)\s?(?P<period>' + RE_RANGE + r')(?:\s' + RE_RANGE + r'\s)?\s?(?P<period_unit>month|mon|hour|day|d\b|week|wks\b|wk\b|h\b|hrs\b|hr\b|min)'
+	pattern = r'(?:q|every|each)\s?(?P<period>' + RE_RANGE + r')(?:\s' + RE_RANGE + r'\s)?\s?(?P<period_unit>month|mon|hour|day|d|week|wks|wk|h|hrs|hr|min)'
 	def normalize_match(self, match):
 		frequency = 1
 		period, period_max = split_range(match.group('period'))
@@ -72,7 +72,7 @@ class FrequencyEveryXDay(FrequencyParser):
 # frequency = a (1 if once, 2 if twice), period = 1, periodUnit = b (normalize to d, wk, mo, yr)
 # NOTE: 'daily' won't match this pattern because it requires specific times *per* day
 class FrequencyXTimesPerDay(FrequencyParser):
-	pattern = r'(?P<frequency>' + RE_RANGE + r'\s*(?:time(?:s)?|x|nights|days)|once|twice)\s*(?:per|a|each|every|\/)\s*(?P<period_unit>day|week|month|year|d\b|w\b|mon|m\b|yr\b)'
+	pattern = r'(?P<frequency>' + RE_RANGE + r'\s*(?:time(?:s)?|x|nights|days)|once|twice)\s*(?:per|a|each|every|\/)\s*(?P<period_unit>day|week|month|year|d\b|w\b|mon|m\b|yr)'
 	def normalize_match(self, match):
 		frequency = frequency_max = match.group('frequency')
 		if (frequency):
@@ -112,7 +112,7 @@ class FrequencyEveryDay(FrequencyParser):
 # frequency = a[0], frequencyMax = a[1], period = 1, periodUnit = b (normalize to d, wk, mo, yr)
 # frequency = a (1 if once, 2 if twice, 1 if null), period = 1, periodUnit = b (normalize to d, wk, mo, yr)
 class FrequencyXTimesDaily(FrequencyParser):
-	pattern = r'(?:(?P<frequency>' + RE_RANGE + r'\s*(?:time(?:s)?|x)|once|twice)(?: \ba\b| per)?\s?)?(?P<period_unit>day\b|\bd\b|daily|dialy|weekly|monthly|yearly|\bhs\b)'
+	pattern = r'(?:(?P<frequency>' + RE_RANGE + r'\s*(?:time(?:s)?|x)|once|twice)(?: \ba\b| per)?\s?)?(?P<period_unit>day|\bd\b|daily|dialy|weekly|monthly|yearly|\bhs\b)'
 	def normalize_match(self, match):
 		frequency = frequency_max = match.group('frequency')
 		if (frequency):
@@ -179,7 +179,7 @@ class FrequencyAtBedtime(FrequencyParser):
 # one time only
 # count = 1
 class FrequencyOneTime(FrequencyParser):
-	pattern = r'(?:x\s*1\\b(?!day| day|d\b| d\b|week| week|w\b| w\b|month| month|mon|m\b| m\b| mon\b)|(?:1|one) time(?: only)?(?! daily| per)|for (?:1|one) dose|once$|once in imaging|at (?:the )?(?:first|1st) (?:onset:sign) of symptoms)'
+	pattern = r'(?:x\s?1\b(?!day| day|d\b| d\b|week| week|w\b| w\b|month| month|mon|m\b| m\b| mon\b)|(?:1|one) time(?: only)?(?! daily| per)|for (?:1|one) dose|once$|once in imaging|at (?:the )?(?:first|1st) (?:onset:sign) of symptoms)'
 	def normalize_match(self, match):
 		count = 1
 		frequency_text_start, frequency_text_end = match.span()
