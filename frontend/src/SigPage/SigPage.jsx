@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { sigService } from '../_services';
-import { SigParsed, SigHighlighted } from '../_components';
+import { SigParsed, SigHighlighted, SigReadable } from '../_components';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -118,7 +118,10 @@ class SigPage extends React.Component {
                                     </Col>
                                 </Row>
                                 {sig.sig_parsed.length > 0 &&
-                                    <SigParsed sig_parsed={sig.sig_parsed[0]} user={user} />
+                                    <>
+                                        <SigReadable sig_parsed={sig.sig_parsed[0]} user={user} />
+                                        <SigParsed sig_parsed={sig.sig_parsed[0]} user={user} />
+                                    </>
                                 }
                                 {sig.sig_parsed.length > 1 && 
                                     <Accordion>

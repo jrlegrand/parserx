@@ -213,7 +213,7 @@ def print_progress_bar (iteration, total, prefix = 'progress:', suffix = 'comple
         print()
 
 #print(SigParser().infer(ndc='68788640709'))
-parsed_sigs = SigParser().parse_sig_csv()
+#parsed_sigs = SigParser().parse_sig_csv()
 #parsed_sigs = SigParser().parse_validate_sig_csv()
 #print(parsed_sigs)
 

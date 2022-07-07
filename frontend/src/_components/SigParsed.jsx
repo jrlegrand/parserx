@@ -34,7 +34,8 @@ class SigParsed extends React.Component {
                 method: sig_parsed.method,
                 method_text: sig_parsed.method_text,
                 method_text_start: sig_parsed.method_text_start,
-                method_text_end: sig_parsed.method_text_end                
+                method_text_end: sig_parsed.method_text_end ,
+                method_readable: sig_parsed.method_readable               
             },
             dose: {
                 dose: sig_parsed.dose,
@@ -42,7 +43,8 @@ class SigParsed extends React.Component {
                 dose_unit: sig_parsed.dose_unit,
                 dose_text: sig_parsed.dose_text,
                 dose_text_start: sig_parsed.dose_text_start,
-                dose_text_end: sig_parsed.dose_text_end
+                dose_text_end: sig_parsed.dose_text_end,
+                dose_readable: sig_parsed.dose_readable               
             },
             strength: {
                 strength: sig_parsed.strength,
@@ -50,13 +52,15 @@ class SigParsed extends React.Component {
                 strength_unit: sig_parsed.strength_unit,
                 strength_text: sig_parsed.strength_text,
                 strength_text_start: sig_parsed.strength_text_start,
-                strength_text_end: sig_parsed.strength_text_end
+                strength_text_end: sig_parsed.strength_text_end,
+                strength_readable: sig_parsed.strength_readable               
             },
             route: {
                 route: sig_parsed.route,
                 route_text: sig_parsed.route_text,
                 route_text_start: sig_parsed.route_text_start,
-                route_text_end: sig_parsed.route_text_end                
+                route_text_end: sig_parsed.route_text_end,             
+                route_readable: sig_parsed.route_readable               
             },
             frequency: {
                 frequency: sig_parsed.frequency,
@@ -80,7 +84,8 @@ class SigParsed extends React.Component {
                 when: sig_parsed.when,
                 when_text: sig_parsed.when_text,
                 when_text_start: sig_parsed.when_text_start,
-                when_text_end: sig_parsed.when_text_end
+                when_text_end: sig_parsed.when_text_end,
+                when_readable: sig_parsed.when_readable               
             },
             duration: {
                 duration: sig_parsed.duration,
@@ -88,14 +93,16 @@ class SigParsed extends React.Component {
                 duration_unit: sig_parsed.duration_unit,
                 duration_text: sig_parsed.duration_text,
                 duration_text_start: sig_parsed.duration_text_start,
-                duration_text_end: sig_parsed.duration_text_end
+                duration_text_end: sig_parsed.duration_text_end,
+                duration_readable: sig_parsed.duration_readable               
             },
             indication: {
                 as_needed: sig_parsed.as_needed,
                 indication: sig_parsed.indication,
                 indication_text: sig_parsed.indication_text,
                 indication_text_start: sig_parsed.indication_text_start,
-                indication_text_end: sig_parsed.indication_text_end
+                indication_text_end: sig_parsed.indication_text_end,
+                indication_readable: sig_parsed.indication_readable               
             }      
         };
 
@@ -168,25 +175,21 @@ class SigParsed extends React.Component {
                         <tbody>
                             <tr>
                                 <td title={JSON.stringify(sig_parsed_components.method, null, 2)}>
-                                    {sig_parsed.method}
+                                    {sig_parsed.method_readable}
                                 </td>
                                 <td title={JSON.stringify(sig_parsed_components.dose, null, 2)}>
-                                    {sig_parsed.dose}
-                                    {sig_parsed.dose_max && "-" + sig_parsed.dose_max} {sig_parsed.dose_unit}
+                                    {sig_parsed.dose_readable}
                                 </td>
                                 <td title={JSON.stringify(sig_parsed_components.strength, null, 2)}>
-                                    {sig_parsed.strength}
-                                    {sig_parsed.strength_max && "-" + sig_parsed.strength_max} {sig_parsed.strength_unit}
+                                    {sig_parsed.strength_readable}
                                 </td>
                                 <td title={JSON.stringify(sig_parsed_components.route, null, 2)}>{sig_parsed.route}</td>
                                 <td><span title={JSON.stringify(sig_parsed_components.frequency, null, 2)}>{sig_parsed.frequency_readable}</span>{sig_parsed.when && <span title={JSON.stringify(sig_parsed_components.when, null, 2)}>{" " + sig_parsed.when}</span>}</td>
                                 <td title={JSON.stringify(sig_parsed_components.duration, null, 2)}>
-                                    {sig_parsed.duration}
-                                    {sig_parsed.duration_max && "-" + sig_parsed.duration_max} {sig_parsed.duration_unit}
+                                    {sig_parsed.duration_readable}
                                 </td>
                                 <td title={JSON.stringify(sig_parsed_components.indication, null, 2)}>
-                                    {sig_parsed.as_needed && "as needed"}
-                                    {sig_parsed.indication && " for " + sig_parsed.indication}
+                                    {sig_parsed.indication_readable}
                                 </td>
                             </tr>
                             {sig_reviewed && !sig_reviewed.sig_correct &&

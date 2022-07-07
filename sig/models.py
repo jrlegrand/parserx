@@ -22,6 +22,8 @@ class SigParsed(models.Model):
     version = models.IntegerField(null=True)
     # sig text
     sig_text = models.TextField()
+    # readable sig
+    sig_readable = models.TextField(null=True)
     # method
     method = models.CharField(max_length=100, null=True)
     method_text_start = models.IntegerField(null=True)
