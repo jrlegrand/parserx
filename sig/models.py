@@ -27,6 +27,7 @@ class SigParsed(models.Model):
     method_text_start = models.IntegerField(null=True)
     method_text_end = models.IntegerField(null=True)
     method_text = models.CharField(max_length=100, null=True)
+    method_readable = models.CharField(max_length=100, null=True)   
     # dose
     # TODO: maybe make dose fields floats instead of chars
     dose = models.CharField(max_length=100, null=True)
@@ -35,6 +36,7 @@ class SigParsed(models.Model):
     dose_text_start = models.IntegerField(null=True)
     dose_text_end = models.IntegerField(null=True)
     dose_text = models.CharField(max_length=100, null=True)
+    dose_readable = models.CharField(max_length=100, null=True)   
     # strength
     strength = models.FloatField(null=True)
     strength_max = models.FloatField(null=True)
@@ -42,11 +44,13 @@ class SigParsed(models.Model):
     strength_text_start = models.IntegerField(null=True)
     strength_text_end = models.IntegerField(null=True)
     strength_text = models.CharField(max_length=100, null=True)
+    strength_readable = models.CharField(max_length=100, null=True)   
     # route
     route = models.CharField(max_length=100, null=True)
     route_text_start = models.IntegerField(null=True)
     route_text_end = models.IntegerField(null=True)
     route_text = models.CharField(max_length=100, null=True)
+    route_readable = models.CharField(max_length=100, null=True)   
     # frequency
     frequency = models.IntegerField(null=True)
     frequency_max = models.IntegerField(null=True)
@@ -69,6 +73,7 @@ class SigParsed(models.Model):
     when_text_start = models.IntegerField(null=True)
     when_text_end = models.IntegerField(null=True)
     when_text = models.CharField(max_length=100, null=True)   
+    when_readable = models.CharField(max_length=100, null=True)   
     # duration
     duration = models.IntegerField(null=True)
     duration_max = models.IntegerField(null=True)
@@ -76,12 +81,14 @@ class SigParsed(models.Model):
     duration_text_start = models.IntegerField(null=True)
     duration_text_end = models.IntegerField(null=True)
     duration_text = models.CharField(max_length=100, null=True)
+    duration_readable = models.CharField(max_length=100, null=True)   
     # indication
     as_needed = models.BooleanField(null=True)
     indication = models.CharField(max_length=250, null=True)
     indication_text_start = models.IntegerField(null=True)
     indication_text_end = models.IntegerField(null=True)
     indication_text = models.CharField(max_length=250, null=True)
+    indication_readable = models.CharField(max_length=100, null=True)   
 
     class Meta:
         ordering = ['-created']

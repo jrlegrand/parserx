@@ -6,14 +6,28 @@ from .classes.parser import *
 class IndicationParser(Parser):
     parser_type = 'indication'
     pattern = r'(?P<as_needed>as needed for|if needed for|as needed|if needed|prn for|prf|prn)(?:\s+(?P<indication>.{,250}))?'
-    match_keys = ['as_needed', 'indication', 'indication_text_start', 'indication_text_end', 'indication_text']
+    match_keys = ['as_needed', 'indication', 'indication_text_start', 'indication_text_end', 'indication_text', 'indication_readable']
     def normalize_match(self, match):
         as_needed = 1
         indication_text = match.group('indication')
         indication = (get_indication(indication_text) if indication_text != None else indication_text)
         indication_text_start, indication_text_end = match.span()
         indication_text = match.group(0)
-        return self.generate_match({'as_needed': as_needed, 'indication': indication, 'indication_text_start': indication_text_start, 'indication_text_end': indication_text_end, 'indication_text': indication_text})
+        indication_readable = self.get_readable(as_needed=as_needed, indication=indication)
+        return self.generate_match({'as_needed': as_needed, 'indication': indication, 'indication_text_start': indication_text_start, 'indication_text_end': indication_text_end, 'indication_text': indication_text, 'indication_readable': indication_readable})
+    def get_readable(self, as_needed=None, indication=None):
+        as_needed = 'as needed' if as_needed else ''
+        if indication:
+            indication = indication.split(',')
+            # remove duplicate indications (i.e. pain / pain)
+            indication = list(dict.fromkeys(indication))
+            indication = ' / '.join(indication)
+        else:
+            indication = ''
+
+        readable = as_needed + (' for ' + indication if indication != '' else '')
+        readable = readable.strip()
+        return readable
 
 class ChronicIndicationParser(IndicationParser):
     pattern = r'(?!as needed|if needed|prn|prf) for (?P<indication>.{,250})(?!' + RE_RANGE + r')'
@@ -22,37 +36,8 @@ class ChronicIndicationParser(IndicationParser):
         indication = (get_indication(indication_text) if indication_text != None else indication_text)
         indication_text_start, indication_text_end = match.span()
         indication_text = match.group(0)
-        return self.generate_match({'indication': indication, 'indication_text_start': indication_text_start, 'indication_text_end': indication_text_end, 'indication_text': indication_text})
-
-"""
-# NOTE: Dosage does not capture indication unless it is a PRN indication
-NOTE: this should be "reasonCode"
-{	
-// for nausea and vomiting (exclude prn before 'for', and exclude numbers immediately after 'for')
-// asNeededBoolean = false
-pattern: new RegExp('(?<!(?:as needed|p.r.n.|prn)\s*)(?:for\s+(?!(?:' + regexRange + '))((?:\w|\s)+))', 'ig'),
-standardize: (match: any[]) => {
-    var reasons = match[1] ? match[1].split(' ') : null;
-    // TODO: match each word against a database of diagnoses (ICD-10 / UMLS?)
-    // https://documentation.uts.nlm.nih.gov/rest/search/
-    if (reasons) { 
-        var indicationWords: string[] = [];
-        var indicationSearch: string = '';
-        reasons.forEach(r => {
-            indicationWords.push(r);
-            indicationSearch = indicationWords.join(' ');
-            console.log(indicationSearch);
-            // TODO do a UMLS search with the indicationSearch keyword, each time
-            // adding it to an array of search results, afterwards selecting the
-            // best match. Maybe limit to 5 words?
-        });
-    }
-    return {
-        reasonCode: reasons
-    }
-}
-
-"""
+        indication_readable = self.get_readable(indication=indication)
+        return self.generate_match({'indication': indication, 'indication_text_start': indication_text_start, 'indication_text_end': indication_text_end, 'indication_text': indication_text, 'indication_readable': indication_readable})
 
 parsers = [
     IndicationParser(),

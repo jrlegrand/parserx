@@ -3,7 +3,7 @@ from .classes.parser import *
 # TODO: figure out what to do with multiple ingredient strengths
 class StrengthParser(Parser):
     parser_type = 'strength'
-    match_keys = ['strength', 'strength_max', 'strength_unit', 'strength_text_start', 'strength_text_end', 'strength_text']
+    match_keys = ['strength', 'strength_max', 'strength_unit', 'strength_text_start', 'strength_text_end', 'strength_text', 'strength_readable']
     def normalize_pattern(self):
         strength_patterns = []
         for n, p in STRENGTH_UNITS.items():
@@ -24,7 +24,24 @@ class StrengthParser(Parser):
             strength_text = match[0]
         else:
             strength = strength_max = strength_unit = strength_text_start = strength_text_end = strength_text = None
-        return self.generate_match({'strength': strength, 'strength_max': strength_max, 'strength_unit': strength_unit, 'strength_text_start': strength_text_start, 'strength_text_end': strength_text_end, 'strength_text': strength_text})
+        strength_readable = self.get_readable(strength, strength_max, strength_unit)
+        return self.generate_match({'strength': strength, 'strength_max': strength_max, 'strength_unit': strength_unit, 'strength_text_start': strength_text_start, 'strength_text_end': strength_text_end, 'strength_text': strength_text, 'strength_readable': strength_readable})
+    def get_readable(self, strength=None, strength_max=None, strength_unit=None):
+        plural = (strength and strength > 1) or (strength_max and strength_max > 1)
+        if strength_unit:
+            if plural:
+                strength_unit += 's' if strength_unit not in ['mg','mcg','g','mEq'] else ''
+        else:
+            strength_unit = ''
+        
+        strength = str(strength) if strength else ''
+        if strength_max:
+            strength += '-' + str(strength_max)
+
+        readable = strength + ' ' + strength_unit
+        readable = readable.strip()
+        return readable
+        
 
 parsers = [
     StrengthParser()
