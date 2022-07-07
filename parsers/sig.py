@@ -57,7 +57,6 @@ class SigParser(Parser):
         # remove duplicate spaces, and in doing so, also trim whitespaces from around sig
         # this accounts for empty sig elements
         readable = ' '.join(readable.split())
-        print(readable)
         return readable
 
     def parse(self, sig_text):
