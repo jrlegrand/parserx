@@ -11,7 +11,7 @@ class DoseParser(Parser):
             # and join them with a | character
             # and add them to the dose_patterns array
             dose_patterns.append(r'|'.join(p))        
-        pattern = re.compile(r'(?<!no more than)(?<!do not exceed)(?<!not to exceed)(?<!\bnmt)(?<!\bnte)\s*\(*\**(?P<dose>' + RE_RANGE + r')\**\)*(\s?\(.*\)\s?)?(?:\s*(?P<dose_unit>' + r'|'.join(dose_patterns) + r'))', flags = re.I)
+        pattern = re.compile(r'(?<!no more than )(?<!do not exceed )(?<!do not take more than )(?<!not to exceed )(?<!\bnmt )(?<!\bnte )(?<!maximum daily dose )(?<!max daily dose )(?<!maximum daily amount )(?<!max daily amount )(?<!max )(?<!maximum )(?<!maximum dose )(?<!max dose )(?<!mdd )(?<!mdd= )(?<!mdd = )(?P<dose>' + RE_RANGE + r')\s?(?P<dose_unit>' + r'|'.join(dose_patterns) + r')', flags = re.I)
         return pattern
     def normalize_match(self, match):
         dose_range = split_range(match.group('dose'))
