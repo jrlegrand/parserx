@@ -2,7 +2,7 @@ from .classes.parser import *
 
 class DoseParser(Parser):
     parser_type = 'dose'
-    match_keys = ['dose', 'dose_max', 'dose_unit', 'dose_text_start', 'dose_text_end', 'dose_text']
+    match_keys = ['dose', 'dose_max', 'dose_unit', 'dose_text_start', 'dose_text_end', 'dose_text', 'dose_readable']
     def normalize_pattern(self):
         dose_patterns = []
         for n, p in DOSE_UNITS.items():
@@ -19,7 +19,24 @@ class DoseParser(Parser):
         dose_unit = get_normalized(DOSE_UNITS, match.group('dose_unit'))
         dose_text_start, dose_text_end = match.span()
         dose_text = match[0]
-        return self.generate_match({'dose': dose, 'dose_max': dose_max, 'dose_unit': dose_unit, 'dose_text_start': dose_text_start, 'dose_text_end': dose_text_end, 'dose_text': dose_text})
+        dose_readable = self.get_readable(dose=dose, dose_max=dose_max, dose_unit=dose_unit)
+        return self.generate_match({'dose': dose, 'dose_max': dose_max, 'dose_unit': dose_unit, 'dose_text_start': dose_text_start, 'dose_text_end': dose_text_end, 'dose_text': dose_text, 'dose_readable': dose_readable})
+    def get_readable(self, dose=None, dose_max=None, dose_unit=None):
+        plural = (dose and dose > 1) or (dose_max and dose_max > 1)
+        if dose_unit:
+            if plural:
+                dose_unit += 'e' if dose_unit[-1:] == 'h' else ''
+                dose_unit += 's' if dose_unit not in ['oz','mL','L','cm'] else ''
+        else:
+            dose_unit = ''
+        
+        dose = str(dose) if dose else ''
+        if dose_max:
+            dose += '-' + str(dose_max)
+
+        readable = dose + ' ' + dose_unit
+        readable = readable.strip()
+        return readable
 
 class DoseUnitOnlyParser(DoseParser):
     def normalize_pattern(self):
@@ -36,26 +53,35 @@ class DoseUnitOnlyParser(DoseParser):
         dose_unit = get_normalized(DOSE_UNITS, match.group('dose_unit'))
         dose_text_start, dose_text_end = match.span()
         dose_text = match[0]
-        return self.generate_match({'dose_unit': dose_unit, 'dose_text_start': dose_text_start, 'dose_text_end': dose_text_end, 'dose_text': dose_text})
+        dose_readable = self.get_readable(dose_unit=dose_unit)
+        return self.generate_match({'dose_unit': dose_unit, 'dose_text_start': dose_text_start, 'dose_text_end': dose_text_end, 'dose_text': dose_text, 'dose_readable': dose_readable})
 
 class DoseOnlyParser(DoseParser):
     def normalize_pattern(self):
         method_patterns = []
+        strength_unit_patterns = []
         for n, p in METHODS.items():
             # add the name of the pattern to the list of matched patterns
             p.append(n)
             # and join them with a | character
             # and add them to the dose_patterns array
             method_patterns.append(r'|'.join(p))        
-        pattern = re.compile(r'^(?:' + r'|'.join(method_patterns) + r')?\s?(?P<dose>' + RE_RANGE + r')', flags = re.I)
-        print(pattern)
+        for n, p in STRENGTH_UNITS.items():
+            # add the name of the pattern to the list of matched patterns
+            p.append(n)
+            # and join them with a | character
+            # and add them to the dose_patterns array
+            strength_unit_patterns.append(r'|'.join(p))        
+        pattern = re.compile(r'^(?:' + r'|'.join(method_patterns) + r')?\s?(?P<dose>' + RE_RANGE + r')(?!\d)(?!\s?(?:' + r'|'.join(strength_unit_patterns) + r'))', flags = re.I)
+        print('|'.join(strength_unit_patterns))
         return pattern
     def normalize_match(self, match):
         dose_range = split_range(match.group('dose'))
         dose, dose_max = dose_range
         dose_text_start, dose_text_end = match.span()
         dose_text = match[0]
-        return self.generate_match({'dose': dose, 'dose_max': dose_max, 'dose_text_start': dose_text_start, 'dose_text_end': dose_text_end, 'dose_text': dose_text})
+        dose_readable = self.get_readable(dose=dose, dose_max=dose_max)
+        return self.generate_match({'dose': dose, 'dose_max': dose_max, 'dose_text_start': dose_text_start, 'dose_text_end': dose_text_end, 'dose_text': dose_text, 'dose_readable': dose_readable})
 
 parsers = [
     DoseParser(),

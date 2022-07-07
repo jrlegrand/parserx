@@ -5,23 +5,23 @@ t 1 tablet by mouth daily,take,0,1,t,1,,tablet,1,10, 1 tablet,,,,,,,by mouth,11,
 1 tab by mouth daily,,,,,1,,tablet,0,5,1 tab,,,,,,,by mouth,6,14,by mouth,1,,1,,day,,,,,,,,15,20,daily,daily,,,,,,,,,,,,,,,
 1 tablet by mouth every evening at bedtime,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,1,,1,,day,,,,,,,,18,42,every evening at bedtime,daily,in the evening at bedtime,18,42,every evening at bedtime,,,,,,,,,,,
 one tablet by mouth daily,,,,,1,,tablet,0,10,one tablet,,,,,,,by mouth,11,19,by mouth,1,,1,,day,,,,,,,,20,25,daily,daily,,,,,,,,,,,,,,,
-take 2 teaspoons every 6 hours as needed for cough,take,0,4,take,,,,,,,2,,teaspoon,4,16, 2 teaspoons,,,,,1,,6,,hour,,,,,,,,17,29,every 6 hour,every 6 hours,,,,,,,,,,,1,cough,31,50,as needed for cough
+take 2 teaspoons every 6 hours as needed for cough,take,0,4,take,2,,,0,6,take 2,2,,teaspoon,4,16, 2 teaspoons,,,,,1,,6,,hour,,,,,,,,17,29,every 6 hour,every 6 hours,,,,,,,,,,,1,cough,31,50,as needed for cough
 1 capsule by mouth twice a day,,,,,1,,capsule,0,9,1 capsule,,,,,,,by mouth,10,18,by mouth,2,,1,,day,,,,,,,,19,30,twice a day,twice daily,,,,,,,,,,,,,,,
 also known as norvasc 1 tablet by mouth daily,,,,,1,,tablet,21,30, 1 tablet,,,,,,,by mouth,31,39,by mouth,1,,1,,day,,,,,,,,40,45,daily,daily,,,,,,,,,,,,,,,
 2 puffs from the inhaler twice a day,,,,,2,,puff,0,6,2 puff,,,,,,,via inhalation,2,7,puffs,2,,1,,day,,,,,,,,25,36,twice a day,twice daily,,,,,,,,,,,,,,,
 also known as lipitor 1 tablet by mouth daily,,,,,1,,tablet,21,30, 1 tablet,,,,,,,by mouth,31,39,by mouth,1,,1,,day,,,,,,,,40,45,daily,daily,,,,,,,,,,,,,,,
-one by mouth daily,,,,,,,,,,,,,,,,,by mouth,4,12,by mouth,1,,1,,day,,,,,,,,13,18,daily,daily,,,,,,,,,,,,,,,
-10mg by mouth daily,,,,,,,,,,,10,,mg,0,4,10mg,by mouth,5,13,by mouth,1,,1,,day,,,,,,,,14,19,daily,daily,,,,,,,,,,,,,,,
+one by mouth daily,,,,,1,,,0,3,one,,,,,,,by mouth,4,12,by mouth,1,,1,,day,,,,,,,,13,18,daily,daily,,,,,,,,,,,,,,,
+10mg by mouth daily,,,,,10,,,0,2,10,10,,mg,0,4,10mg,by mouth,5,13,by mouth,1,,1,,day,,,,,,,,14,19,daily,daily,,,,,,,,,,,,,,,
 also known as prilosec 1 capsule by mouth daily,,,,,1,,capsule,22,32, 1 capsule,,,,,,,by mouth,33,41,by mouth,1,,1,,day,,,,,,,,42,47,daily,daily,,,,,,,,,,,,,,,
-20mg by mouth daily,,,,,,,,,,,20,,mg,0,4,20mg,by mouth,5,13,by mouth,1,,1,,day,,,,,,,,14,19,daily,daily,,,,,,,,,,,,,,,
+20mg by mouth daily,,,,,20,,,0,2,20,20,,mg,0,4,20mg,by mouth,5,13,by mouth,1,,1,,day,,,,,,,,14,19,daily,daily,,,,,,,,,,,,,,,
 2 spray in each nostril daily,spray,2,7,spray,2,,spray,0,7,2 spray,,,,,,,in each nostril,8,23,in each nostril,1,,1,,day,,,,,,,,24,29,daily,daily,,,,,,,,,,,,,,,
 1 tablet by mouth three times a day,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,3,,1,,day,,,,,,,,18,35,three times a day,3 times per day,,,,,,,,,,,,,,,
-81mg by mouth daily,,,,,,,,,,,81,,mg,0,4,81mg,by mouth,5,13,by mouth,1,,1,,day,,,,,,,,14,19,daily,daily,,,,,,,,,,,,,,,
+81mg by mouth daily,,,,,81,,,0,2,81,81,,mg,0,4,81mg,by mouth,5,13,by mouth,1,,1,,day,,,,,,,,14,19,daily,daily,,,,,,,,,,,,,,,
 2 sprays in each nostril daily,,,,,2,,spray,0,7,2 spray,,,,,,,in each nostril,9,24,in each nostril,1,,1,,day,,,,,,,,25,30,daily,daily,,,,,,,,,,,,,,,
-40mg by mouth daily,,,,,,,,,,,40,,mg,0,4,40mg,by mouth,5,13,by mouth,1,,1,,day,,,,,,,,14,19,daily,daily,,,,,,,,,,,,,,,
+40mg by mouth daily,,,,,40,,,0,2,40,40,,mg,0,4,40mg,by mouth,5,13,by mouth,1,,1,,day,,,,,,,,14,19,daily,daily,,,,,,,,,,,,,,,
 also known as lipitor 1 tablet by mouth every evening at bedtime,,,,,1,,tablet,21,30, 1 tablet,,,,,,,by mouth,31,39,by mouth,1,,1,,day,,,,,,,,40,64,every evening at bedtime,daily,in the evening at bedtime,40,64,every evening at bedtime,,,,,,,,,,,
 2 tablets by mouth daily,,,,,2,,tablet,0,9,2 tablets,,,,,,,by mouth,10,18,by mouth,1,,1,,day,,,,,,,,19,24,daily,daily,,,,,,,,,,,,,,,
-1 by mouth daily,,,,,,,,,,,,,,,,,by mouth,2,10,by mouth,1,,1,,day,,,,,,,,11,16,daily,daily,,,,,,,,,,,,,,,
+1 by mouth daily,,,,,1,,,0,1,1,,,,,,,by mouth,2,10,by mouth,1,,1,,day,,,,,,,,11,16,daily,daily,,,,,,,,,,,,,,,
 also known as mobic 1 tablet by mouth daily,,,,,1,,tablet,19,28, 1 tablet,,,,,,,by mouth,29,37,by mouth,1,,1,,day,,,,,,,,38,43,daily,daily,,,,,,,,,,,,,,,
 1 tablet by mouth every 6 hours as needed for pain,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,1,,6,,hour,,,,,,,,18,30,every 6 hour,every 6 hours,,,,,,,,,,,1,pain,32,50,as needed for pain
 1 tablet by mouth twice a day for 10 days,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,2,,1,,day,,,,,,,,18,29,twice a day,twice daily,,,,,10,,day,30,40,10 day,,,29,41, for 10 days
@@ -37,19 +37,19 @@ take as directed,take,0,4,take,,,,,,,,,,,,,,,,,,,,,,,,,,,,,5,16,as directed,as d
 also known as zoloft 1 tablet by mouth daily,,,,,1,,tablet,20,29, 1 tablet,,,,,,,by mouth,30,38,by mouth,1,,1,,day,,,,,,,,39,44,daily,daily,,,,,,,,,,,,,,,
 one tab by mouth daily,,,,,1,,tablet,0,7,one tab,,,,,,,by mouth,8,16,by mouth,1,,1,,day,,,,,,,,17,22,daily,daily,,,,,,,,,,,,,,,
 also known as flonase 2 spray in each nostril daily,spray,24,29,spray,2,,spray,21,29, 2 spray,,,,,,,in each nostril,30,45,in each nostril,1,,1,,day,,,,,,,,46,51,daily,daily,,,,,,,,,,,,,,,
-10 mg by mouth daily,,,,,,,,,,,10,,mg,0,5,10 mg,by mouth,6,14,by mouth,1,,1,,day,,,,,,,,15,20,daily,daily,,,,,,,,,,,,,,,
+10 mg by mouth daily,,,,,10,,,0,2,10,10,,mg,0,5,10 mg,by mouth,6,14,by mouth,1,,1,,day,,,,,,,,15,20,daily,daily,,,,,,,,,,,,,,,
 1 tablet by mouth daily for 84 days,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,1,,1,,day,,,,,,,,18,23,daily,daily,,,,,84,,day,24,34,84 day,,,23,35, for 84 days
-81 mg by mouth daily,,,,,,,,,,,81,,mg,0,5,81 mg,by mouth,6,14,by mouth,1,,1,,day,,,,,,,,15,20,daily,daily,,,,,,,,,,,,,,,
-20 mg by mouth daily,,,,,,,,,,,20,,mg,0,5,20 mg,by mouth,6,14,by mouth,1,,1,,day,,,,,,,,15,20,daily,daily,,,,,,,,,,,,,,,
+81 mg by mouth daily,,,,,81,,,0,2,81,81,,mg,0,5,81 mg,by mouth,6,14,by mouth,1,,1,,day,,,,,,,,15,20,daily,daily,,,,,,,,,,,,,,,
+20 mg by mouth daily,,,,,20,,,0,2,20,20,,mg,0,5,20 mg,by mouth,6,14,by mouth,1,,1,,day,,,,,,,,15,20,daily,daily,,,,,,,,,,,,,,,
 20mg 1 tablet by mouth daily,,,,,1,,tablet,4,13, 1 tablet,20,,mg,0,4,20mg,by mouth,14,22,by mouth,1,,1,,day,,,,,,,,23,28,daily,daily,,,,,,,,,,,,,,,
 one tablet daily,,,,,1,,tablet,0,10,one tablet,,,,,,,by mouth,4,10,tablet,1,,1,,day,,,,,,,,11,16,daily,daily,,,,,,,,,,,,,,,
 1 tablet by mouth every 6 hours for 3 days as needed for pain,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,1,,6,,hour,,,,,,,,18,30,every 6 hour,every 6 hours,,,,,3,,day,32,41,3 day,1,pain,43,61,as needed for pain
-apply a thin layer to the affected areas by topical route 2 times per day,apply,0,5,apply,,,,,,,,,,,,,topically,0,5,apply,2,,1,,day,,,,,,,,58,73,2 times per day,twice daily,,,,,,,,,,,,,,,
+apply a thin layer to the affected area s by topical route 2 times per day,apply,0,5,apply,,,,,,,,,,,,,topically,0,5,apply,2,,1,,day,,,,,,,,59,74,2 times per day,twice daily,,,,,,,,,,,,,,,
 40mg 1 tablet by mouth daily,,,,,1,,tablet,4,13, 1 tablet,40,,mg,0,4,40mg,by mouth,14,22,by mouth,1,,1,,day,,,,,,,,23,28,daily,daily,,,,,,,,,,,,,,,
-40 mg by mouth daily,,,,,,,,,,,40,,mg,0,5,40 mg,by mouth,6,14,by mouth,1,,1,,day,,,,,,,,15,20,daily,daily,,,,,,,,,,,,,,,
+40 mg by mouth daily,,,,,40,,,0,2,40,40,,mg,0,5,40 mg,by mouth,6,14,by mouth,1,,1,,day,,,,,,,,15,20,daily,daily,,,,,,,,,,,,,,,
 2 tablets by mouth twice a day,,,,,2,,tablet,0,9,2 tablets,,,,,,,by mouth,10,18,by mouth,2,,1,,day,,,,,,,,19,30,twice a day,twice daily,,,,,,,,,,,,,,,
 1 tablet by mouth once daily,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,1,,1,,day,,,,,,,,18,28,once daily,daily,,,,,,,,,,,,,,,
-81 mg orally once daily in the morning,,,,,,,,,,,81,,mg,0,5,81 mg,by mouth,6,12,orally,1,,1,,day,,,,,,,,13,23,once daily,daily,in the morning,24,38,in the morning,,,,,,,,,,,
+81 mg orally once daily in the morning,,,,,81,,,0,2,81,81,,mg,0,5,81 mg,by mouth,6,12,orally,1,,1,,day,,,,,,,,13,23,once daily,daily,in the morning,24,38,in the morning,,,,,,,,,,,
 also known as neurontin 1 capsule by mouth three times a day,,,,,1,,capsule,23,33, 1 capsule,,,,,,,by mouth,34,42,by mouth,3,,1,,day,,,,,,,,43,60,three times a day,3 times per day,,,,,,,,,,,,,,,
 also known as toprol xl 1 tablet by mouth daily,,,,,1,,tablet,23,32, 1 tablet,,,,,,,by mouth,33,41,by mouth,1,,1,,day,,,,,,,,42,47,daily,daily,,,,,,,,,,,,,,,
 4000 milliliters by mouth one time only,,,,,4000,,mL,0,15,4000 milliliter,,,,,,,by mouth,17,25,by mouth,,,,,,,,,,,,1,26,39,one time only,once,,,,,,,,,,,,,,,
@@ -62,7 +62,7 @@ also known as aldactone 1 tablet by mouth daily,,,,,1,,tablet,23,32, 1 tablet,,,
 1 tablet by mouth every 12 hours,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,1,,12,,hour,,,,,,,,18,31,every 12 hour,every 12 hours,,,,,,,,,,,,,,,
 1 tablet by mouth every 6 hours for 5 days as needed for pain,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,1,,6,,hour,,,,,,,,18,30,every 6 hour,every 6 hours,,,,,5,,day,32,41,5 day,1,pain,43,61,as needed for pain
 2 puffs from the inhaler every 4 hours as needed for wheezing,,,,,2,,puff,0,6,2 puff,,,,,,,via inhalation,2,7,puffs,1,,4,,hour,,,,,,,,25,37,every 4 hour,every 4 hours,,,,,,,,,,,1,wheezing,39,61,as needed for wheezing
-5mg by mouth daily,,,,,,,,,,,5,,mg,0,3,5mg,by mouth,4,12,by mouth,1,,1,,day,,,,,,,,13,18,daily,daily,,,,,,,,,,,,,,,
+5mg by mouth daily,,,,,5,,,0,1,5,5,,mg,0,3,5mg,by mouth,4,12,by mouth,1,,1,,day,,,,,,,,13,18,daily,daily,,,,,,,,,,,,,,,
 also known as flonase 2 sprays in each nostril daily,,,,,2,,spray,21,29, 2 spray,,,,,,,in each nostril,31,46,in each nostril,1,,1,,day,,,,,,,,47,52,daily,daily,,,,,,,,,,,,,,,
 also known as zestril 1 tablet by mouth daily,,,,,1,,tablet,21,30, 1 tablet,,,,,,,by mouth,31,39,by mouth,1,,1,,day,,,,,,,,40,45,daily,daily,,,,,,,,,,,,,,,
 by mouth once daily,,,,,,,,,,,,,,,,,by mouth,0,8,by mouth,1,,1,,day,,,,,,,,9,19,once daily,daily,,,,,,,,,,,,,,,
@@ -70,7 +70,7 @@ by mouth once daily,,,,,,,,,,,,,,,,,by mouth,0,8,by mouth,1,,1,,day,,,,,,,,9,19,
 1 puff from the inhaler twice a day,,,,,1,,puff,0,6,1 puff,,,,,,,via inhalation,2,6,puff,2,,1,,day,,,,,,,,24,35,twice a day,twice daily,,,,,,,,,,,,,,,
 also known as protonix 1 tablet by mouth daily,,,,,1,,tablet,22,31, 1 tablet,,,,,,,by mouth,32,40,by mouth,1,,1,,day,,,,,,,,41,46,daily,daily,,,,,,,,,,,,,,,
 1 tablet by mouth every 4 hours as needed for pain,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,1,,4,,hour,,,,,,,,18,30,every 4 hour,every 4 hours,,,,,,,,,,,1,pain,32,50,as needed for pain
-100mg by mouth daily,,,,,,,,,,,100,,mg,0,5,100mg,by mouth,6,14,by mouth,1,,1,,day,,,,,,,,15,20,daily,daily,,,,,,,,,,,,,,,
+100mg by mouth daily,,,,,100,,,0,3,100,100,,mg,0,5,100mg,by mouth,6,14,by mouth,1,,1,,day,,,,,,,,15,20,daily,daily,,,,,,,,,,,,,,,
 1 tablet by mouth twice a day for 7 days,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,2,,1,,day,,,,,,,,18,29,twice a day,twice daily,,,,,7,,day,30,39,7 day,,,29,40, for 7 days
 0.5 tablet by mouth daily,,,,,0.5,,tablet,0,10,0.5 tablet,,,,,,,by mouth,11,19,by mouth,1,,1,,day,,,,,,,,20,25,daily,daily,,,,,,,,,,,,,,,
 1 tablet by mouth daily as needed,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,1,,1,,day,,,,,,,,18,23,daily,daily,,,,,,,,,,,1,,24,33,as needed
@@ -83,10 +83,10 @@ also known as singulair 1 tablet by mouth daily,,,,,1,,tablet,23,32, 1 tablet,,,
 also known as zocor 1 tablet by mouth every evening at bedtime,,,,,1,,tablet,19,28, 1 tablet,,,,,,,by mouth,29,37,by mouth,1,,1,,day,,,,,,,,38,62,every evening at bedtime,daily,in the evening at bedtime,38,62,every evening at bedtime,,,,,,,,,,,
 10 mg 1 tablet by mouth daily,,,,,1,,tablet,5,14, 1 tablet,10,,mg,0,5,10 mg,by mouth,15,23,by mouth,1,,1,,day,,,,,,,,24,29,daily,daily,,,,,,,,,,,,,,,
 1 capsule by mouth every week,,,,,1,,capsule,0,9,1 capsule,,,,,,,by mouth,10,18,by mouth,1,,1,,week,,,,,,,,19,29,every week,every week,,,,,,,,,,,,,,,
-25mg by mouth daily,,,,,,,,,,,25,,mg,0,4,25mg,by mouth,5,13,by mouth,1,,1,,day,,,,,,,,14,19,daily,daily,,,,,,,,,,,,,,,
+25mg by mouth daily,,,,,25,,,0,2,25,25,,mg,0,4,25mg,by mouth,5,13,by mouth,1,,1,,day,,,,,,,,14,19,daily,daily,,,,,,,,,,,,,,,
 81 mg 1 tablet by mouth daily,,,,,1,,tablet,5,14, 1 tablet,81,,mg,0,5,81 mg,by mouth,15,23,by mouth,1,,1,,day,,,,,,,,24,29,daily,daily,,,,,,,,,,,,,,,
 inhaler as needed,,,,,,,inhaler,0,7,inhaler,,,,,,,via inhalation,0,7,inhaler,,,,,,,,,,,,,,,,,,,,,,,,,,,1,,8,17,as needed
-50mg by mouth daily,,,,,,,,,,,50,,mg,0,4,50mg,by mouth,5,13,by mouth,1,,1,,day,,,,,,,,14,19,daily,daily,,,,,,,,,,,,,,,
+50mg by mouth daily,,,,,50,,,0,2,50,50,,mg,0,4,50mg,by mouth,5,13,by mouth,1,,1,,day,,,,,,,,14,19,daily,daily,,,,,,,,,,,,,,,
 1 tablet by mouth every 6 hours as needed for nausea,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,1,,6,,hour,,,,,,,,18,30,every 6 hour,every 6 hours,,,,,,,,,,,1,nausea,32,52,as needed for nausea
 also known as augmentin 1 tablet by mouth twice a day for 10 days,,,,,1,,tablet,23,32, 1 tablet,,,,,,,by mouth,33,41,by mouth,2,,1,,day,,,,,,,,42,53,twice a day,twice daily,,,,,10,,day,54,64,10 day,,,53,65, for 10 days
 1 spray in each nostril twice a day,spray,2,7,spray,1,,spray,0,7,1 spray,,,,,,,in each nostril,8,23,in each nostril,2,,1,,day,,,,,,,,24,35,twice a day,twice daily,,,,,,,,,,,,,,,
@@ -94,8 +94,8 @@ also known as augmentin 1 tablet by mouth twice a day for 10 days,,,,,1,,tablet,
 as needed for pain,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,pain,0,18,as needed for pain
 1 tablet by mouth every evening,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,1,,1,,day,,,,,,,,18,31,every evening,daily,in the evening,18,31,every evening,,,,,,,,,,,
 0.5 tablet by mouth twice a day,,,,,0.5,,tablet,0,10,0.5 tablet,,,,,,,by mouth,11,19,by mouth,2,,1,,day,,,,,,,,20,31,twice a day,twice daily,,,,,,,,,,,,,,,
-1 tablet by mouth daily for 30 days,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,1,,1,,day,,,,,,,,18,23,daily,daily,,,,,30,,day,24,34,30 day,,,23,35, for 30 days
+1 tablet by mouth daily for 30 day s,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,1,,1,,day,,,,,,,,18,23,daily,daily,,,,,30,,day,24,34,30 day,,,23,36, for 30 day s
 also known as zocor 1 tablet by mouth daily,,,,,1,,tablet,19,28, 1 tablet,,,,,,,by mouth,29,37,by mouth,1,,1,,day,,,,,,,,38,43,daily,daily,,,,,,,,,,,,,,,
 1 tablet by mouth every 4 hours for 7 days as needed for pain,,,,,1,,tablet,0,8,1 tablet,,,,,,,by mouth,9,17,by mouth,1,,4,,hour,,,,,,,,18,30,every 4 hour,every 4 hours,,,,,7,,day,32,41,7 day,1,pain,43,61,as needed for pain
 also known as tenormin 1 tablet by mouth daily,,,,,1,,tablet,22,31, 1 tablet,,,,,,,by mouth,32,40,by mouth,1,,1,,day,,,,,,,,41,46,daily,daily,,,,,,,,,,,,,,,
-650 mg orally every 6 hours as needed,,,,,,,,,,,650,,mg,0,6,650 mg,by mouth,7,13,orally,1,,6,,hour,,,,,,,,14,26,every 6 hour,every 6 hours,,,,,,,,,,,1,,28,37,as needed
+650 mg orally every 6 hours as needed,,,,,650,,,0,3,650,650,,mg,0,6,650 mg,by mouth,7,13,orally,1,,6,,hour,,,,,,,,14,26,every 6 hour,every 6 hours,,,,,,,,,,,1,,28,37,as needed

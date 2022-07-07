@@ -22,7 +22,7 @@ class SigParser(Parser):
     }
     # TODO: make this match_keys assignment more elegant
     #match_keys = ['original_sig_text'] + ['sig_text'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys
-    match_keys = ['sig_text'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys
+    match_keys = ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys
     parser_type = 'sig'
 
     def get_normalized_sig_text(self, sig_text):
@@ -38,6 +38,27 @@ class SigParser(Parser):
         # remove duplicate spaces, and in doing so, also trim whitespaces from around sig
         sig_text = ' '.join(sig_text.split())
         return sig_text
+
+    def get_readable(self, method=None, dose=None, strength=None, route=None, frequency=None, when=None, duration=None, indication=None):
+        method = method if method else ''
+        dose = dose if dose else ''
+        strength = strength if strength else ''
+        route = route if route else ''
+        frequency = frequency if frequency else ''
+        when = when if when else ''
+        duration = duration if duration else ''
+        indication = indication if indication else ''
+
+        if dose != '' and strength != '':
+            strength = '(' + strength + ')'
+        sig_elements = [method, dose, strength, route, frequency, when, duration, indication]
+        # join sig elements with spaces
+        readable = ' '.join(sig_elements)
+        # remove duplicate spaces, and in doing so, also trim whitespaces from around sig
+        # this accounts for empty sig elements
+        readable = ' '.join(readable.split())
+        print(readable)
+        return readable
 
     def parse(self, sig_text):
         match_dict = dict(self.match_dict)
@@ -62,7 +83,16 @@ class SigParser(Parser):
                 for k, v in match.items():
                     match_dict[k] = v
             #elif len(matches) == 0:
-
+        match_dict['sig_readable'] = self.get_readable(
+            method=match_dict['method_readable'],
+            dose=match_dict['dose_readable'],
+            strength=match_dict['strength_readable'],
+            route=match_dict['route_readable'],
+            frequency=match_dict['frequency_readable'],
+            when=match_dict['when_readable'],
+            duration=match_dict['duration_readable'],
+            indication=match_dict['indication_readable']
+        )
         # calculate admin instructions based on leftover pieces of sig
         # would need to calculate overlap in each of the match_dicts
         # in doing so, maybe also return a map of the parsed parts of the sig for use in frontend highlighting
@@ -80,7 +110,7 @@ class SigParser(Parser):
     # parse a csv
     def parse_sig_csv(self):
         file_path='parsers/csv/'
-        file_name='sig_100'
+        file_name='drx_1000'
         csv_columns = self.match_keys
         # create an empty list to collect the data
         parsed_sigs = []
@@ -184,7 +214,7 @@ def print_progress_bar (iteration, total, prefix = 'progress:', suffix = 'comple
         print()
 
 #print(SigParser().infer(ndc='68788640709'))
-#parsed_sigs = SigParser().parse_sig_csv()
+parsed_sigs = SigParser().parse_sig_csv()
 #parsed_sigs = SigParser().parse_validate_sig_csv()
 #print(parsed_sigs)
 

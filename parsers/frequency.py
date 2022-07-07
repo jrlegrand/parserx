@@ -3,6 +3,30 @@ from .classes.parser import *
 class FrequencyParser(Parser):
 	parser_type = 'frequency'
 	match_keys = ['frequency', 'frequency_max', 'period', 'period_max', 'period_unit', 'time_duration', 'time_duration_unit', 'day_of_week', 'time_of_day', 'offset', 'bounds', 'count', 'frequency_text_start', 'frequency_text_end', 'frequency_text', 'frequency_readable']
+	def get_readable(self,frequency=None,frequency_max=None,period=None,period_max=None,period_unit=None,time_duration=None,time_duration_unit=None,day_of_week=None,count=None):
+		readable = ''
+		frequency_range = str(frequency) + ('-' + str(frequency_max) if frequency_max else '') if frequency != None else ''
+		# period - don't show period if period = 1 (i.e. don't show every 1 day, just show every day -- or better yet, daily)
+		period_range = ('' if period == 1 and period_max == None else str(period) + ('-' + str(period_max) if period_max else '')) if period != None else ''
+
+		readable += 'once' if count == 1 else ''
+
+		if frequency != None and period_unit != None and frequency > 1:
+			if frequency_range == '2' and period_unit == 'day':
+				readable += 'twice daily'
+			else:
+				readable += frequency_range + ' times a ' + str(period_unit)
+		elif frequency != None and period_unit != None and frequency == 1:
+			if period_range == '' and period_unit == 'day':
+				readable += 'daily'
+			elif period_range == '2' and period_unit == 'day':
+				readable += 'every other day'
+			else:				
+				readable += 'every ' + period_range + (' ' if period_range != '' else '') + period_unit + ('s' if period_range != '' else '')
+
+		readable += '' if time_duration == None and time_duration_unit == None else ' for ' + str(time_duration) + ' ' + time_duration_unit
+		readable += ' on ' + ', '.join(day_of_week.split('|')) if day_of_week != None else ''
+		return readable
 
 # bid | tid | qid
 # bid-tid, bid or tid
@@ -17,7 +41,7 @@ class FrequencyXID(FrequencyParser):
 		period_unit = 'day'
 		frequency_text_start, frequency_text_end = match.span()
 		frequency_text = match.group(0)
-		frequency_readable = get_frequency_readable(frequency=frequency,period=period,period_unit=period_unit)
+		frequency_readable = self.get_readable(frequency=frequency,period=period,period_unit=period_unit)
 		return self.generate_match({'frequency': frequency, 'period': period, 'period_unit': period_unit, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
 
 # q | every | each
@@ -34,7 +58,7 @@ class FrequencyEveryXDay(FrequencyParser):
 		period_unit = get_normalized(PERIOD_UNIT, match.group('period_unit'))
 		frequency_text_start, frequency_text_end = match.span()
 		frequency_text = match.group(0)
-		frequency_readable = get_frequency_readable(frequency=frequency,period=period,period_max=period_max,period_unit=period_unit)
+		frequency_readable = self.get_readable(frequency=frequency,period=period,period_max=period_max,period_unit=period_unit)
 		# TODO: normalize text numbers to integer numbers - maybe make separate normalize_period_unit function that also hits the text_to_int function?
 		return self.generate_match({'frequency': frequency, 'period': period, 'period_max': period_max, 'period_unit': period_unit, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
 
@@ -59,7 +83,7 @@ class FrequencyXTimesPerDay(FrequencyParser):
 		period_unit = get_normalized(PERIOD_UNIT, match.group('period_unit'))
 		frequency_text_start, frequency_text_end = match.span()
 		frequency_text = match.group(0)
-		frequency_readable = get_frequency_readable(frequency=frequency,frequency_max=frequency_max,period=period,period_unit=period_unit)
+		frequency_readable = self.get_readable(frequency=frequency,frequency_max=frequency_max,period=period,period_unit=period_unit)
 		# TODO: normalize text numbers to integer numbers - maybe make separate normalize_period_unit function that also hits the text_to_int function?
 		return self.generate_match({'frequency': frequency, 'frequency_max': frequency_max, 'period': period, 'period_unit': period_unit, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
 
@@ -76,7 +100,7 @@ class FrequencyEveryDay(FrequencyParser):
 		period_unit = get_normalized(PERIOD_UNIT, match.group('period_unit'))
 		frequency_text_start, frequency_text_end = match.span()
 		frequency_text = match.group(0)
-		frequency_readable = get_frequency_readable(frequency=frequency,period=period,period_unit=period_unit)
+		frequency_readable = self.get_readable(frequency=frequency,period=period,period_unit=period_unit)
 		return self.generate_match({'frequency': frequency, 'period': period, 'period_unit': period_unit, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
 
 
@@ -99,7 +123,7 @@ class FrequencyXTimesDaily(FrequencyParser):
 		period_unit = get_normalized(PERIOD_UNIT, match.group('period_unit'))
 		frequency_text_start, frequency_text_end = match.span()
 		frequency_text = match.group(0)
-		frequency_readable = get_frequency_readable(frequency=frequency,frequency_max=frequency_max,period=period,period_unit=period_unit)
+		frequency_readable = self.get_readable(frequency=frequency,frequency_max=frequency_max,period=period,period_unit=period_unit)
 		# TODO: normalize text numbers to integer numbers - maybe make separate normalize_period_unit function that also hits the text_to_int function?
 		return self.generate_match({'frequency': frequency, 'frequency_max': frequency_max, 'period': period, 'period_unit': period_unit, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
 
@@ -115,7 +139,7 @@ class FrequencySpecificDayOfWeek(FrequencyParser):
 		day_of_week = match.group('day_of_week')
 		frequency_text_start, frequency_text_end = match.span()
 		frequency_text = match.group(0)
-		frequency_readable = get_frequency_readable(day_of_week=day_of_week)
+		frequency_readable = self.get_readable(day_of_week=day_of_week)
 		# TODO: normalize text numbers to integer numbers - maybe make separate normalize_period_unit function that also hits the text_to_int function?
 		return self.generate_match({'day_of_week': day_of_week, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
 
@@ -131,7 +155,7 @@ class FrequencyInTheX(FrequencyParser):
 		period_unit = 'day'
 		frequency_text_start, frequency_text_end = match.span()
 		frequency_text = match.group(0)
-		frequency_readable = get_frequency_readable(frequency=frequency,period=period,period_unit=period_unit)
+		frequency_readable = self.get_readable(frequency=frequency,period=period,period_unit=period_unit)
 		return self.generate_match({'frequency': frequency, 'period': period, 'period_unit': period_unit, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
 
 
@@ -146,7 +170,7 @@ class FrequencyAtBedtime(FrequencyParser):
 		period_unit = 'day'
 		frequency_text_start, frequency_text_end = match.span()
 		frequency_text = match.group(0)
-		frequency_readable = get_frequency_readable(frequency=frequency,period=period,period_unit=period_unit)
+		frequency_readable = self.get_readable(frequency=frequency,period=period,period_unit=period_unit)
 		return self.generate_match({'frequency': frequency, 'period': period, 'period_unit': period_unit, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
 
 
@@ -160,7 +184,7 @@ class FrequencyOneTime(FrequencyParser):
 		count = 1
 		frequency_text_start, frequency_text_end = match.span()
 		frequency_text = match.group(0)
-		frequency_readable = get_frequency_readable(count=count)
+		frequency_readable = self.get_readable(count=count)
 		# TODO: normalize text numbers to integer numbers - maybe make separate normalize_period_unit function that also hits the text_to_int function?
 		return self.generate_match({'count': count, 'frequency_text_start': frequency_text_start, 'frequency_text_end': frequency_text_end, 'frequency_text': frequency_text, 'frequency_readable': frequency_readable})
 
