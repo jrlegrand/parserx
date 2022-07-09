@@ -12,7 +12,7 @@ class StrengthParser(Parser):
             # and join them with a | character
             # and add them to the strength_patterns array
             strength_patterns.append(r'|'.join(p))        
-        pattern = re.compile(r'(?<!no more than )(?<!do not exceed )(?<!do not take more than )(?<!not to exceed )(?<!\bnmt )(?<!\bnte )(?<!maximum daily dose )(?<!max daily dose )(?<!maximum daily amount )(?<!max daily amount )(?<!max )(?<!maximum )(?<!maximum dose )(?<!max dose )(?<!mdd )(?<!mdd= )(?<!mdd = )(?P<strength>' + RE_RANGE + r')\s?(?P<strength_unit>' + r'|'.join(strength_patterns) + r')', flags = re.I)
+        pattern = re.compile(r'(?<!no more than )(?<!do not exceed )(?<!do not take more than )(?<!not to exceed )(?<!\bnmt )(?<!\bnte )(?<!maximum daily dose )(?<!max daily dose )(?<!maximum daily amount )(?<!max daily amount )(?<!max )(?<!maximum )(?<!maximum dose )(?<!max dose )(?<!mdd )(?<!mdd= )(?<!mdd = )(?<!maximum daily dose = )(?<!max daily dose = )(?<!take with )(?<!take with a )(?<!combined dosage of )(?<!in addition to )(?<!total of )(?<!increasing daily dose to )(?<!finish current supply of )(?P<strength>' + RE_RANGE + r')\s?(?P<strength_unit>' + r'|'.join(strength_patterns) + r')', flags = re.I)
         return pattern
     def normalize_match(self, match):
         # the standard RE_RANGE pattern will mach 1/2 which is fine for dose, but 5/325 is to complicated for strength, so disgard it for now
