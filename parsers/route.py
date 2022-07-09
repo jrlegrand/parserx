@@ -32,7 +32,7 @@ class TopicalRouteParser(RouteParser):
             # and join them with a | character
             # and add them to the route_patterns array
             topical_route_patterns.append(r'|'.join(p))
-        pattern = re.compile(r'(?P<route>' + r'|'.join(topical_route_patterns) + r')', flags = re.I)
+        pattern = re.compile(r'.*(?P<route>' + r'|'.join(topical_route_patterns) + r').*', flags = re.I)
         return pattern
     def normalize_match(self, match):
         route = get_normalized(TOPICAL_ROUTES, match.group('route'))
@@ -43,21 +43,6 @@ class TopicalRouteParser(RouteParser):
     def get_readable(self, route=None):
         readable = route if route else ''
         return readable
-    def parse(self, sig):
-        matches = []
-        for match in re.finditer(self.pattern, sig):
-            matches.append(self.normalize_match(match))
-        if len(matches) == 0:
-            matches = matches
-        affected_areas_match = [m for m in matches if m['route'] == 'affected areas']
-        affected_area_match = [m for m in matches if m['route'] == 'affected area']
-        site_matches = [m for m in matches if m['route'] not in ['topically', 'affected areas', 'affected area']]
-        route_sites = []
-        for match in site_matches:
-            route_sites.append(match['route'])
-        print(' / '.join(route_sites))
-        self.matches = matches
-        return matches
         
 class InferredOralRouteParser(RouteParser):
     pattern = r'\b(?P<route>(?!vaginal|sublingual)tab(?:let)?(?:s)?(?!.*(?:sublingual(?:ly)?|into|per|on the|between the|under|by sublingual route|by buccal route))|cap(?:sule)?(?:s)?|chew(?:able)?|\dpo|capful|pill)\b'

@@ -57,7 +57,6 @@ class SigParser(Parser):
         # remove duplicate spaces, and in doing so, also trim whitespaces from around sig
         # this accounts for empty sig elements
         readable = ' '.join(readable.split())
-        print(readable)
         return readable
 
     def parse(self, sig_text):
@@ -110,7 +109,7 @@ class SigParser(Parser):
     # parse a csv
     def parse_sig_csv(self):
         file_path='parsers/csv/'
-        file_name='sig_to_fix'
+        file_name='drx_1000'
         csv_columns = self.match_keys
         # create an empty list to collect the data
         parsed_sigs = []
