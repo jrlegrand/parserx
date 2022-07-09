@@ -49,8 +49,8 @@ class Parser:
     def parse(self, sig):
         matches = []
         for match in re.finditer(self.pattern, sig):
-            matches.append(self.normalize_match(match))
-        if len(matches) == 0:
-            matches = matches
+            normalized_match = self.normalize_match(match)
+            if normalized_match:
+                matches.append(normalized_match)
         self.matches = matches
         return matches

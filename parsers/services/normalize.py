@@ -380,6 +380,23 @@ STRENGTH_UNITS = {
   'tablespoon': [r'\btbsp\b', 'tablespoon', 'tablespoonsful', 'tablespoonful', 'tablespoonfuls'],
 }
 
+DOSE_STRENGTH_NEGATION = [
+  'no more than',
+  r'do not (?:exceed|take more than)',
+  'not to exceed',
+  r'\bnmt',
+  r'\bnte',
+  r'max(?:imum)? (?:daily )?(?:dose|amount)?\s?(?:=|is)?',
+  r'mdd(?:\s?=)?',
+  r'take with(?: a)?',
+  r'combined dos(?:e|age) of',
+  'in addition to',
+  'total of',
+  'increasing daily dose to',
+  'finish current supply of',
+]
+RE_DOSE_STRENGTH_NEGATION = r'|'.join(DOSE_STRENGTH_NEGATION)
+
 DOSE_UNITS = {
   # to match ahead of one-letter dose form (L)
   'lozenge': [r'\bloz\b'],
