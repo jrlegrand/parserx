@@ -21,7 +21,7 @@ class SigParser(Parser):
         'indication': indication.parsers,
     }
     # TODO: make this match_keys assignment more elegant
-    #match_keys = ['original_sig_text'] + ['sig_text'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys
+    #match_keys = ['original_sig_text'] + ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys
     match_keys = ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys
     parser_type = 'sig'
 
@@ -57,6 +57,7 @@ class SigParser(Parser):
         # remove duplicate spaces, and in doing so, also trim whitespaces from around sig
         # this accounts for empty sig elements
         readable = ' '.join(readable.split())
+        print(readable)
         return readable
 
     def parse(self, sig_text):
@@ -109,7 +110,7 @@ class SigParser(Parser):
     # parse a csv
     def parse_sig_csv(self):
         file_path='parsers/csv/'
-        file_name='drx_1000'
+        file_name='sig_to_fix'
         csv_columns = self.match_keys
         # create an empty list to collect the data
         parsed_sigs = []
@@ -213,7 +214,7 @@ def print_progress_bar (iteration, total, prefix = 'progress:', suffix = 'comple
         print()
 
 #print(SigParser().infer(ndc='68788640709'))
-#parsed_sigs = SigParser().parse_sig_csv()
+parsed_sigs = SigParser().parse_sig_csv()
 #parsed_sigs = SigParser().parse_validate_sig_csv()
 #print(parsed_sigs)
 

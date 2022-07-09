@@ -176,7 +176,7 @@ METHODS = {
 'then stop': [],
 """
 
-# TODO: laterality for ophthalmic, otic, nasal routes - likely as a get_laterality method or something
+# NOTE: topical routes are handled separately (below)
 ROUTES = {
 	'by mouth': ['by oral route', 'oral', r'orally(?! disintegrating)', r'po\b', r'p o\b', r'oral\b'],
   'in left ear': [r'(?:in to |into |in |to |per )?(?:the )?left ear', r'\ba\.s\.\b'],
@@ -193,7 +193,7 @@ ROUTES = {
   'in each eye': [r'(?:in to |into |in |to |per )?(?:both eyes|each eye|(?!affected )eyes)', r'\bo\.u\.\b', r'\bou\b'],
   'in affected eye': [r'(?:in to |into |in |to |per )?(?:the )?affected eye\b'],
   'in eye(s)': ['by eye', 'ophthalmically', 'ophthalmic', 'ophth', r'(?:in to |into |in |to |per )?(?:the )?(?!affected )eye\b'],
-  'vaginally': ['vaginal', r'(?:in to|into|in|to|per)(?: the)? vagina', r'p\.v\.', r'pv\b'],
+  'vaginally': ['vaginal', r'(?:in to|into|in|per)(?: the)? vagina', r'p\.v\.', r'pv\b'],
   'into the uterus': ['intrauterine', 'uterus'],
   'under the tongue': ['sublingually', 'sublingual', r'under (?:the )?tongue', r'sub(?: |-)?lingual(?:ly)?', r'\bs\.l\.\b', r'\bsl\b'],
   'under the skin': ['subcutaneously', 'subcutaneous', r'(?:into|in|under) (?:the )?skin', r'sub(?: |-)*cutaneous(?:ly)?', r'subq\b', r'sub\.q\.', r'sc\b', r'subcu\b', r's\.c\.', r'sq\b', r's\.q\.', 's/q'],
@@ -202,7 +202,6 @@ ROUTES = {
   'intravenously': [r'i\.v\.', r'\biv\b', 'intravenous'],
   'cutaneously': [r'\bcutaneous'],
   'to the skin': ['transdermally', 'transdermal', 'patch', 'patches'],
-  'topically': [r'(?:to|on)(?: the)? skin', r'(?:cleaned|clean|dry) skin', 'topical', r'(?:to|on) affected (?:area|site)(?:s|\(s\))?', 'application', 'scalp', r'face\b', 'apply', 'patch'],
   'enterally': ['enteral'],
   'via g-tube': [r'(?:via|per) g(?:-| )?tube', 'gastrostomy'],
   'via j-tube': [r'(?:via|per) j(?:-| )?tube', 'jejunostomy'],
@@ -346,6 +345,28 @@ NOTE: other "routes" from FHIR
   'arteriovenous fistula': [],
   'intrathecal': [],
 """
+
+TOPICAL_ROUTES = {
+  'topically': [r'topical\b', 'application', 'apply', 'patch'],
+  'affected areas': [r'involved (?:areas|sites)'],
+  'affected area': [r'\baa\b', r'involved (?:area|site)\b'],
+  'back': [],
+  'scalp': [],
+  'torso': [],
+  'arms': [],
+  'arm': [],
+  'eye lids': ['eyelids'],
+  'eye lid': [r'eyelid\b'],
+  'left big toe': ['left great toe'],
+  'right big toe': ['right great toe'],
+  'clean dry skin': [r'clean(?:ed)? dry skin'],
+  'skin': [r'(?<!clean )(?<!cleaned )(?<!dry )skin'],
+  'vagina': [],
+  'blood blister': [],
+  'buttocks': [r'butt\b'],
+  'blood blister': [],
+  'face': [],
+}
 
 # TODO: add a lot more here (mL, mcg, g, etc)
 STRENGTH_UNITS = {
