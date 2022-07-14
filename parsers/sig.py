@@ -107,7 +107,7 @@ class SigParser(Parser):
     # parse a csv
     def parse_sig_csv(self):
         file_path='parsers/csv/'
-        file_name='drx_1000'
+        file_name='drx_current'
         csv_columns = self.match_keys
         # create an empty list to collect the data
         parsed_sigs = []
