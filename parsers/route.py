@@ -23,6 +23,7 @@ class RouteParser(Parser):
         readable = route if route else ''
         return readable
 
+# NOTE: adding \b border because pharmacy was evaluting to topical route of arm
 class TopicalRouteParser(RouteParser):
     def normalize_pattern(self):
         topical_route_patterns = []
@@ -32,7 +33,7 @@ class TopicalRouteParser(RouteParser):
             # and join them with a | character
             # and add them to the route_patterns array
             topical_route_patterns.append(r'|'.join(p))
-        pattern = re.compile(r'(?P<route>' + r'|'.join(topical_route_patterns) + r')', flags = re.I)
+        pattern = re.compile(r'\b(?P<route>' + r'|'.join(topical_route_patterns) + r')', flags = re.I)
         return pattern
     def normalize_match(self, match):
         route = get_normalized(TOPICAL_ROUTES, match.group('route'))
