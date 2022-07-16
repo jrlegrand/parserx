@@ -11,7 +11,7 @@ class MethodParser(Parser):
             # and join them with a | character
             # and add them to the method_patterns array
             method_patterns.append(r'|'.join(p))
-        pattern = re.compile(r'(?P<method>' + r'|'.join(method_patterns) + r')', flags = re.I)
+        pattern = re.compile(r'(?<!do not crush or )(?P<method>' + r'|'.join(method_patterns) + r')', flags = re.I)
         return pattern
     def normalize_match(self, match):
         method = get_normalized(METHODS, match.group('method'))
