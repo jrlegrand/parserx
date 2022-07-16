@@ -107,7 +107,7 @@ class SigParser(Parser):
     # parse a csv
     def parse_sig_csv(self):
         file_path='parsers/csv/'
-        file_name='drx_1000'
+        file_name='drx_current'
         csv_columns = self.match_keys
         # create an empty list to collect the data
         parsed_sigs = []
@@ -211,7 +211,7 @@ def print_progress_bar (iteration, total, prefix = 'progress:', suffix = 'comple
         print()
 
 #print(SigParser().infer(ndc='68788640709'))
-parsed_sigs = SigParser().parse_sig_csv()
+#parsed_sigs = SigParser().parse_sig_csv()
 #parsed_sigs = SigParser().parse_validate_sig_csv()
 #print(parsed_sigs)
 
