@@ -209,7 +209,6 @@ ROUTES = {
   'to the teeth': ['dentally', 'dental', r'to(?: the)? teeth'],
   'intra-articularly': [r'(?:in to|into|in|to|per) (?:the|one|both|two|all) joint', 'intra-articular'],
   'via nebulizer': ['via nebulization', r'(?:via |per|using a |from the |by )?nebuliz(?:ation|ed|er|e)', r'neb\b'],
-  'into the lungs': ['via inhalation', 'respiratory tract', r'(?:via |per |using a |from the )?inhal(?:ation|ed|er|e)', r'puff(?:s)?', r'inh\b', r'inhalation(?:s)?'],
   'in urethra': [r'(?:into|via|within the|within) urethra', 'urethrally', 'urethral'],
   'on the tongue': ['translingual', 'translingually'],
   'between the cheek and gums': ['buccally', r'between (?:the )?cheek and (?:the )?gums', 'buccal', 'inside the cheek'],
@@ -366,6 +365,10 @@ TOPICAL_ROUTES = {
   'buttocks': [r'butt\b'],
   'blood blister': [],
   'face': [],
+}
+
+INHALATION_ROUTES = {
+  'into the lungs': ['via inhalation', 'respiratory tract', r'(?:via |per |using a |from the )?inhal(?:ation|ed|er|e)', r'puff(?:s)?', r'inh\b', r'inhalation(?:s)?'],
 }
 
 # TODO: add a lot more here (mL, mcg, g, etc)
