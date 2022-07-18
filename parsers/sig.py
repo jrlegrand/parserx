@@ -1,5 +1,5 @@
 from .classes.parser import *
-from . import method, dose, strength, route, frequency, when, duration, indication
+from . import method, dose, strength, route, frequency, when, duration, indication, max_dose
 import csv
 
 # TODO: need to move all this to the main app and re-purpose the sig.py parser
@@ -19,10 +19,11 @@ class SigParser(Parser):
         'when': when.parsers,
         'duration': duration.parsers,
         'indication': indication.parsers,
+        'max_dose': max_dose.parsers,
     }
     # TODO: make this match_keys assignment more elegant
-    #match_keys = ['original_sig_text'] + ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys
-    match_keys = ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys
+    #match_keys = ['original_sig_text'] + ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max_dose.parsers[0].match_keys
+    match_keys = ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max_dose.parsers[0].match_keys
     parser_type = 'sig'
 
     def get_normalized_sig_text(self, sig_text):
@@ -39,7 +40,7 @@ class SigParser(Parser):
         sig_text = ' '.join(sig_text.split())
         return sig_text
 
-    def get_readable(self, method=None, dose=None, strength=None, route=None, frequency=None, when=None, duration=None, indication=None):
+    def get_readable(self, method=None, dose=None, strength=None, route=None, frequency=None, when=None, duration=None, indication=None, max_dose=None):
         method = method if method else ''
         dose = dose if dose else ''
         strength = strength if strength else ''
@@ -48,10 +49,11 @@ class SigParser(Parser):
         when = when if when else ''
         duration = duration if duration else ''
         indication = indication if indication else ''
+        max_dose = max_dose if max_dose else ''
 
         if dose != '' and strength != '':
             strength = '(' + strength + ')'
-        sig_elements = [method, dose, strength, route, frequency, when, duration, indication]
+        sig_elements = [method, dose, strength, route, frequency, when, duration, indication, max_dose]
         # join sig elements with spaces
         readable = ' '.join(sig_elements)
         # remove duplicate spaces, and in doing so, also trim whitespaces from around sig
@@ -90,7 +92,8 @@ class SigParser(Parser):
             frequency=match_dict['frequency_readable'],
             when=match_dict['when_readable'],
             duration=match_dict['duration_readable'],
-            indication=match_dict['indication_readable']
+            indication=match_dict['indication_readable'],
+            max_dose=match_dict['max_dose_readable'],
         )
         # calculate admin instructions based on leftover pieces of sig
         # would need to calculate overlap in each of the match_dicts
