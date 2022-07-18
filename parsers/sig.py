@@ -1,5 +1,5 @@
 from .classes.parser import *
-from . import method, dose, strength, route, frequency, when, duration, indication, max_dose
+from . import method, dose, strength, route, frequency, when, duration, indication, max
 import csv
 
 # TODO: need to move all this to the main app and re-purpose the sig.py parser
@@ -19,11 +19,11 @@ class SigParser(Parser):
         'when': when.parsers,
         'duration': duration.parsers,
         'indication': indication.parsers,
-        'max_dose': max_dose.parsers,
+        'max': max.parsers,
     }
     # TODO: make this match_keys assignment more elegant
-    #match_keys = ['original_sig_text'] + ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max_dose.parsers[0].match_keys
-    match_keys = ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max_dose.parsers[0].match_keys
+    #match_keys = ['original_sig_text'] + ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max.parsers[0].match_keys
+    match_keys = ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max.parsers[0].match_keys
     parser_type = 'sig'
 
     def get_normalized_sig_text(self, sig_text):
@@ -40,7 +40,7 @@ class SigParser(Parser):
         sig_text = ' '.join(sig_text.split())
         return sig_text
 
-    def get_readable(self, method=None, dose=None, strength=None, route=None, frequency=None, when=None, duration=None, indication=None, max_dose=None):
+    def get_readable(self, method=None, dose=None, strength=None, route=None, frequency=None, when=None, duration=None, indication=None, max=None):
         method = method if method else ''
         dose = dose if dose else ''
         strength = strength if strength else ''
@@ -49,11 +49,11 @@ class SigParser(Parser):
         when = when if when else ''
         duration = duration if duration else ''
         indication = indication if indication else ''
-        max_dose = max_dose if max_dose else ''
+        max = max if max else ''
 
         if dose != '' and strength != '':
             strength = '(' + strength + ')'
-        sig_elements = [method, dose, strength, route, frequency, when, duration, indication, max_dose]
+        sig_elements = [method, dose, strength, route, frequency, when, duration, indication, max]
         # join sig elements with spaces
         readable = ' '.join(sig_elements)
         # remove duplicate spaces, and in doing so, also trim whitespaces from around sig
@@ -93,7 +93,7 @@ class SigParser(Parser):
             when=match_dict['when_readable'],
             duration=match_dict['duration_readable'],
             indication=match_dict['indication_readable'],
-            max_dose=match_dict['max_dose_readable'],
+            max=match_dict['max_readable'],
         )
         # calculate admin instructions based on leftover pieces of sig
         # would need to calculate overlap in each of the match_dicts
@@ -112,7 +112,7 @@ class SigParser(Parser):
     # parse a csv
     def parse_sig_csv(self):
         file_path='parsers/csv/'
-        file_name='drx_1000'
+        file_name='sig_max_dose'
         csv_columns = self.match_keys
         # create an empty list to collect the data
         parsed_sigs = []
