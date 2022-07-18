@@ -40,16 +40,16 @@ class SigParser(Parser):
         sig_text = ' '.join(sig_text.split())
         return sig_text
 
-    def get_readable(self, method=None, dose=None, strength=None, route=None, frequency=None, when=None, duration=None, indication=None, max=None):
-        method = method if method else ''
-        dose = dose if dose else ''
-        strength = strength if strength else ''
-        route = route if route else ''
-        frequency = frequency if frequency else ''
-        when = when if when else ''
-        duration = duration if duration else ''
-        indication = indication if indication else ''
-        max = max if max else ''
+    def get_readable(self, match_dict):
+        method = match_dict['method_readable'] if match_dict['method_readable'] else ''
+        dose = match_dict['dose_readable'] if match_dict['dose_readable'] else ''
+        strength = match_dict['strength_readable'] if match_dict['strength_readable'] else ''
+        route = match_dict['route_readable'] if match_dict['route_readable'] else ''
+        frequency = match_dict['frequency_readable'] if match_dict['frequency_readable'] else ''
+        when = match_dict['when_readable'] if match_dict['when_readable'] else ''
+        duration = match_dict['duration_readable'] if match_dict['duration_readable'] else ''
+        indication = match_dict['indication_readable'] if match_dict['indication_readable'] else ''
+        max = match_dict['max_readable'] if match_dict['max_readable'] else ''
 
         if dose != '' and strength != '':
             strength = '(' + strength + ')'
@@ -60,6 +60,44 @@ class SigParser(Parser):
         # this accounts for empty sig elements
         readable = ' '.join(readable.split())
         return readable
+
+    def get_max_per_day(self, match_dict):
+        frequency = match_dict['frequency_max'] or match_dict['frequency']
+        period = match_dict['period']
+        period_unit = get_normalized(PERIOD_UNIT, match_dict['period_unit']) if match_dict['period_unit'] else match_dict['period_unit']
+
+        convert_period = lambda: None
+        if period_unit == 'hour':
+            convert_period = lambda x: 24 / x
+        elif period_unit == 'day':
+            convert_period = lambda x: 1 / x
+        elif period_unit == 'week':
+            convert_period = lambda x: x / 7
+
+        max_per_day_sig = frequency * convert_period(period)
+
+        if match_dict['max_denominator_value'] and match_dict['max_denominator_unit']:
+            frequency = 1
+            period = match_dict['max_denominator_value']
+            period_unit = match_dict['max_denominator_unit']
+            max_per_day_max = frequency * convert_period(period)
+
+        '''
+                print('max_per_day_sig_dose', int(match_dict['dose_max'] or match_dict['dose'] or 0) * max_per_day_sig, match_dict['dose_unit'])
+                print('max_per_day_sig_strength', int(match_dict['strength_max'] or match_dict['strength'] or 0) * max_per_day_sig, match_dict['strength_unit'])
+
+                if match_dict['max_denominator_value'] and match_dict['max_denominator_unit']:
+                    max_per_day_max = self.get_max_per_day(
+                        1,
+                        match_dict['max_denominator_value'],
+                        match_dict['max_denominator_unit']
+                    )
+                    print('max_per_day_max', match_dict['max_numerator_value'] * max_per_day_max, match_dict['max_numerator_unit'])
+
+        '''
+
+        max_per_day = max_per_day_sig
+        return max_per_day
 
     def parse(self, sig_text):
         match_dict = dict(self.match_dict)
@@ -84,17 +122,9 @@ class SigParser(Parser):
                 for k, v in match.items():
                     match_dict[k] = v
             #elif len(matches) == 0:
-        match_dict['sig_readable'] = self.get_readable(
-            method=match_dict['method_readable'],
-            dose=match_dict['dose_readable'],
-            strength=match_dict['strength_readable'],
-            route=match_dict['route_readable'],
-            frequency=match_dict['frequency_readable'],
-            when=match_dict['when_readable'],
-            duration=match_dict['duration_readable'],
-            indication=match_dict['indication_readable'],
-            max=match_dict['max_readable'],
-        )
+        match_dict['sig_readable'] = self.get_readable(match_dict)
+        max_per_day_sig = self.get_max_per_day(match_dict)
+
         # calculate admin instructions based on leftover pieces of sig
         # would need to calculate overlap in each of the match_dicts
         # in doing so, maybe also return a map of the parsed parts of the sig for use in frontend highlighting

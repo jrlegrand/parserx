@@ -21,7 +21,6 @@ class MaxParser(Parser):
         pattern = re.compile(r'(?:max(?: dose)?|do not take more than|no more than|nmt|do not exceed)\s?(?P<dose>' + RE_RANGE + r')\s?(?P<dose_unit>' + r'|'.join(dose_patterns) + '|' + r'|'.join(strength_patterns) + r')?\s?(?:per|\/|in(?: a)?)\s?(?P<period>' + RE_RANGE + r')?\s?(?P<period_unit>day|hours|hour|hrs|hr|\bh\b|week|month|year|d\b|w\b|mon|m\b|yr)', flags = re.I)
         return pattern
     def normalize_match(self, match):
-        print(match)
         dose_range = split_range(match.group('dose'))
         max_numerator_value = dose_range[1] or dose_range[0]
         max_numerator_unit = get_normalized(DOSE_UNITS, match.group('dose_unit')) if match.group('dose_unit') else None
@@ -60,7 +59,6 @@ class MaxParser(Parser):
         if max_denominator_unit:
             max_denominator_unit += 's' if plural_duration else ''
         readable += ' ' + max_denominator_unit
-        print(readable)
         return readable
 
 
@@ -83,7 +81,6 @@ class MaxDailyParser(MaxParser):
         pattern = re.compile(r'(?:max(?:imum)? daily (?:dose|amount)|mdd)\s?(?:=|is)?\s?(?P<dose>' + RE_RANGE + r')\s?(?P<dose_unit>' + r'|'.join(dose_patterns) + '|' + r'|'.join(strength_patterns) + r')?', flags = re.I)
         return pattern
     def normalize_match(self, match):
-        print(match)
         dose_range = split_range(match.group('dose'))
         max_numerator_value = dose_range[1] or dose_range[0]
         max_numerator_unit = get_normalized(DOSE_UNITS, match.group('dose_unit')) if match.group('dose_unit') else None
