@@ -59,7 +59,8 @@ module.exports = {
     config: JSON.stringify({
         //apiUrl: 'https://api.parserx.io'
         //apiUrl: 'http://139.144.27.208'
-        apiUrl: 'http://192.168.1.20:8005'
+        //apiUrl: 'http://192.168.1.20:8005'
+        apiUrl: 'http://192.168.1.14:8005'
     })
   }
 };

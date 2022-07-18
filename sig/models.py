@@ -90,7 +90,16 @@ class SigParsed(models.Model):
     indication_text_start = models.IntegerField(null=True)
     indication_text_end = models.IntegerField(null=True)
     indication_text = models.CharField(max_length=250, null=True)
-    indication_readable = models.CharField(max_length=100, null=True)   
+    indication_readable = models.CharField(max_length=100, null=True)
+    # max
+    max_numerator_value = models.IntegerField(null=True)
+    max_numerator_unit = models.CharField(max_length=100, null=True)
+    max_denominator_value = models.IntegerField(null=True)
+    max_denominator_unit = models.CharField(max_length=100, null=True)
+    max_text_start = models.IntegerField(null=True)
+    max_text_end = models.IntegerField(null=True)
+    max_text = models.CharField(max_length=100, null=True)
+    max_readable = models.CharField(max_length=100, null=True)
 
     class Meta:
         ordering = ['-created']
