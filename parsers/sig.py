@@ -61,43 +61,56 @@ class SigParser(Parser):
         readable = ' '.join(readable.split())
         return readable
 
-    def get_max_per_day(self, match_dict):
+    def get_period_per_day(self, period, period_unit):
+        if not period:
+            return None
+
+        if period_unit == 'hour':
+            return 24 / period
+        elif period_unit == 'day':
+            return 1 / period
+        elif period_unit == 'week':
+            return period / 7
+        else:
+            return None
+        
+    def get_max_dose_per_day(self, match_dict):
+        # calculate max per day from sig instructions
         frequency = match_dict['frequency_max'] or match_dict['frequency']
         period = match_dict['period']
         period_unit = get_normalized(PERIOD_UNIT, match_dict['period_unit']) if match_dict['period_unit'] else match_dict['period_unit']
+        # can be null if period_unit doesn't match
+        period_per_day = self.get_period_per_day(period, period_unit)
 
-        convert_period = lambda: None
-        if period_unit == 'hour':
-            convert_period = lambda x: 24 / x
-        elif period_unit == 'day':
-            convert_period = lambda x: 1 / x
-        elif period_unit == 'week':
-            convert_period = lambda x: x / 7
+        dose = match_dict['dose_max'] or match_dict['dose']
+        dose_unit = match_dict['dose_unit']
 
-        max_per_day_sig = frequency * convert_period(period)
+        max_dose_per_day_sig = None
+        if frequency and period_per_day and dose:
+            max_dose_per_day_sig = frequency * period_per_day * dose
 
-        if match_dict['max_denominator_value'] and match_dict['max_denominator_unit']:
-            frequency = 1
-            period = match_dict['max_denominator_value']
-            period_unit = match_dict['max_denominator_unit']
-            max_per_day_max = frequency * convert_period(period)
+        # calculate max per day from max dose (i.e. "max daily dose = 3" or "no more than 2 per week")
+        frequency_max = 1
+        period_max = match_dict['max_denominator_value']
+        period_unit_max = match_dict['max_denominator_unit']
+        # can be null if period_unit doesn't match
+        period_per_day_max = self.get_period_per_day(period_max, period_unit_max)
+        
+        dose_max = match_dict['max_numerator_value']
+        dose_unit_max = match_dict['max_numerator_unit']
 
-        '''
-                print('max_per_day_sig_dose', int(match_dict['dose_max'] or match_dict['dose'] or 0) * max_per_day_sig, match_dict['dose_unit'])
-                print('max_per_day_sig_strength', int(match_dict['strength_max'] or match_dict['strength'] or 0) * max_per_day_sig, match_dict['strength_unit'])
+        max_dose_per_day_max = None
+        if frequency_max and period_per_day_max and dose_max:
+            max_dose_per_day_max = frequency_max * period_per_day_max * dose_max
 
-                if match_dict['max_denominator_value'] and match_dict['max_denominator_unit']:
-                    max_per_day_max = self.get_max_per_day(
-                        1,
-                        match_dict['max_denominator_value'],
-                        match_dict['max_denominator_unit']
-                    )
-                    print('max_per_day_max', match_dict['max_numerator_value'] * max_per_day_max, match_dict['max_numerator_unit'])
+        # if (at least one max dose is not null) and (the dose units match or one of the dose units is null)
+        if (max_dose_per_day_sig or max_dose_per_day_max) and (dose_unit == dose_unit_max or not dose_unit or not dose_unit_max):
+            max_dose_per_day = min(d for d in [max_dose_per_day_sig, max_dose_per_day_max] if d is not None)
+        else:
+            max_dose_per_day = None
 
-        '''
-
-        max_per_day = max_per_day_sig
-        return max_per_day
+        print(max_dose_per_day_sig, dose_unit, max_dose_per_day_max, dose_unit_max, max_dose_per_day)
+        return max_dose_per_day
 
     def parse(self, sig_text):
         match_dict = dict(self.match_dict)
@@ -123,7 +136,7 @@ class SigParser(Parser):
                     match_dict[k] = v
             #elif len(matches) == 0:
         match_dict['sig_readable'] = self.get_readable(match_dict)
-        max_per_day_sig = self.get_max_per_day(match_dict)
+        max_dose_per_day = self.get_max_dose_per_day(match_dict)
 
         # calculate admin instructions based on leftover pieces of sig
         # would need to calculate overlap in each of the match_dicts
@@ -142,7 +155,7 @@ class SigParser(Parser):
     # parse a csv
     def parse_sig_csv(self):
         file_path='parsers/csv/'
-        file_name='sig_max_dose'
+        file_name='drx_current'
         csv_columns = self.match_keys
         # create an empty list to collect the data
         parsed_sigs = []
