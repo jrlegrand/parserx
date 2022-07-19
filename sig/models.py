@@ -100,6 +100,8 @@ class SigParsed(models.Model):
     max_text_end = models.IntegerField(null=True)
     max_text = models.CharField(max_length=100, null=True)
     max_readable = models.CharField(max_length=100, null=True)
+    # max_dose_per_day
+    max_dose_per_day = models.FloatField(null=True)
 
     class Meta:
         ordering = ['-created']
