@@ -23,7 +23,7 @@ class SigParser(Parser):
     }
     # TODO: make this match_keys assignment more elegant
     #match_keys = ['original_sig_text'] + ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max.parsers[0].match_keys
-    match_keys = ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max.parsers[0].match_keys
+    match_keys = ['sig_text', 'sig_readable', 'max_dose_per_day'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max.parsers[0].match_keys
     parser_type = 'sig'
 
     def get_normalized_sig_text(self, sig_text):
@@ -109,7 +109,7 @@ class SigParser(Parser):
         else:
             max_dose_per_day = None
 
-        print(max_dose_per_day_sig, dose_unit, max_dose_per_day_max, dose_unit_max, max_dose_per_day)
+        #print(max_dose_per_day_sig, dose_unit, max_dose_per_day_max, dose_unit_max, max_dose_per_day)
         return max_dose_per_day
 
     def parse(self, sig_text):
@@ -136,7 +136,7 @@ class SigParser(Parser):
                     match_dict[k] = v
             #elif len(matches) == 0:
         match_dict['sig_readable'] = self.get_readable(match_dict)
-        max_dose_per_day = self.get_max_dose_per_day(match_dict)
+        match_dict ['max_dose_per_day'] = self.get_max_dose_per_day(match_dict)
 
         # calculate admin instructions based on leftover pieces of sig
         # would need to calculate overlap in each of the match_dicts

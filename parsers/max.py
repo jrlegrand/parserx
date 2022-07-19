@@ -41,7 +41,7 @@ class MaxParser(Parser):
             max_denominator_unit=max_denominator_unit)
         return self.generate_match({'max_numerator_value': max_numerator_value, 'max_numerator_unit': max_numerator_unit, 'max_denominator_value': max_denominator_value, 'max_denominator_unit': max_denominator_unit, 'max_text_start': max_text_start, 'max_text_end': max_text_end, 'max_text': max_text, 'max_readable': max_readable})
     def get_readable(self, max_numerator_value=None, max_numerator_unit=None, max_denominator_value=None, max_denominator_unit=None):
-        if 1 == 1:
+        if 1 == 2:
             return ''
         
         readable = ' - max'
