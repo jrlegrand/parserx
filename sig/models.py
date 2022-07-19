@@ -32,8 +32,8 @@ class SigParsed(models.Model):
     method_readable = models.CharField(max_length=100, null=True)   
     # dose
     # TODO: maybe make dose fields floats instead of chars
-    dose = models.CharField(max_length=100, null=True)
-    dose_max = models.CharField(max_length=100, null=True)
+    dose = models.FloatField(null=True)
+    dose_max = models.FloatField(null=True)
     dose_unit = models.CharField(max_length=100, null=True)
     dose_text_start = models.IntegerField(null=True)
     dose_text_end = models.IntegerField(null=True)
