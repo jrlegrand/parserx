@@ -816,6 +816,38 @@ for n, p in INDICATIONS.items():
   RE_INDICATION.append(r'|'.join(p))        
 INDICATION_PATTERN = re.compile(r'(?P<indication>' + r'|'.join(RE_INDICATION) + r')', flags = re.I)
 
+ADDITIONAL_INFO = {
+  # take
+  'take as directed': ['as directed', r'\bud\b', r'\btud\b', r'as dir\b'],
+  'take on an empty stomach': [r'on(?: an)? empty stomach'],
+  'take 1 hour before sexual activity': [r'(?:one|1) hour (?:before|prior to) sex(?:ual activity)?'],
+  'take with food': ['with food'],
+  'take with fluids': ['with fluids'],
+  'take with plenty of water': [],
+  'take at onset of migraine': [],
+  'take after brushing teeth': ['after brushing teeth'],
+  'take per package instructions': ['per package instructions'],
+  'take at same time each day': [],
+  'take until finished': [r'until finish(?:ed)?'],
+  'take on full stomach': ['take on a full stomach'],
+  'take with an antacid': [r'with(?: an)? antacid'],
+  # other
+  'for suspected overdose call 911': [],
+  'repeat if no response in 3 minutes': [r'if no response in 3 min(?:utes) repeat'],
+  'allow to dissolve': ['allow to disintegrate'],
+  'do not crush, break, or chew': [],
+  'do not crush or chew': ['no crushing or chewing', 'no chewing or crushing', 'do not chew or crush', 'without chewing or crushing', 'without crushing or chewing'],
+  'do not crush': [],
+  'do not chew': [],
+  'retain in mouth as long as possible before swallowing': [],
+  'gargle after each use': [],
+  'rotate sites': ['rotate injection sites'],
+  'may sprinkle contents of capsule on food': [],
+  'shake well before each use': [],
+  'shake well before use': ['shake well before using'],
+  'may cause drowsiness': [],
+}
+
 LOGICAL_EXPRESSIONS = {
   'greater than or equal to': [r'\bgte\b', r'>=', r'g\.t\.e\.', r'> ='],
   'less than or equal to': [r'\blte\b', r'<=', r'l\.t\.e\.', r'< ='],

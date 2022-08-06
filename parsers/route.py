@@ -62,7 +62,7 @@ class TopicalRouteParser(RouteParser):
     def get_readable(self, route=None):
         readable = route if route else ''
         return readable
-    def normalize_topical_match(self, matches=[], sig=None):
+    def normalize_multiple_matches(self, matches=[], sig=None):
         # get the min/max start/end locations from list of matches
         route_text_start = min(matches, key=lambda x:x['route_text_start'])['route_text_start']
         route_text_end = max(matches, key=lambda x:x['route_text_end'])['route_text_end']
@@ -103,11 +103,11 @@ class TopicalRouteParser(RouteParser):
             normalized_match = self.normalize_match(match)
             if normalized_match:
                 matches.append(normalized_match)
-        # once we have matched on all the possible topical routes (i.e. topically / affected area / back / hand / etc),
-        # we take the list of matches and pass it to a special normalize_topical_match method
+        # once we have matched on all the possible patterns,
+        # we take the list of matches and pass it to a special normalize_multiple_matches method
         # which then overwrites the list of matches with one final match that combines all the matches
         if matches:
-            normalized_match = self.normalize_topical_match(matches, sig)
+            normalized_match = self.normalize_multiple_matches(matches, sig)
             if normalized_match:
                 matches = [(normalized_match)]
         self.matches = matches
