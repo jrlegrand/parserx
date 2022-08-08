@@ -1,5 +1,5 @@
 from .classes.parser import *
-from . import method, dose, strength, route, frequency, when, duration, indication, max
+from . import method, dose, strength, route, frequency, when, duration, indication, max, additional_info
 import csv
 
 # TODO: need to move all this to the main app and re-purpose the sig.py parser
@@ -20,10 +20,11 @@ class SigParser(Parser):
         'duration': duration.parsers,
         'indication': indication.parsers,
         'max': max.parsers,
+        'additional_info': additional_info.parsers,
     }
     # TODO: make this match_keys assignment more elegant
-    #match_keys = ['original_sig_text'] + ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max.parsers[0].match_keys
-    match_keys = ['sig_text', 'sig_readable', 'max_dose_per_day'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max.parsers[0].match_keys
+    #match_keys = ['original_sig_text'] + ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max.parsers[0].match_keys + additional_info.parsers[0].match_keys
+    match_keys = ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max.parsers[0].match_keys + additional_info.parsers[0].match_keys
     parser_type = 'sig'
 
     def get_normalized_sig_text(self, sig_text):
@@ -48,10 +49,11 @@ class SigParser(Parser):
         duration = match_dict['duration_readable'] if match_dict['duration_readable'] else ''
         indication = match_dict['indication_readable'] if match_dict['indication_readable'] else ''
         max = match_dict['max_readable'] if match_dict['max_readable'] else ''
+        additional_info = match_dict['additional_info_readable'] if match_dict['additional_info_readable'] else ''
 
         if dose != '' and strength != '':
             strength = '(' + strength + ')'
-        sig_elements = [method, dose, strength, route, frequency, when, duration, indication, max]
+        sig_elements = [method, dose, strength, route, frequency, when, duration, indication, max, additional_info]
         # join sig elements with spaces
         readable = ' '.join(sig_elements)
         # remove duplicate spaces, and in doing so, also trim whitespaces from around sig
@@ -263,7 +265,7 @@ def print_progress_bar (iteration, total, prefix = 'progress:', suffix = 'comple
         print()
 
 #print(SigParser().infer(ndc='68788640709'))
-#parsed_sigs = SigParser().parse_sig_csv()
+parsed_sigs = SigParser().parse_sig_csv()
 #parsed_sigs = SigParser().parse_validate_sig_csv()
 #print(parsed_sigs)
 

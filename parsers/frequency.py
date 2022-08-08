@@ -235,5 +235,6 @@ parsers = [
 	FrequencyInTheX(),
 	FrequencyAtBedtime(),
 	FrequencyOneTime(),
-	FrequencyAsDirected(),
+	# NOTE: removing this parser for DRX implementation - may consider adding back
+	# FrequencyAsDirected(),
 ]
