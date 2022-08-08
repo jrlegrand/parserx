@@ -23,7 +23,9 @@ class MaxParser(Parser):
     def normalize_match(self, match):
         dose_range = split_range(match.group('dose'))
         max_numerator_value = dose_range[1] or dose_range[0]
-        max_numerator_unit = get_normalized(DOSE_UNITS, match.group('dose_unit')) if match.group('dose_unit') else None
+        # need to check for normalizaion for both dose units and strength units
+        # will return text of match if no normalization found
+        max_numerator_unit = get_normalized(STRENGTH_UNITS, get_normalized(DOSE_UNITS, match.group('dose_unit'))) if match.group('dose_unit') else None
         max_denominator_value = None
         if match.group('period'):
             period_range = split_range(match.group('period')) 
@@ -83,7 +85,9 @@ class MaxDailyParser(MaxParser):
     def normalize_match(self, match):
         dose_range = split_range(match.group('dose'))
         max_numerator_value = dose_range[1] or dose_range[0]
-        max_numerator_unit = get_normalized(DOSE_UNITS, match.group('dose_unit')) if match.group('dose_unit') else None
+        # need to check for normalizaion for both dose units and strength units
+        # will return text of match if no normalization found
+        max_numerator_unit = get_normalized(STRENGTH_UNITS, get_normalized(DOSE_UNITS, match.group('dose_unit'))) if match.group('dose_unit') else None
         max_denominator_value = 1
         max_denominator_unit = get_normalized(PERIOD_UNIT, 'day')
         max_text_start, max_text_end = match.span()
