@@ -23,6 +23,25 @@ class RouteParser(Parser):
         readable = route if route else ''
         return readable
 
+class InhalationRouteParser(RouteParser):
+    def normalize_pattern(self):
+        route_patterns = []
+        for n, p in INHALATION_ROUTES.items():
+            # add the name of the pattern to the list of matched patterns
+            p.append(n)
+            # and join them with a | character
+            # and add them to the route_patterns array
+            route_patterns.append(r'|'.join(p))
+        pattern = re.compile(r'\b(?P<route>' + r'|'.join(route_patterns) + r')\b', flags = re.I)
+        return pattern
+    def normalize_match(self, match):
+        route = get_normalized(INHALATION_ROUTES, match.group('route'))
+        route_text_start, route_text_end = match.span()
+        route_text = match[0]
+        route_readable = self.get_readable(route=route)
+        return self.generate_match({'route': route, 'route_text_start': route_text_start, 'route_text_end': route_text_end, 'route_text': route_text, 'route_readable': route_readable})
+
+# NOTE: adding \b border because pharmacy was evaluting to topical route of arm
 class TopicalRouteParser(RouteParser):
     def normalize_pattern(self):
         topical_route_patterns = []
@@ -32,7 +51,7 @@ class TopicalRouteParser(RouteParser):
             # and join them with a | character
             # and add them to the route_patterns array
             topical_route_patterns.append(r'|'.join(p))
-        pattern = re.compile(r'.*(?P<route>' + r'|'.join(topical_route_patterns) + r').*', flags = re.I)
+        pattern = re.compile(r'\b(?P<route>' + r'|'.join(topical_route_patterns) + r')\b', flags = re.I)
         return pattern
     def normalize_match(self, match):
         route = get_normalized(TOPICAL_ROUTES, match.group('route'))
@@ -43,7 +62,57 @@ class TopicalRouteParser(RouteParser):
     def get_readable(self, route=None):
         readable = route if route else ''
         return readable
-        
+    def normalize_topical_match(self, matches=[], sig=None):
+        # get the min/max start/end locations from list of matches
+        route_text_start = min(matches, key=lambda x:x['route_text_start'])['route_text_start']
+        route_text_end = max(matches, key=lambda x:x['route_text_end'])['route_text_end']
+        # get substring of sig text based on these min/max locations
+        route_text = sig[route_text_start:route_text_end]
+        # get list of route text from list of matches
+        route_list = [m['route'] for m in matches]
+        # remove 'topically' from main route list and add to separate list
+        # do same for affected area / affected areas
+        topical_route = 'topically' in route_list
+        affected_areas_route = 'affected areas' in route_list
+        affected_area_route = 'affected area' in route_list
+        # add topically if we explicitly have 'topically' as a normalized route match
+        route_readable = ''
+        route_readable += 'topically ' if topical_route else ''
+        # prefer 'affected areas' if we have both
+        if affected_areas_route:
+            route_readable += 'to affected areas '
+        elif affected_area_route:
+            route_readable += 'to affected area '
+        # filter out the above to create a new list of just the sites (i.e. back / torso / hand / etc)
+        route_list = [r for r in route_list if r not in ('topically', 'affected areas', 'affected area')]
+        if route_list:
+            # join with /
+            route_list = ' / '.join(route_list)
+            # affected areas OF x / y if we have an 'affected areas' match
+            # otherwise we would apply TO x / y
+            route_readable += ' of ' if (affected_areas_route or affected_area_route) else ' to '
+            route_readable += route_list
+        # remove white space
+        route_readable = route_readable.strip()
+        # for now, set route to 'topically' for systems that can't handle specific sites
+        route = 'topically'
+        return self.generate_match({'route': route, 'route_text_start': route_text_start, 'route_text_end': route_text_end, 'route_text': route_text, 'route_readable': route_readable})
+    def parse(self, sig):
+        matches = []
+        for match in re.finditer(self.pattern, sig):
+            normalized_match = self.normalize_match(match)
+            if normalized_match:
+                matches.append(normalized_match)
+        # once we have matched on all the possible topical routes (i.e. topically / affected area / back / hand / etc),
+        # we take the list of matches and pass it to a special normalize_topical_match method
+        # which then overwrites the list of matches with one final match that combines all the matches
+        if matches:
+            normalized_match = self.normalize_topical_match(matches, sig)
+            if normalized_match:
+                matches = [(normalized_match)]
+        self.matches = matches
+        return matches
+
 class InferredOralRouteParser(RouteParser):
     pattern = r'\b(?P<route>(?!vaginal|sublingual)tab(?:let)?(?:s)?(?!.*(?:sublingual(?:ly)?|into|per|on the|between the|under|by sublingual route|by buccal route))|cap(?:sule)?(?:s)?|chew(?:able)?|\dpo|capful|pill)\b'
     def normalize_pattern(self):
@@ -57,6 +126,7 @@ class InferredOralRouteParser(RouteParser):
 
 parsers = [
     RouteParser(),
+    InhalationRouteParser(),
     TopicalRouteParser(),
     InferredOralRouteParser()
 ]

@@ -29,13 +29,11 @@ class SigParser(Parser):
     def get_normalized_sig_text(self, sig_text):
         # standardize to lower case
         sig_text = sig_text.lower()
-        # remove , if bordered by numbers (i.e. 1,000 -> 1000 - not 1 000)
-        sig_text = re.sub(r'(?<=[0-9]),(?=[0-9])', '', sig_text)
-        # replace with space:
+        # remove:
         # . if not bordered by a number (i.e. don't want to convert 2.5 to 25 or 0.5 to 05)
         # : if not bordered by a number (i.e. not 5:00 or 1:10000)
         # , ; # * " ' ( ) \t [ ] :
-        sig_text = re.sub(r'(?:(?<![0-9])\.(?![0-9])|,|;|#|\*|\"|\'|\(|\)|\t|\[|\]|(?<![0-9]):(?![0-9]))', ' ', sig_text)
+        sig_text = re.sub(r'(?:(?<![0-9])\.(?![0-9])|,|;|#|\*|\"|\'|\(|\)|\t|\[|\]|(?<![0-9]):(?![0-9]))', '', sig_text)
         # remove duplicate spaces, and in doing so, also trim whitespaces from around sig
         sig_text = ' '.join(sig_text.split())
         return sig_text
@@ -265,7 +263,7 @@ def print_progress_bar (iteration, total, prefix = 'progress:', suffix = 'comple
         print()
 
 #print(SigParser().infer(ndc='68788640709'))
-parsed_sigs = SigParser().parse_sig_csv()
+#parsed_sigs = SigParser().parse_sig_csv()
 #parsed_sigs = SigParser().parse_validate_sig_csv()
 #print(parsed_sigs)
 
