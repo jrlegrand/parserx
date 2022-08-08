@@ -151,12 +151,13 @@ class SigParser(Parser):
         return match_dict
 
     # infer method, dose_unit, and route from NDC or RXCUI
-    def infer(self, ndc=None, rxcui=None):
-        sig_elements = ['method', 'dose_unit', 'route']
+    def infer(self, match_dict, ndc=None, rxcui=None):
+        #sig_elements = ['method', 'dose_unit', 'route']
+        sig_elements = ['method', 'route']
         inferred = dict.fromkeys(sig_elements)
         for sig_element in sig_elements:
             inferred[sig_element] = infer_sig_element(sig_element, ndc, rxcui)
-        #inferred['sig_readable'] = self.get_readable(match_dict)
+        inferred['sig_readable'] = self.get_readable(match_dict, inferred_method=inferred['method'], inferred_route=inferred['route'])
         return inferred
 
     # parse a csv

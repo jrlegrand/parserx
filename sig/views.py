@@ -82,7 +82,8 @@ class SigViewSet(mixins.CreateModelMixin,
             # else, return optimal sig_parsed (for customers)
             sig = serializer.data if request.user.is_staff else self.replace_sig_parsed_optimal(serializer.data)
             if ndc or rxcui:
-                sig['sig_inferred'] = self.get_sig_inferred(ndc=ndc, rxcui=rxcui)
+                sig_parsed = sig['sig_parsed'][0] if type(sig['sig_parsed']) is list else sig['sig_parsed']
+                sig['sig_inferred'] = self.get_sig_inferred(sig_parsed, ndc=ndc, rxcui=rxcui)
             sig['original_sig_text'] = original_sig_text
             return Response(sig, status=status.HTTP_201_CREATED, headers=headers)
         # if sig DOES exist...
@@ -99,12 +100,13 @@ class SigViewSet(mixins.CreateModelMixin,
             # else, return optimal sig_parsed (for customers)
             sig = serializer.data if request.user.is_staff else self.replace_sig_parsed_optimal(serializer.data)
             if ndc or rxcui:
-                sig['sig_inferred'] = self.get_sig_inferred(ndc=ndc, rxcui=rxcui)
+                sig_parsed = sig['sig_parsed'][0] if type(sig['sig_parsed']) is list else sig['sig_parsed']
+                sig['sig_inferred'] = self.get_sig_inferred(sig_parsed, ndc=ndc, rxcui=rxcui)
             sig['original_sig_text'] = original_sig_text
             return Response(sig)
 
-    def get_sig_inferred(self, ndc=None, rxcui=None):
-        sig_inferred_data = SigParser().infer(ndc, rxcui)
+    def get_sig_inferred(self, sig_parsed, ndc=None, rxcui=None):
+        sig_inferred_data = SigParser().infer(sig_parsed, ndc, rxcui)
         return sig_inferred_data
 
     def replace_sig_parsed_optimal(self, sig):
