@@ -42,24 +42,6 @@ class DoseParser(Parser):
         readable = readable.strip()
         return readable
 
-class DoseUnitOnlyParser(DoseParser):
-    def normalize_pattern(self):
-        dose_patterns = []
-        for n, p in DOSE_UNITS.items():
-            # add the name of the pattern to the list of matched patterns
-            p.append(n)
-            # and join them with a | character
-            # and add them to the dose_patterns array
-            dose_patterns.append(r'|'.join(p))        
-        pattern = re.compile(r'\b(?P<dose_unit>' + r'|'.join(dose_patterns) + r')\b', flags = re.I)
-        return pattern
-    def normalize_match(self, match):
-        dose_unit = get_normalized(DOSE_UNITS, match.group('dose_unit'))
-        dose_text_start, dose_text_end = match.span()
-        dose_text = match[0]
-        dose_readable = self.get_readable(dose_unit=dose_unit)
-        return self.generate_match({'dose_unit': dose_unit, 'dose_text_start': dose_text_start, 'dose_text_end': dose_text_end, 'dose_text': dose_text, 'dose_readable': dose_readable})
-
 class DoseOnlyParser(DoseParser):
     def normalize_pattern(self):
         method_patterns = []
@@ -86,10 +68,30 @@ class DoseOnlyParser(DoseParser):
         dose_readable = self.get_readable(dose=dose, dose_max=dose_max)
         return self.generate_match({'dose': dose, 'dose_max': dose_max, 'dose_text_start': dose_text_start, 'dose_text_end': dose_text_end, 'dose_text': dose_text, 'dose_readable': dose_readable})
 
+# NOTE: moved dose unit only BELOW dose only because prefer "2" over "tablets" from "2 po qid max dose 6 tabs"
+class DoseUnitOnlyParser(DoseParser):
+    def normalize_pattern(self):
+        dose_patterns = []
+        for n, p in DOSE_UNITS.items():
+            # add the name of the pattern to the list of matched patterns
+            p.append(n)
+            # and join them with a | character
+            # and add them to the dose_patterns array
+            dose_patterns.append(r'|'.join(p))        
+        pattern = re.compile(r'\b(?P<dose_unit>' + r'|'.join(dose_patterns) + r')\b', flags = re.I)
+        return pattern
+    def normalize_match(self, match):
+        dose_unit = get_normalized(DOSE_UNITS, match.group('dose_unit'))
+        dose_text_start, dose_text_end = match.span()
+        dose_text = match[0]
+        dose_readable = self.get_readable(dose_unit=dose_unit)
+        return self.generate_match({'dose_unit': dose_unit, 'dose_text_start': dose_text_start, 'dose_text_end': dose_text_end, 'dose_text': dose_text, 'dose_readable': dose_readable})
+
+
 parsers = [
     DoseParser(),
-    DoseUnitOnlyParser(),
     DoseOnlyParser(),
+    DoseUnitOnlyParser(),
 ]
 
 #print(DoseParser().parse('take one capsule prn nausea for 5 days'))
