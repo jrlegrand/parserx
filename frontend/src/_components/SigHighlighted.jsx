@@ -30,37 +30,47 @@ class SigHighlighted extends React.Component {
         const when = sig_parsed_components.when;
         const duration = sig_parsed_components.duration;
         const indication = sig_parsed_components.indication;
+        const max = sig_parsed_components.max;
+        const additional_info = sig_parsed_components.additional_info;
 
-        if (method.method_text_start != null && pos >= method.method_text_start && pos <= method.method_text_end) {
+        if (method.method_text_start != null && pos >= method.method_text_start && pos < method.method_text_end) {
             className.push('highlight-red');
         }
 
-        if (dose.dose_text_start != null && pos >= dose.dose_text_start && pos <= dose.dose_text_end) {
+        if (dose.dose_text_start != null && pos >= dose.dose_text_start && pos < dose.dose_text_end) {
             className.push('highlight-orange');
         }
 
-        if (strength.strength_text_start != null && pos >= strength.strength_text_start && pos <= strength.strength_text_end) {
+        if (strength.strength_text_start != null && pos >= strength.strength_text_start && pos < strength.strength_text_end) {
             className.push('highlight-orange');
         }
 
-        if (route.route_text_start != null && pos >= route.route_text_start && pos <= route.route_text_end) {
+        if (route.route_text_start != null && pos >= route.route_text_start && pos < route.route_text_end) {
             className.push('highlight-yellow');
         }
 
-        if (frequency.frequency_text_start != null && pos >= frequency.frequency_text_start && pos <= frequency.frequency_text_end) {
+        if (frequency.frequency_text_start != null && pos >= frequency.frequency_text_start && pos < frequency.frequency_text_end) {
             className.push('highlight-green');
         }
 
-        if (when.when_text_start != null && pos >= when.when_text_start && pos <= when.when_text_end) {
+        if (when.when_text_start != null && pos >= when.when_text_start && pos < when.when_text_end) {
             className.push('highlight-green');
         }
 
-        if (duration.duration_text_start != null && pos >= duration.duration_text_start && pos <= duration.duration_text_end) {
+        if (duration.duration_text_start != null && pos >= duration.duration_text_start && pos < duration.duration_text_end) {
             className.push('highlight-green');
         }
 
-        if (indication.indication_text_start != null && pos >= indication.indication_text_start && pos <= indication.indication_text_end) {
+        if (indication.indication_text_start != null && pos >= indication.indication_text_start && pos < indication.indication_text_end) {
             className.push('highlight-purple');
+        }
+
+        if (max.max_text_start != null && pos >= max.max_text_start && pos < max.max_text_end) {
+            className.push('highlight-blue');
+        }
+
+        if (additional_info.additional_info_text_start != null && pos >= additional_info.additional_info_text_start && pos < additional_info.additional_info_text_end) {
+            className.push('highlight-cyan');
         }
 
         className = className.join(' ');
@@ -138,8 +148,26 @@ class SigHighlighted extends React.Component {
                 indication_text: sig_parsed.indication_text,
                 indication_text_start: sig_parsed.indication_text_start,
                 indication_text_end: sig_parsed.indication_text_end
-            }      
+            },
+            max: {
+                max_numerator_value: sig_parsed.max_numerator_value,
+                max_numerator_unit: sig_parsed.max_numerator_unit,
+                max_denominator_value: sig_parsed.max_denominator_value,
+                max_denominator_unit: sig_parsed.max_denominator_unit,
+                max_text_start: sig_parsed.max_text_start,
+                max_text_end: sig_parsed.max_text_end,
+                max_text: sig_parsed.max_text,
+                max_readable: sig_parsed.max_readable
+            },
+            additional_info: {
+                additional_info: sig_parsed.additional_info,
+                additional_info_text_start: sig_parsed.additional_info_text_start,
+                additional_info_text_end: sig_parsed.additional_info_text_end,
+                additional_info_text: sig_parsed.additional_info_text,
+                additional_info_readable: sig_parsed.additional_info_readable
+            }
         };
+        console.log('sig_parsed_components', sig_parsed_components);
         this.setState({ sig_parsed_components });
     }
 

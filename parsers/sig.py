@@ -24,7 +24,7 @@ class SigParser(Parser):
     }
     # TODO: make this match_keys assignment more elegant
     #match_keys = ['original_sig_text'] + ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max.parsers[0].match_keys + additional_info.parsers[0].match_keys
-    match_keys = ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max.parsers[0].match_keys + additional_info.parsers[0].match_keys
+    match_keys = ['sig_text', 'sig_readable', 'max_dose_per_day'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max.parsers[0].match_keys + additional_info.parsers[0].match_keys
     parser_type = 'sig'
 
     def get_normalized_sig_text(self, sig_text):
@@ -39,17 +39,17 @@ class SigParser(Parser):
         sig_text = ' '.join(sig_text.split())
         return sig_text
 
-    def get_readable(self, match_dict):
-        method = match_dict['method_readable'] if match_dict['method_readable'] else ''
-        dose = match_dict['dose_readable'] if match_dict['dose_readable'] else ''
-        strength = match_dict['strength_readable'] if match_dict['strength_readable'] else ''
-        route = match_dict['route_readable'] if match_dict['route_readable'] else ''
-        frequency = match_dict['frequency_readable'] if match_dict['frequency_readable'] else ''
-        when = match_dict['when_readable'] if match_dict['when_readable'] else ''
-        duration = match_dict['duration_readable'] if match_dict['duration_readable'] else ''
-        indication = match_dict['indication_readable'] if match_dict['indication_readable'] else ''
-        max = match_dict['max_readable'] if match_dict['max_readable'] else ''
-        additional_info = match_dict['additional_info_readable'] if match_dict['additional_info_readable'] else ''
+    def get_readable(self, match_dict, inferred_method=None, inferred_route=None):
+        method = match_dict['method_readable'] or inferred_method or ''
+        dose = match_dict['dose_readable'] or ''
+        strength = match_dict['strength_readable'] or ''
+        route = match_dict['route_readable'] or inferred_route or ''
+        frequency = match_dict['frequency_readable'] or ''
+        when = match_dict['when_readable'] or ''
+        duration = match_dict['duration_readable'] or ''
+        indication = match_dict['indication_readable'] or ''
+        max = match_dict['max_readable'] or ''
+        additional_info = match_dict['additional_info_readable'] or ''
 
         if dose != '' and strength != '':
             strength = '(' + strength + ')'
@@ -156,6 +156,7 @@ class SigParser(Parser):
         inferred = dict.fromkeys(sig_elements)
         for sig_element in sig_elements:
             inferred[sig_element] = infer_sig_element(sig_element, ndc, rxcui)
+        #inferred['sig_readable'] = self.get_readable(match_dict)
         return inferred
 
     # parse a csv
@@ -265,7 +266,7 @@ def print_progress_bar (iteration, total, prefix = 'progress:', suffix = 'comple
         print()
 
 #print(SigParser().infer(ndc='68788640709'))
-parsed_sigs = SigParser().parse_sig_csv()
+#parsed_sigs = SigParser().parse_sig_csv()
 #parsed_sigs = SigParser().parse_validate_sig_csv()
 #print(parsed_sigs)
 
