@@ -116,6 +116,18 @@
     background: linear-gradient(180deg,rgba(255,255,255,0) 75%, #9C27B0 25%);
   }
 
+  .highlight-pink {
+    background: linear-gradient(180deg,rgba(255,255,255,0) 75%, #E91E63 25%);
+  }
+
+  .highlight-cyan {
+    background: linear-gradient(180deg,rgba(255,255,255,0) 75%, #00BCD4 25%);
+  }
+
+  .highlight-gray {
+    background: linear-gradient(180deg,rgba(255,255,255,0) 75%, #9E9E9E 25%);
+  }
+
   .red {
     color:#F44336
   }

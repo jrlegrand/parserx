@@ -105,7 +105,6 @@ class SigViewSet(mixins.CreateModelMixin,
 
     def get_sig_inferred(self, ndc=None, rxcui=None):
         sig_inferred_data = SigParser().infer(ndc, rxcui)
-        print(sig_inferred_data)
         return sig_inferred_data
 
     def replace_sig_parsed_optimal(self, sig):
