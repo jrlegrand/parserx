@@ -103,7 +103,24 @@ class SigParsed extends React.Component {
                 indication_text_start: sig_parsed.indication_text_start,
                 indication_text_end: sig_parsed.indication_text_end,
                 indication_readable: sig_parsed.indication_readable               
-            }      
+            },
+            max: {
+                max_numerator_value: sig_parsed.max_numerator_value,
+                max_numerator_unit: sig_parsed.max_numerator_unit,
+                max_denominator_value: sig_parsed.max_denominator_value,
+                max_denominator_unit: sig_parsed.max_denominator_unit,
+                max_text_start: sig_parsed.max_text_start,
+                max_text_end: sig_parsed.max_text_end,
+                max_text: sig_parsed.max_text,
+                max_readable: sig_parsed.max_readable
+            },
+            additional_info: {
+                additional_info: sig_parsed.additional_info,
+                additional_info_text_start: sig_parsed.additional_info_text_start,
+                additional_info_text_end: sig_parsed.additional_info_text_end,
+                additional_info_text: sig_parsed.additional_info_text,
+                additional_info_readable: sig_parsed.additional_info_readable
+            }
         };
 
         this.setState({ sig_parsed_components });
@@ -145,7 +162,7 @@ class SigParsed extends React.Component {
         const { sig_parsed, sig_reviewed, sig_parsed_components } = this.state;
         return (
             <Row>
-                <Col sm={12} md={9}>
+                <Col sm={12} md={10}>
                     <Table responsive borderless size="sm">
                         <thead> 
                             <tr>
@@ -170,6 +187,12 @@ class SigParsed extends React.Component {
                                 <th>
                                     indication
                                 </th>
+                                <th>
+                                    max
+                                </th>
+                                <th>
+                                    additional info
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -191,6 +214,12 @@ class SigParsed extends React.Component {
                                 <td title={JSON.stringify(sig_parsed_components.indication, null, 2)}>
                                     {sig_parsed.indication_readable}
                                 </td>
+                                <td title={JSON.stringify(sig_parsed_components.max, null, 2)}>
+                                    {sig_parsed.max_readable}
+                                </td>
+                                <td title={JSON.stringify(sig_parsed_components.additional_info, null, 2)}>
+                                    {sig_parsed.additional_info_readable}
+                                </td>
                             </tr>
                             {sig_reviewed && !sig_reviewed.sig_correct &&
                             <tr>
@@ -204,7 +233,7 @@ class SigParsed extends React.Component {
                         </tbody>
                     </Table>   
                 </Col>
-                <Col sm={12} md={3}>
+                <Col sm={12} md={2}>
                     <SigReviewedOverall sig_reviewed={sig_reviewed} sig_parsed={sig_parsed} handleChange={this.handleReview} />
                 </Col>             
             </Row>
