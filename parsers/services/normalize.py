@@ -118,7 +118,7 @@ METHODS = {
   'administer': [],
   'dissolve': [],
   'shampoo': [],
-  'inhale': [r'inh\b'],
+  'inhale': [r'inh\b', r'neb\b', r'nebuliz(?:ation|ed|er|e)'],
   'insert': [],
   'use': [],
   'push': [],
@@ -192,7 +192,7 @@ ROUTES = {
   'in right eye': [r'(?:in to |into |in |to |per )?(?:the )?right eye', r'\bo\.d\.\b', r'\bod\b'],
   'in each eye': [r'(?:in to |into |in |to |per )?(?:both eyes|each eye|(?!affected )eyes)', r'\bo\.u\.\b', r'\bou\b'],
   'in affected eye': [r'(?:in to |into |in |to |per )?(?:the )?affected eye\b'],
-  'in eye(s)': ['by eye', 'ophthalmically', 'ophthalmic', 'ophth', r'(?:in to |into |in |to |per )?(?:the )?(?!affected )eye\b'],
+  'in eye(s)': ['by eye', 'ophthalmically', 'ophthalmic', 'ophth', r'(?:in to |into |in |to |per )?(?:the )?(?!affected )eye(?!\s?lid)\b'],
   'vaginally': ['vaginal', r'(?:in to|into|in|per)(?: the)? vagina', r'p\.v\.', r'pv\b'],
   'into the uterus': ['intrauterine', 'uterus'],
   'under the tongue': ['sublingually', 'sublingual', r'under (?:the )?tongue', r'sub(?: |-)?lingual(?:ly)?', r'\bs\.l\.\b', r'\bsl\b'],
@@ -208,8 +208,7 @@ ROUTES = {
   'via ng-tube': [r'(?:via|per) (?:ng|n\.g\.)(?:-| )?tube', 'nasogastrically', 'nasogastricly', 'nasogastric'],
   'to the teeth': ['dentally', 'dental', r'to(?: the)? teeth'],
   'intra-articularly': [r'(?:in to|into|in|to|per) (?:the|one|both|two|all) joint', 'intra-articular'],
-  'via nebulizer': ['via nebulization', r'(?:via |per|using a |from the |by )?nebuliz(?:ation|ed|er|e)'],
-  'into the lungs': ['via inhalation', 'respiratory tract', r'(?:via |per |using a |from the )?inhal(?:ation|ed|er|e)', r'puff(?:s)?', r'inh\b', r'inhalation(?:s)?'],
+  'via nebulizer': ['via nebulization', r'(?:via |per|using a |from the |by )?nebuliz(?:ation|ed|er|e)', r'neb\b'],
   'in urethra': [r'(?:into|via|within the|within) urethra', 'urethrally', 'urethral'],
   'on the tongue': ['translingual', 'translingually'],
   'between the cheek and gums': ['buccally', r'between (?:the )?cheek and (?:the )?gums', 'buccal', 'inside the cheek'],
@@ -355,8 +354,8 @@ TOPICAL_ROUTES = {
   'torso': [],
   'arms': [],
   'arm': [],
-  'eye lids': ['eyelids'],
-  'eye lid': [r'eyelid\b'],
+  'eyelids': ['eye lids'],
+  'eyelid': [r'eye lid\b'],
   'left big toe': ['left great toe'],
   'right big toe': ['right great toe'],
   'clean dry skin': [r'clean(?:ed)? dry skin'],
@@ -366,6 +365,10 @@ TOPICAL_ROUTES = {
   'buttocks': [r'butt\b'],
   'blood blister': [],
   'face': [],
+}
+
+INHALATION_ROUTES = {
+  'into the lungs': ['via inhalation', 'respiratory tract', r'(?:via |per |using a |from the )?inhal(?:ation|ed|er|e)', r'puff(?:s)?', r'inh\b', r'inhalation(?:s)?'],
 }
 
 # TODO: add a lot more here (mL, mcg, g, etc)
