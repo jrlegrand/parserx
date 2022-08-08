@@ -1,5 +1,5 @@
 from .classes.parser import *
-from . import method, dose, strength, route, frequency, when, duration, indication, additional_info
+from . import method, dose, strength, route, frequency, when, duration, indication, max, additional_info
 import csv
 
 # TODO: need to move all this to the main app and re-purpose the sig.py parser
@@ -19,11 +19,12 @@ class SigParser(Parser):
         'when': when.parsers,
         'duration': duration.parsers,
         'indication': indication.parsers,
+        'max': max.parsers,
         'additional_info': additional_info.parsers,
     }
     # TODO: make this match_keys assignment more elegant
-    #match_keys = ['original_sig_text'] + ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + additional_info.parsers[0].match_keys
-    match_keys = ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + additional_info.parsers[0].match_keys
+    #match_keys = ['original_sig_text'] + ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max.parsers[0].match_keys + additional_info.parsers[0].match_keys
+    match_keys = ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max.parsers[0].match_keys + additional_info.parsers[0].match_keys
     parser_type = 'sig'
 
     def get_normalized_sig_text(self, sig_text):
@@ -38,26 +39,84 @@ class SigParser(Parser):
         sig_text = ' '.join(sig_text.split())
         return sig_text
 
-    def get_readable(self, method=None, dose=None, strength=None, route=None, frequency=None, when=None, duration=None, indication=None, additional_info=None):
-        method = method if method else ''
-        dose = dose if dose else ''
-        strength = strength if strength else ''
-        route = route if route else ''
-        frequency = frequency if frequency else ''
-        when = when if when else ''
-        duration = duration if duration else ''
-        indication = indication if indication else ''
-        additional_info = additional_info if additional_info else ''
+    def get_readable(self, match_dict):
+        method = match_dict['method_readable'] if match_dict['method_readable'] else ''
+        dose = match_dict['dose_readable'] if match_dict['dose_readable'] else ''
+        strength = match_dict['strength_readable'] if match_dict['strength_readable'] else ''
+        route = match_dict['route_readable'] if match_dict['route_readable'] else ''
+        frequency = match_dict['frequency_readable'] if match_dict['frequency_readable'] else ''
+        when = match_dict['when_readable'] if match_dict['when_readable'] else ''
+        duration = match_dict['duration_readable'] if match_dict['duration_readable'] else ''
+        indication = match_dict['indication_readable'] if match_dict['indication_readable'] else ''
+        max = match_dict['max_readable'] if match_dict['max_readable'] else ''
+        additional_info = match_dict['additional_info_readable'] if match_dict['additional_info_readable'] else ''
 
         if dose != '' and strength != '':
             strength = '(' + strength + ')'
-        sig_elements = [method, dose, strength, route, frequency, when, duration, indication, additional_info]
+        sig_elements = [method, dose, strength, route, frequency, when, duration, indication, max, additional_info]
         # join sig elements with spaces
         readable = ' '.join(sig_elements)
         # remove duplicate spaces, and in doing so, also trim whitespaces from around sig
         # this accounts for empty sig elements
         readable = ' '.join(readable.split())
         return readable
+
+    def get_period_per_day(self, period, period_unit):
+        if not period:
+            return None
+
+        if period_unit == 'hour':
+            return 24 / period
+        elif period_unit == 'day':
+            return 1 / period
+        elif period_unit == 'week':
+            return 1 / (7 * period)
+        elif period_unit == 'month':
+            return 1 / (30 * period)
+        else:
+            return None
+        
+    def get_max_dose_per_day(self, match_dict):
+        # calculate max per day from sig instructions
+        frequency = match_dict['frequency_max'] or match_dict['frequency']
+        period = match_dict['period']
+        period_unit = get_normalized(PERIOD_UNIT, match_dict['period_unit']) if match_dict['period_unit'] else match_dict['period_unit']
+        # period_per_day can be null if period_unit doesn't match hour / day / week / month
+        period_per_day = self.get_period_per_day(period, period_unit)
+
+        dose = match_dict['dose_max'] or match_dict['dose']
+        dose_unit = match_dict['dose_unit']
+
+        max_dose_per_day_sig = None
+        if frequency and period_per_day and dose:
+            max_dose_per_day_sig = frequency * period_per_day * dose
+
+        # calculate max per day from max dose (i.e. "max daily dose = 3" or "no more than 2 per week")
+        frequency_max = 1
+        period_max = match_dict['max_denominator_value']
+        period_unit_max = match_dict['max_denominator_unit']
+        # can be null if period_unit doesn't match
+        period_per_day_max = self.get_period_per_day(period_max, period_unit_max)
+        
+        dose_max = match_dict['max_numerator_value']
+        dose_unit_max = match_dict['max_numerator_unit']
+
+        max_dose_per_day_max = None
+        if frequency_max and period_per_day_max and dose_max:
+            max_dose_per_day_max = frequency_max * period_per_day_max * dose_max
+        
+        max_dose_per_day = None
+        # if we are dealing with a complex dose unit, don't return a max_dose_per_day
+        if dose_unit in EXCLUDED_MDD_DOSE_UNITS or dose_unit_max in EXCLUDED_MDD_DOSE_UNITS:
+            return max_dose_per_day
+        # if (at least one max dose is not null) and (the dose units match or one of the dose units is null)
+        if (max_dose_per_day_sig or max_dose_per_day_max) and (dose_unit == dose_unit_max or not dose_unit or not dose_unit_max):
+            # originally wrote this to choose the lowest dose per day
+            # max_dose_per_day = min(d for d in [max_dose_per_day_sig, max_dose_per_day_max] if d is not None)
+            # however, requirements changed to always prefer max over sig
+            max_dose_per_day = max_dose_per_day_max or max_dose_per_day_sig
+
+        return max_dose_per_day
 
     def parse(self, sig_text):
         match_dict = dict(self.match_dict)
@@ -82,17 +141,9 @@ class SigParser(Parser):
                 for k, v in match.items():
                     match_dict[k] = v
             #elif len(matches) == 0:
-        match_dict['sig_readable'] = self.get_readable(
-            method=match_dict['method_readable'],
-            dose=match_dict['dose_readable'],
-            strength=match_dict['strength_readable'],
-            route=match_dict['route_readable'],
-            frequency=match_dict['frequency_readable'],
-            when=match_dict['when_readable'],
-            duration=match_dict['duration_readable'],
-            indication=match_dict['indication_readable'],
-            additional_info=match_dict['additional_info_readable'],
-        )
+        match_dict['sig_readable'] = self.get_readable(match_dict)
+        match_dict ['max_dose_per_day'] = self.get_max_dose_per_day(match_dict)
+
         # calculate admin instructions based on leftover pieces of sig
         # would need to calculate overlap in each of the match_dicts
         # in doing so, maybe also return a map of the parsed parts of the sig for use in frontend highlighting
