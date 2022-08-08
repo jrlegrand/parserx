@@ -374,10 +374,7 @@ STRENGTH_UNITS = {
   'mcg': [r'(?:microgram(?:s)?|mcgs)\b'],
   'g': [r'(?:gm|gms|gram(?:s)?)\b'],
   'international unit': [r'i\.u\.\b', r'iu\b', 'international units', r'int\'l unit',  'intl unit'],
-  'unit': [r'units'],
   'mEq': [r'milliequivalent(?:s)?'],
-  'teaspoon': [r'\btsp\b', 'teaspoons', 'teaspoonsful', 'teaspoonful', 'teaspoonfuls'],
-  'tablespoon': [r'\btbsp\b', 'tablespoon', 'tablespoonsful', 'tablespoonful', 'tablespoonfuls'],
 }
 
 DOSE_STRENGTH_NEGATION = [
@@ -397,6 +394,30 @@ DOSE_STRENGTH_NEGATION = [
 ]
 RE_DOSE_STRENGTH_NEGATION = r'|'.join(DOSE_STRENGTH_NEGATION)
 
+EXCLUDED_MDD_DOSE_UNITS = [
+  'mg',
+  'mcg',
+  # 'g',
+  # 'mL',
+  'L',
+  'international unit',
+  'unit',
+  'mEq',
+  'teaspoon',
+  'tablespoon',
+  'puff',
+  'application',
+  'spray',
+  'drop',
+  'syringe',
+  'vial',
+  'packet',
+  'pen',
+  'oz',
+  'injection',
+  'cm',
+]
+
 DOSE_UNITS = {
   # to match ahead of one-letter dose form (L)
   'lozenge': [r'\bloz\b'],
@@ -408,6 +429,9 @@ DOSE_UNITS = {
   'L': [r'(?:\bliter)'],
   'oz': ['ounce'],
   'cm': ['centimeter', r'cm\b', r'cms\b'],
+  'unit': [r'units'],
+  'teaspoon': [r'\btsp\b', 'teaspoons', 'teaspoonsful', 'teaspoonful', 'teaspoonfuls'],
+  'tablespoon': [r'\btbsp\b', 'tablespoon', 'tablespoonsful', 'tablespoonful', 'tablespoonfuls'],
   # tablet
   # TODO: add all synonyms to exclusion for tablet
   # ERROR: make sure "tablespoon" does not match on "tab" -- use a negative lookahead

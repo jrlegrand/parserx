@@ -70,7 +70,9 @@ class SigParser(Parser):
         elif period_unit == 'day':
             return 1 / period
         elif period_unit == 'week':
-            return period / 7
+            return 1 / (7 * period)
+        elif period_unit == 'month':
+            return 1 / (30 * period)
         else:
             return None
         
@@ -79,7 +81,7 @@ class SigParser(Parser):
         frequency = match_dict['frequency_max'] or match_dict['frequency']
         period = match_dict['period']
         period_unit = get_normalized(PERIOD_UNIT, match_dict['period_unit']) if match_dict['period_unit'] else match_dict['period_unit']
-        # can be null if period_unit doesn't match
+        # period_per_day can be null if period_unit doesn't match hour / day / week / month
         period_per_day = self.get_period_per_day(period, period_unit)
 
         dose = match_dict['dose_max'] or match_dict['dose']
@@ -102,14 +104,18 @@ class SigParser(Parser):
         max_dose_per_day_max = None
         if frequency_max and period_per_day_max and dose_max:
             max_dose_per_day_max = frequency_max * period_per_day_max * dose_max
-
+        
+        max_dose_per_day = None
+        # if we are dealing with a complex dose unit, don't return a max_dose_per_day
+        if dose_unit in EXCLUDED_MDD_DOSE_UNITS or dose_unit_max in EXCLUDED_MDD_DOSE_UNITS:
+            return max_dose_per_day
         # if (at least one max dose is not null) and (the dose units match or one of the dose units is null)
         if (max_dose_per_day_sig or max_dose_per_day_max) and (dose_unit == dose_unit_max or not dose_unit or not dose_unit_max):
-            max_dose_per_day = min(d for d in [max_dose_per_day_sig, max_dose_per_day_max] if d is not None)
-        else:
-            max_dose_per_day = None
+            # originally wrote this to choose the lowest dose per day
+            # max_dose_per_day = min(d for d in [max_dose_per_day_sig, max_dose_per_day_max] if d is not None)
+            # however, requirements changed to always prefer max over sig
+            max_dose_per_day = max_dose_per_day_max or max_dose_per_day_sig
 
-        #print(max_dose_per_day_sig, dose_unit, max_dose_per_day_max, dose_unit_max, max_dose_per_day)
         return max_dose_per_day
 
     def parse(self, sig_text):
