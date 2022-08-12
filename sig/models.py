@@ -28,7 +28,7 @@ class SigParsed(models.Model):
     method = models.CharField(max_length=100, null=True)
     method_text_start = models.IntegerField(null=True)
     method_text_end = models.IntegerField(null=True)
-    method_text = models.CharField(max_length=100, null=True)
+    method_text = models.CharField(max_length=250, null=True)
     method_readable = models.CharField(max_length=100, null=True)   
     # dose
     # TODO: maybe make dose fields floats instead of chars
@@ -37,7 +37,7 @@ class SigParsed(models.Model):
     dose_unit = models.CharField(max_length=100, null=True)
     dose_text_start = models.IntegerField(null=True)
     dose_text_end = models.IntegerField(null=True)
-    dose_text = models.CharField(max_length=100, null=True)
+    dose_text = models.CharField(max_length=250, null=True)
     dose_readable = models.CharField(max_length=100, null=True)   
     # strength
     strength = models.FloatField(null=True)
@@ -45,13 +45,13 @@ class SigParsed(models.Model):
     strength_unit = models.CharField(max_length=100, null=True)
     strength_text_start = models.IntegerField(null=True)
     strength_text_end = models.IntegerField(null=True)
-    strength_text = models.CharField(max_length=100, null=True)
+    strength_text = models.CharField(max_length=250, null=True)
     strength_readable = models.CharField(max_length=100, null=True)   
     # route
     route = models.CharField(max_length=100, null=True)
     route_text_start = models.IntegerField(null=True)
     route_text_end = models.IntegerField(null=True)
-    route_text = models.CharField(max_length=100, null=True)
+    route_text = models.CharField(max_length=250, null=True)
     route_readable = models.CharField(max_length=100, null=True)   
     # frequency
     frequency = models.IntegerField(null=True)
@@ -68,13 +68,13 @@ class SigParsed(models.Model):
     count = models.IntegerField(null=True)
     frequency_text_start = models.IntegerField(null=True)
     frequency_text_end = models.IntegerField(null=True)
-    frequency_text = models.CharField(max_length=100, null=True)   
+    frequency_text = models.CharField(max_length=250, null=True)   
     frequency_readable = models.CharField(max_length=100, null=True)   
     # when
     when = models.CharField(max_length=100, null=True)
     when_text_start = models.IntegerField(null=True)
     when_text_end = models.IntegerField(null=True)
-    when_text = models.CharField(max_length=100, null=True)   
+    when_text = models.CharField(max_length=250, null=True)   
     when_readable = models.CharField(max_length=100, null=True)   
     # duration
     duration = models.IntegerField(null=True)
@@ -82,14 +82,14 @@ class SigParsed(models.Model):
     duration_unit = models.CharField(max_length=100, null=True)
     duration_text_start = models.IntegerField(null=True)
     duration_text_end = models.IntegerField(null=True)
-    duration_text = models.CharField(max_length=100, null=True)
+    duration_text = models.CharField(max_length=250, null=True)
     duration_readable = models.CharField(max_length=100, null=True)   
     # indication
     as_needed = models.BooleanField(null=True)
     indication = models.CharField(max_length=250, null=True)
     indication_text_start = models.IntegerField(null=True)
     indication_text_end = models.IntegerField(null=True)
-    indication_text = models.CharField(max_length=250, null=True)
+    indication_text = models.CharField(max_length=500, null=True)
     indication_readable = models.CharField(max_length=100, null=True)
     # max
     max_numerator_value = models.IntegerField(null=True)
@@ -98,7 +98,7 @@ class SigParsed(models.Model):
     max_denominator_unit = models.CharField(max_length=100, null=True)
     max_text_start = models.IntegerField(null=True)
     max_text_end = models.IntegerField(null=True)
-    max_text = models.CharField(max_length=100, null=True)
+    max_text = models.CharField(max_length=250, null=True)
     max_readable = models.CharField(max_length=100, null=True)
     # max_dose_per_day
     max_dose_per_day = models.FloatField(null=True)
@@ -106,7 +106,7 @@ class SigParsed(models.Model):
     additional_info = models.CharField(max_length=1000, null=True)
     additional_info_text_start = models.IntegerField(null=True)
     additional_info_text_end = models.IntegerField(null=True)
-    additional_info_text = models.CharField(max_length=100, null=True)
+    additional_info_text = models.CharField(max_length=250, null=True)
     additional_info_readable = models.CharField(max_length=1000, null=True)   
   
     class Meta:
