@@ -2,7 +2,7 @@ import collections
 import re
 from fractions import Fraction
 
-RE_WRITTEN_NUMBERS = r'one(?:\s|-)?(?:quarter|half)|quarter|half|one point (?:one|two|three|four|five|six|seven|eight|nine)|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty(?:\s|-)?(?:one|two|three|four|five|six|seven|eight|nine)|twenty|thirty(?:\s|-)?five|thirty'
+RE_WRITTEN_NUMBERS = r'one(?:\s|-)?(?:quarter|half)|quarter|half|one point (?:one|two|three|four|five|six|seven|eight|nine)|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty(?:\s|-)?(?:one|two|three|four|five|six|seven|eight|nine)|twenty|thirty(?:\s|-)?five|thirty|forty|fifty'
 #one (?:and |& )one(?:-|\s)half| 
 
 # NOTE: keep the x-y at the beginning and x at the end so that it finds the x-y first without stopping
@@ -92,14 +92,14 @@ WHEN = {
   'in the afternoon': [ r'(?:in the|every|each|at)\s?(?:aft(?:ernoon)?|p m\b|pm)', r'\bqpm\b', 'q afternoon' ],
   'in the evening at bedtime': [r'(?:in the|every)\s?evening at bedtime'],
   'in the evening': [ r'(?:in the|every|each)\s?eve(?:ning)?(?! at bedtime)' ],
-  'at night': [ r'(?:in the|at|every|each)\s?night', 'nightly' ],
-  'at bedtime': [ r'(?!eve(?:ning) )(?:in the|at|every|each)\s?bedtime', r'\bqhs\b', r'q hs\b', 'bedtime', r'\bhs\b' ],
+  'at night': [ r'(?:in the|at|every|each)\s?night(?! at bedtime)', r'nightly(?! at bedtime)' ],
+  'at bedtime': [ r'(?!eve(?:ning) )(?:in the|at|every|every night at|nightly at|each)\s?bedtime', r'\bqhs\b', r'q hs\b', 'bedtime', r'\bhs\b' ],
   'with meal': [ r'(?:with|each|every|at)?\s?meal(?:s)?', r'c c\b', r'\bcc\b' ],
   'with breakfast': [ r'(?:with|each|every|at)? breakfast' ],
   'with lunch': [ r'(?:with|each|every|at)?\s?lunch', r'\bcd\b', r'c d\b' ],
   'with dinner': [ r'(?:with|each|every|at)?\s?dinner', r'\bcv\b', r'c v\b' ],		
   'before meal': [ r'before meal(?:s)?', r'\bac\b', r'a c\b' ],
-  'before breakfast': [ 'before breakfast', r'\bacm\b', r'a c m\b' ],
+  'before breakfast': [ 'before breakfast', r'(?:in the|every|each) morning before breakfast', r'\bacm\b', r'a c m\b' ],
   'before lunch': [ 'before lunch', r'\bacd\b', r'a c d\b' ],
   'before dinner': [ 'before dinner', r'\bacv\b', r'a c v\b' ],
   'after meal': [ r'after meal(?:s)?', r'\bpc\b', r'p c\b' ],
@@ -186,8 +186,8 @@ ROUTES = {
   'in ear(s)': ['by ear', 'otically', 'otic', r'(?:in to |into |in |to |per )?(?:the )?(?!affected )ear\b'],
   'in left nostril': [r'(?:in to |into |in |to |per )?(?:the )?left (?:nose|nostril|nare)'],
   'in right nostril': [r'(?:in to |into |in |to |per )?(?:the )?right (?:nose|nostril|nare)'],
-  'in each nostril': [r'(?:in to |into |in |to |per )?(?:both nostrils|each nostril|nostrils|each nare)', r'\bien\b'],
-  'in nostril(s)': ['by nose', 'nasally', 'nasal', 'intranasal', r'(?:in to |into |in |to |per )?(?:the )?(?!each|left|right|both)(?:affected)?(?:nose|nostril|nare)\b'],
+  'in each nostril': [r'(?:in to |into |in |to |per )?(?:both nostrils|each nostril|(?<!affected )nostrils|each nare)', r'\bien\b'],
+  'in nostril(s)': ['by nose', 'nasally', r'nasal(?! spray)', 'intranasal', r'(?:in to |into |in |to |per )?(?:the )?(?!each|left|right|both)(?:affected)?(?:nose|nostrils|nostril|nare)\b'],
   'in left eye': [r'(?:in to |into |in |to |per )?(?:the )?left eye', r'\bo\.s\.\b', r'\bos\b'],
   'in right eye': [r'(?:in to |into |in |to |per )?(?:the )?right eye', r'\bo\.d\.\b', r'\bod\b'],
   'in each eye': [r'(?:in to |into |in |to |per )?(?:both eyes|each eye|(?!affected )eyes)', r'\bo\.u\.\b', r'\bou\b'],
@@ -217,7 +217,8 @@ ROUTES = {
   'via injection': ['by injection route', r'(?:via |per )injection', r'injection?(?:s)?(?! intramuscularly| intravenously| cuteneously| subcutaneously| intra-articularly)'],
   'swish and spit': [],
   'swish and swallow': [],
-  'miscellaneous': ['misc', 'device', 'strip', r'test(?:ing)?', r'check(?:ing)?', 'monitor'],
+  'miscellaneous': ['misc', 'device', 'meter', 'needle', 'pen needle', 'strip', r'(?:test )?strip(?:s)', r'test(?:ing)?', r'check(?:ing|s)?', 'monitor'],
+  'subdermal': [],
 }
 
 """
@@ -368,7 +369,7 @@ TOPICAL_ROUTES = {
 }
 
 INHALATION_ROUTES = {
-  'into the lungs': ['via inhalation', 'respiratory tract', r'(?:via |per |using a |from the )?inhal(?:ation|ed|er|e)', r'puff(?:s)?', r'inh\b', r'inhalation(?:s)?'],
+  'into the lungs': ['via inhalation', 'respiratory tract', r'(?:via |per |using a |from the )?inhal(?:ation|ed|er|e)', r'puff(?:s)?(?! in each nostril)(?! in the nose)(?! each nostril)(?! in nostril)', r'inh\b', r'inhalation(?:s)?'],
 }
 
 # TODO: add a lot more here (mL, mcg, g, etc)
@@ -376,7 +377,7 @@ STRENGTH_UNITS = {
   'mg': [r'(?:milligram(?:s)?|mgs)\b'],
   'mcg': [r'(?:microgram(?:s)?|mcgs)\b'],
   'g': [r'(?:gm|gms|gram(?:s)?)\b'],
-  'international unit': [r'i\.u\.\b', r'iu\b', 'international units', r'int\'l unit',  'intl unit'],
+  'international unit': [r'i\.u\.\b', r'iu\b', 'international units', r'int\'l unit(?:s)?',  r'intl unit(?:s)?'],
   'mEq': [r'milliequivalent(?:s)?'],
 }
 
@@ -428,17 +429,18 @@ DOSE_UNITS = {
   'lotion': [],
   'liquid dose form': [],
   # volume
-  'mL': [r'(?:milliliter)', r'mls\b'],
+  'mL': ['milliliter', r'mls\b', r'cc\b', 'mililiter'],
   'L': [r'(?:\bliter)'],
   'oz': ['ounce'],
   'cm': ['centimeter', r'cm\b', r'cms\b'],
-  'unit': [r'units'],
+  'inch': [],
+  'unit': [r'units', r'un\b', r'u\b'],
   'teaspoon': [r'\btsp\b', 'teaspoons', 'teaspoonsful', 'teaspoonful', 'teaspoonfuls'],
   'tablespoon': [r'\btbsp\b', 'tablespoon', 'tablespoonsful', 'tablespoonful', 'tablespoonfuls'],
   # tablet
   # TODO: add all synonyms to exclusion for tablet
   # ERROR: make sure "tablespoon" does not match on "tab" -- use a negative lookahead
-  'tablet': [r'(?<!film-coated)(?<!effervescentgastro-resistant)(?<!orodispersible)(?<!prolonged-release)(?<!vaginal)(?<!effervescent vaginal)(?<!modified-release)(?<!chewable)(?<!sublingual)(?<!buccalmuco-adhesive buccal)(?<!soluble)(?<!dispersible)(?<!delayed-release particles)(?<!oral)(?<!inhalation vapor)(?<!implantation)(?<!extended-release film coated)(?<!ultramicronized)(?<!extended-release)(?<!extended-release enteric coated)(?<!delayed-release)(?<!coated particles)(?<!sustained-release buccal)(?<!multilayer)\s*tab(?:let)?(?:s)?', r't\b'],
+  'tablet': [r'(?<!film-coated)(?<!effervescentgastro-resistant)(?<!orodispersible)(?<!prolonged-release)(?<!vaginal)(?<!effervescent vaginal)(?<!modified-release)(?<!chewable)(?<!sublingual)(?<!buccalmuco-adhesive buccal)(?<!soluble)(?<!dispersible)(?<!delayed-release particles)(?<!oral)(?<!inhalation vapor)(?<!implantation)(?<!extended-release film coated)(?<!ultramicronized)(?<!extended-release)(?<!extended-release enteric coated)(?<!delayed-release)(?<!coated particles)(?<!sustained-release buccal)(?<!multilayer)\s*tab(?:let)?(?:s)?', r't\b', r'ts\b'],
   'film-coated tablet': [r'(?:film-coated|film coated) tab(?:let)?(?:s)?'],
   'effervescent tablet': [r'effervescent tab(?:let)?(?:s)?'],
   'gastro-resistant tablet': [r'(?:gastro-resistant|gastro resistant) tab(?:let)?(?:s)?'],
@@ -466,7 +468,7 @@ DOSE_UNITS = {
   'sustained-release buccal tablet': [r'(?:sustained-release|sustained release|s.r.|sr) buccal tab(?:let)?(?:s)?'],
   'multilayer tablet': [r'(?:multilayer|multi-layer) tab(?:let)?(?:s)?'],		
   # capsule
-  'capsule': [r'cap(?:sule)?(?:s)?\b', r'c\b'],
+  'capsule': [r'cap(?:sule)?(?:s)?\b', r'c\b', r'cs\b', 'gelcap'],
   'hard capsule': [r'hard cap(?:sule)?(?:s)?\b'],
   'soft capsule': [r'soft cap(?:sule)?(?:s)?\b'],
   'vaginal capsule': [r'vaginal cap(?:sule)?(?:s)?\b'],
@@ -518,7 +520,7 @@ DOSE_UNITS = {
   'cutaneous suspension spray': [],
   'cutaneous solution spray': [],
   # inhalation
-  'puff': [r'inhalation', r'puff', r'\bpuf\b', r'pressurized inhalation(?:s)?'],
+  'puff': [r'inhalation', r'puff', r'\bpuf\b', r'pressurized inhalation(?:s)?', r'\bpfs\b'],
   'pressurised inhalation solution': [],
   'pressurised inhalation suspension': [],
   'pressurised inhalation emulsion': [],
@@ -625,16 +627,23 @@ DOSE_UNITS = {
   'buccal film': [],
   'orodispersible film': [],
   'pen': [],
-  'applicatorful': ['applicatorsful'],
+  'applicatorful': ['applicatorsful', 'applicator'],
+  # NOTE: have a separate parser for generic application keywords (i.e. 'apply')
   'application': [r'app\b', r'applic\b'],
   'capful': [],
   'injection': [],
-  'packet': [],
-  'strip': [],
+  'packet': ['pkt'],
+  'strip': ['test strip'],
   'syringe': [],
   'vial': [],
   'kit': [],
+  # NOTE: have a separate parser for generic each keywords (i.e. 'strips', 'meter')
   'each': ['eaches'],
+  'vaginal ring': ['ring'],
+  'dose': [],
+  'swab': [],
+  'squirt': [],
+  'pump': [],
 }
 
 PAIN_SEVERITIES = {

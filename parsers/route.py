@@ -124,9 +124,11 @@ class InferredOralRouteParser(RouteParser):
         route_readable = self.get_readable(route=route)
         return self.generate_match({'route': route, 'route_text_start': route_text_start, 'route_text_end': route_text_end, 'route_text': route_text, 'route_readable': route_readable})
 
+# NOTE: moved InhalationRouteParser above RouteParser here so that "2 PUFFS BY MOUTH DAILY" resolved to "into the lungs" instead of "by mouth"...
+#       however, left it in different order above for class inheritance
 parsers = [
-    RouteParser(),
     InhalationRouteParser(),
+    RouteParser(),
     TopicalRouteParser(),
     InferredOralRouteParser()
 ]

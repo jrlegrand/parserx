@@ -112,11 +112,11 @@ class FrequencyXTimesDaily(FrequencyParser):
 
 
 # daily | nightly | weekly | monthly | yearly
-# NOTE: this is where 'daily' matches
+# NOTE: this is where 'daily' matches 
 # frequency = a[0], frequencyMax = a[1], period = 1, periodUnit = b (normalize to d, wk, mo, yr)
 # frequency = a (1 if once, 2 if twice, 1 if null), period = 1, periodUnit = b (normalize to d, wk, mo, yr)
 class FrequencyDaily(FrequencyParser):
-	pattern = r'(?P<period_unit>day|\bd\b|daily|dialy|weekly|monthly|yearly|\bhs\b)'
+	pattern = r'(?P<period_unit>\bd\b|daily|dialy|weekly|monthly|yearly|\bhs\b)'
 	def normalize_match(self, match):
 		frequency = 1
 		period = 1
@@ -129,13 +129,13 @@ class FrequencyDaily(FrequencyParser):
 
 
 # every | each | per | q
-# [other]
+# [other] 
 # day | week | month | morning | afternoon | evening | night | hs
 # TODO: combine with the qpm/qhs/qday/qdaily group above (not sure if this still applies)
 # frequency = 1, period = 1 (or 2 if a is not null), periodUnit = b (normalize to d, wk, mo), [when = b (normalize to MORN, AFT, EVE, etc]
 # NOTE: moved below FrequencyDaily because "per day" was taking precedence in max daily dose text
 class FrequencyEveryDay(FrequencyParser):
-	pattern = r'(?:every|each|q|per)\s?(?P<period>other\b|o\b)?\s*(?:day (?:in the|at)\s?)?(?P<period_unit>hour|day|week|month|morning|afternoon|evening at bedtime|bedtime|evening|night|hs\b|pm\b|am\b|d\b)'
+	pattern = r'(?:every|each|q|per|\ba)\s?(?P<period>other\b|o\b)?\s*(?:day (?:in the|at)\s?)?(?P<period_unit>hour|day|week|month|morning|afternoon|evening at bedtime|bedtime|evening|night|hs|pm|am|d\b)'
 	def normalize_match(self, match):
 		frequency = 1
 		period = 2 if match.group('period') else 1
@@ -197,7 +197,7 @@ class FrequencyAtBedtime(FrequencyParser):
 # one time only
 # count = 1
 class FrequencyOneTime(FrequencyParser):
-	pattern = r'(?:x\s?1\b(?!day| day|d\b| d\b|week| week|w\b| w\b|month| month|mon|m\b| m\b| mon\b)|(?:1|one) time(?: only)?(?! daily| per)|for (?:1|one) dose|once$|once in imaging|at (?:the )?(?:first|1st) (?:onset:sign) of symptoms)'
+	pattern = r'(?:x\s?1\b(?!day| day|d\b| d\b|week| week|w\b| w\b|month| month|mon|m\b| m\b| mon\b)|(?:1|one) time(?: only)?(?! daily| per)|for (?:1|one) dose|once|once in imaging|at (?:the )?(?:first|1st) (?:onset:sign) of symptoms)'
 	def normalize_match(self, match):
 		count = 1
 		frequency_text_start, frequency_text_end = match.span()
@@ -236,5 +236,5 @@ parsers = [
 	FrequencyAtBedtime(),
 	FrequencyOneTime(),
 	# NOTE: removing this parser for DRX implementation - may consider adding back
-	# FrequencyAsDirected(),
+	FrequencyAsDirected(),
 ]
