@@ -1,6 +1,7 @@
 from .classes.parser import *
 
 # TODO: figure out what to do with multiple ingredient strengths
+# NOTE: added \b border at end because was matching on ZONEGRAN (ONE G), 1 GELCAP (1 G), 1 GTT (1 G), and WEIGHT GAIN (EIGHT G)
 class StrengthParser(Parser):
     parser_type = 'strength'
     match_keys = ['strength', 'strength_max', 'strength_unit', 'strength_text_start', 'strength_text_end', 'strength_text', 'strength_readable']
@@ -12,7 +13,7 @@ class StrengthParser(Parser):
             # and join them with a | character
             # and add them to the strength_patterns array
             strength_patterns.append(r'|'.join(p))        
-        pattern = re.compile(r'(?:(?P<strength_negation>' + RE_DOSE_STRENGTH_NEGATION + r')\s?)?(?P<strength>' + RE_RANGE + r')\s?(?P<strength_unit>' + r'|'.join(strength_patterns) + r')', flags = re.I)
+        pattern = re.compile(r'(?:(?P<strength_negation>' + RE_DOSE_STRENGTH_NEGATION + r')\s?)?(?P<strength>' + RE_RANGE + r')\s?(?P<strength_unit>' + r'|'.join(strength_patterns) + r')\b', flags = re.I)
         return pattern
     def normalize_match(self, match):
         # the standard RE_RANGE pattern will mach 1/2 which is fine for dose, but 5/325 is to complicated for strength, so disgard it for now

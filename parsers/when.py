@@ -6,7 +6,7 @@ from .classes.parser import *
 class WhenParser(Parser):
 	parser_type = 'when'
 	match_keys = ['when', 'when_text_start', 'when_text_end', 'when_text', 'when_readable']
-	pattern = r'(?P<when_relation>with|\bc\.|\bc|before|\ba|\ba\.|after|\bp|\bp\.|in the|at|every|each|\bq|\bq.|night)(?: each| every)?(?P<when_time>\s?(?:c\b|c\.\b|meal(?:s)? and at bedtime|meal(?:s)?|c\.m\.\b|cm\b|breakfast|c\.d\.\b|cd\b|lunch|c\.v\.\b|cv\b|dinner|morning|morn|a\.m\.\b|am\b|evening at bedtime|bedtime|evening|eve|aft(?:ernoon)?|p\.m\.\b|pm\b|night|hs\b|h\.s\.\b|ly))'
+	pattern = r'(?P<when_relation>with|\bc\.|\bc|before|\ba|\ba\.|after|\bp|\bp\.|in the|at|every|each|\bq|\bq.|night)(?: each| every)?(?P<when_time>\s?(?:c\b|c\.\b|meal(?:s)? and at bedtime|meal(?:s)?|c\.m\.\b|cm\b|breakfast|c\.d\.\b|cd\b|lunch|c\.v\.\b|cv\b|dinner|morning before breakfast|morning|morn|a\.m\.\b|am\b|evening at bedtime|bedtime|evening|eve|aft(?:ernoon)?|p\.m\.\b|pm\b|night at bedtime|night|hs\b|h\.s\.\b|ly))'
 	def normalize_match(self, match):
 		# TODO: normalize before to 'a' and after to 'p', etc
 		# TODO: normalize meals to 'm', etc

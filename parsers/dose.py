@@ -87,11 +87,36 @@ class DoseUnitOnlyParser(DoseParser):
         dose_readable = self.get_readable(dose_unit=dose_unit)
         return self.generate_match({'dose_unit': dose_unit, 'dose_text_start': dose_text_start, 'dose_text_end': dose_text_end, 'dose_text': dose_text, 'dose_readable': dose_readable})
 
+class ApplyDoseUnitParser(DoseParser):
+    def normalize_pattern(self):
+        pattern = re.compile(r'apply', flags = re.I)
+        return pattern
+    def normalize_match(self, match):
+        dose_unit = 'application'
+        dose_text_start, dose_text_end = match.span()
+        dose_text = match[0]
+        dose_readable = self.get_readable(dose_unit=dose_unit)
+        return self.generate_match({'dose_unit': dose_unit, 'dose_text_start': dose_text_start, 'dose_text_end': dose_text_end, 'dose_text': dose_text, 'dose_readable': dose_readable})
+
+class EachDoseUnitParser(DoseParser):
+    def normalize_pattern(self):
+        dose_patterns = r'|'.join(ROUTES['miscellaneous'])
+        pattern = re.compile(r'(' + dose_patterns + r')', flags = re.I)
+        return pattern
+    def normalize_match(self, match):
+        dose_unit = 'each'
+        dose_text_start, dose_text_end = match.span()
+        dose_text = match[0]
+        dose_readable = self.get_readable(dose_unit=dose_unit)
+        return self.generate_match({'dose_unit': dose_unit, 'dose_text_start': dose_text_start, 'dose_text_end': dose_text_end, 'dose_text': dose_text, 'dose_readable': dose_readable})
+
 
 parsers = [
     DoseParser(),
     DoseOnlyParser(),
     DoseUnitOnlyParser(),
+    ApplyDoseUnitParser(),
+    EachDoseUnitParser(),
 ]
 
 #print(DoseParser().parse('take one capsule prn nausea for 5 days'))
