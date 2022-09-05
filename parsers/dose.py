@@ -21,6 +21,16 @@ class DoseParser(Parser):
         dose_range = split_range(match.group('dose'))
         dose, dose_max = dose_range
         dose_unit = get_normalized(DOSE_UNITS, match.group('dose_unit'))
+        # convert teaspoon and tablespoon to mL
+        if (dose_unit in ['teaspoon', 'tablespoon']):
+            multipliers = {
+                'teaspoon': 5,
+                'tablespoon': 15
+            }
+            multiplier = multipliers[dose_unit]
+            dose = dose * multiplier if dose else dose
+            dose_max = dose_max * multiplier if dose_max else dose_max
+            dose_unit = 'mL'
         dose_text_start, dose_text_end = match.span()
         dose_text = match[0]
         dose_readable = self.get_readable(dose=dose, dose_max=dose_max, dose_unit=dose_unit)
@@ -58,7 +68,7 @@ class DoseOnlyParser(DoseParser):
             # and join them with a | character
             # and add them to the dose_patterns array
             strength_unit_patterns.append(r'|'.join(p))        
-        pattern = re.compile(r'^(?:' + r'|'.join(method_patterns) + r')?\s?(?P<dose>' + RE_RANGE + r')(?!\d)(?!\s?(?:' + r'|'.join(strength_unit_patterns) + r'))', flags = re.I)
+        pattern = re.compile(r'^(?:' + r'|'.join(method_patterns) + r')?\s?(?P<dose>' + RE_RANGE + r')(?!(?:\s)?\d)(?!(?:\s)?(?:times|x))(?!\s?(?:' + r'|'.join(strength_unit_patterns) + r'))', flags = re.I)
         return pattern
     def normalize_match(self, match):
         dose_range = split_range(match.group('dose'))
@@ -92,11 +102,12 @@ class ApplyDoseUnitParser(DoseParser):
         pattern = re.compile(r'apply', flags = re.I)
         return pattern
     def normalize_match(self, match):
+        dose = 1
         dose_unit = 'application'
         dose_text_start, dose_text_end = match.span()
         dose_text = match[0]
         dose_readable = self.get_readable(dose_unit=dose_unit)
-        return self.generate_match({'dose_unit': dose_unit, 'dose_text_start': dose_text_start, 'dose_text_end': dose_text_end, 'dose_text': dose_text, 'dose_readable': dose_readable})
+        return self.generate_match({'dose': dose, 'dose_unit': dose_unit, 'dose_text_start': dose_text_start, 'dose_text_end': dose_text_end, 'dose_text': dose_text, 'dose_readable': dose_readable})
 
 class EachDoseUnitParser(DoseParser):
     def normalize_pattern(self):
