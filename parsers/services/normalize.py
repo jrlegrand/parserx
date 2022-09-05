@@ -387,7 +387,8 @@ DOSE_STRENGTH_NEGATION = [
   'not to exceed',
   r'\bnmt',
   r'\bnte',
-  r'max(?:imum)? (?:daily )?(?:dose|amount)?\s?(?:=|is)?',
+  # NOTE: negating o and a prevents things like fosamax / topamax / zithromax
+  r'(?<!o|a)max(?:imum)? (?:daily )?(?:dose|amount)?\s?(?:=|is)?',
   r'mdd(?:\s?=)?',
   r'take with(?: a)?',
   r'combined dos(?:e|age) of',
@@ -435,8 +436,8 @@ DOSE_UNITS = {
   'cm': ['centimeter', r'cm\b', r'cms\b'],
   'inch': [],
   'unit': [r'units', r'un\b', r'u\b'],
-  'teaspoon': [r'\btsp\b', 'teaspoons', 'teaspoonsful', 'teaspoonful', 'teaspoonfuls'],
-  'tablespoon': [r'\btbsp\b', 'tablespoon', 'tablespoonsful', 'tablespoonful', 'tablespoonfuls'],
+  'teaspoon': [r'tsp\b', 'teaspoons', 'teaspoonsful', 'teaspoonful', 'teaspoonfuls'],
+  'tablespoon': [r'tbsp\b', 'tablespoon', 'tablespoonsful', 'tablespoonful', 'tablespoonfuls'],
   # tablet
   # TODO: add all synonyms to exclusion for tablet
   # ERROR: make sure "tablespoon" does not match on "tab" -- use a negative lookahead
@@ -504,7 +505,7 @@ DOSE_UNITS = {
   'ear drop': ['ear drops', 'otic drop'],
   'modified release drop': ['modified release drops', 'modified-release drop'],
   # spray
-  'spray': [],
+  'spray': [r'spr\b'],
   'oromucosal spray': [],
   'sublingual spray': [],
   'cutaneous spray': [],
