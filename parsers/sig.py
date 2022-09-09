@@ -24,7 +24,7 @@ class SigParser(Parser):
     }
     # TODO: make this match_keys assignment more elegant
     #match_keys = ['original_sig_text'] + ['sig_text', 'sig_readable'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max.parsers[0].match_keys + additional_info.parsers[0].match_keys
-    match_keys = ['original_sig_text', 'sig_text', 'sig_readable', 'max_dose_per_day'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max.parsers[0].match_keys + additional_info.parsers[0].match_keys
+    match_keys = ['sig_text', 'sig_readable', 'max_dose_per_day'] + method.parsers[0].match_keys + dose.parsers[0].match_keys + strength.parsers[0].match_keys + route.parsers[0].match_keys + frequency.parsers[0].match_keys + when.parsers[0].match_keys + duration.parsers[0].match_keys + indication.parsers[0].match_keys + max.parsers[0].match_keys + additional_info.parsers[0].match_keys
     parser_type = 'sig'
 
     def get_normalized_sig_text(self, sig_text):
@@ -120,7 +120,7 @@ class SigParser(Parser):
 
     def parse(self, sig_text):
         match_dict = dict(self.match_dict)
-        match_dict['original_sig_text'] = sig_text
+        #match_dict['original_sig_text'] = sig_text
         sig_text = self.get_normalized_sig_text(sig_text)
         match_dict['sig_text'] = sig_text
         for parser_type, parsers in self.parsers.items():
@@ -267,7 +267,7 @@ def print_progress_bar (iteration, total, prefix = 'progress:', suffix = 'comple
         print()
 
 #print(SigParser().infer(ndc='68788640709'))
-parsed_sigs = SigParser().parse_sig_csv()
+#parsed_sigs = SigParser().parse_sig_csv()
 #parsed_sigs = SigParser().parse_validate_sig_csv()
 #print(parsed_sigs)
 
