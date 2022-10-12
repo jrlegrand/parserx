@@ -1,0 +1,23 @@
+"in affected" eye, ear, location is not a route
+- Update mapping table to "nothing"
+
+Do not map frequency ranges (i.e. Q4-6h)
+- Need to exclude Q4H - Q6H pattern
+
+
+If a time is specified, then use a scheduled frequency with the time in the admin instructions (daily at 10:00 = q24h at 10:00)
+
+
+WONTFIX
+Tab/capsule = oral if indication suggests oral medication
+With food is oral
+Fractions of tablets are oral
+81 mg is aspirin and oral
+
+DONE
+"C" in pharmacy shorthand is "capsule"
+QPM is "every evening"
+Do not infer route (tab/cap by itself does not mean oral)
+Application = topical
+puff != "inhalation"
+Preferred units of measure (mg, units, etc) over count or volume (tablets, mL, etc)
