@@ -87,15 +87,18 @@ DAY_OF_WEEK = {
 }
  
 #(?:with|\bc\.|before|\ba|\ba\.|after|\bp|\bp\.|in the|at|every)
+# NOTE: attempting to exclude UMS by excluding "morning and"
 WHEN = {
-  'in the morning': [ r'(?:in the|every|each)\s?(?:morn(?:ing)?|a m\b|am)', r'a m\b', r'\bam\b', r'\bqam\b', r'q am\b' ],
+  'in the morning': [ r'(?:in the|every|each)\s?(?:morning|morn(?!ing)|a m\b|am)(?! and)', r'a m\b', r'\bam\b', r'\bqam\b', r'q am\b' ],
   'in the afternoon': [ r'(?:in the|every|each|at)\s?(?:aft(?:ernoon)?|p m\b|pm)', r'\bqpm\b', 'q afternoon' ],
   'in the evening at bedtime': [r'(?:in the|every)\s?evening at bed(?:\s)?time'],
   'in the evening': [ r'(?:in the|every|each)\s?eve(?:ning)?(?! at bed(?:\s)?time)' ],
   'at night': [ r'(?:in the|at|every|each)\s?night(?! at bed(?:\s)?time)', r'nightly(?! at bed(?:\s)?time)' ],
   'at bedtime': [ r'(?!eve(?:ning) )(?:in the|at|every|before|every night at|nightly at|each)\s?bed(?:\s)?time', r'\bqhs\b', r'q hs\b', r'bed(?:\s)?time', r'\bhs\b' ],
   'with meal': [ r'(?:with|each|every|at)?\s?meal(?:s)?', r'c c\b', r'\bcc\b' ],
-  'with breakfast': [ r'(?:with|each|every|at)? breakfast' ],
+  'with breakfast and lunch': [],
+  'with breakfast and dinner': [],
+  'with breakfast': [ r'(?:with|each|every|at)? breakfast(?! and lunch| and dinner)' ],
   'with lunch': [ r'(?:with|each|every|at)?\s?lunch', r'\bcd\b', r'c d\b' ],
   'with dinner': [ r'(?:with|each|every|at)?\s?dinner', r'\bcv\b', r'c v\b' ],		
   'before meal': [ r'before meal(?:s)?', r'\bac\b', r'a c\b' ],
@@ -196,7 +199,7 @@ ROUTES = {
   'vaginally': ['vaginal', r'(?:in to|into|in|per)(?: the)? vagina', r'p\.v\.', r'pv\b'],
   'into the uterus': ['intrauterine', 'uterus'],
   'under the tongue': ['sublingually', 'sublingual', r'under (?:the )?tongue', r'sub(?: |-)?lingual(?:ly)?', r'\bs\.l\.\b', r'\bsl\b'],
-  'under the skin': ['subcutaneously', 'subcutaneous', r'(?:into|in|under) (?:the )?skin', r'sub(?: |-)*cutaneous(?:ly)?', r'subq\b', r'sub\.q\.', r'sc\b', r'subcu\b', r's\.c\.', r'sq\b', r's\.q\.', 's/q'],
+  'under the skin': ['subcutaneously', 'subcutaneous', r'(?<!massage )(?:into|in|under) (?:the )?skin', r'sub(?: |-)*cutaneous(?:ly)?', r'subq\b', r'sub\.q\.', r'sc\b', r'subcu\b', r's\.c\.', r'sq\b', r's\.q\.', 's/q'],
   'rectally': ['rectal', r'p\.r\.\b', r'pr\b', r'in(?:to)* (?:the )?(?:butt|anus|rectum)'],
   'into the muscle': ['intramuscularly', r'i\.m\.\b', r'\bim\b', 'intramuscular', r'in(?:to)?(?: the)? muscle', 'intramuscularrly'],
   'intravenously': [r'i\.v\.', r'\biv\b', 'intravenous'],
@@ -219,6 +222,8 @@ ROUTES = {
   'swish and swallow': [],
   'miscellaneous': ['misc', 'device', 'meter', 'needle', 'pen needle', 'strip', r'(?:test )?strip(?:s)', r'test(?:ing)?', r'check(?:ing|s)?', 'monitor'],
   'subdermal': [],
+  'to the mouth or throat': [],
+  'scalp': ['scalp area'],
 }
 
 """
@@ -350,6 +355,7 @@ TOPICAL_ROUTES = {
   'topically': [r'topical\b', r'\btop\b', 'application', 'apply', 'patch'],
   'affected areas': [r'involved (?:areas|sites)'],
   'affected area': [r'\baa\b', r'involved (?:area|site)\b'],
+  'affected and surrounding areas': [],
   'back': [],
   'scalp': [],
   'torso': [],
@@ -377,11 +383,13 @@ INHALATION_ROUTES = {
 }
 
 # TODO: add a lot more here (mL, mcg, g, etc)
+# NOTE: moved unit here - need to do more testing
 STRENGTH_UNITS = {
   'mg': [r'(?:milligram(?:s)?|mgs)\b'],
   'mcg': [r'(?:microgram(?:s)?|mcgs)\b'],
   'g': [r'(?:gm|gms|gram(?:s)?)\b'],
   'international unit': [r'i\.u\.\b', r'iu\b', 'international units', r'int\'l unit(?:s)?',  r'intl unit(?:s)?'],
+  'unit': [r'units', r'un\b', r'u\b'],
   'mEq': [r'milliequivalent(?:s)?'],
 }
 
@@ -439,7 +447,6 @@ DOSE_UNITS = {
   'oz': ['ounce'],
   'cm': ['centimeter', r'cm\b', r'cms\b'],
   'inch': [],
-  'unit': [r'units', r'un\b', r'u\b'],
   'teaspoon': [r'tsp\b', 'teaspoons', 'teaspoonsful', 'teaspoonful', 'teaspoonfuls'],
   'tablespoon': [r'tbsp\b', 'tablespoon', 'tablespoonsful', 'tablespoonful', 'tablespoonfuls'],
   # tablet

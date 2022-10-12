@@ -51,7 +51,7 @@ class TopicalRouteParser(RouteParser):
             # and join them with a | character
             # and add them to the route_patterns array
             topical_route_patterns.append(r'|'.join(p))
-        pattern = re.compile(r'\b(?P<route>' + r'|'.join(topical_route_patterns) + r')\b', flags = re.I)
+        pattern = re.compile(r'\b(?P<route>' + r'|'.join(topical_route_patterns) + r')(?!\s?pain)\b', flags = re.I)
         return pattern
     def normalize_match(self, match):
         route = get_normalized(TOPICAL_ROUTES, match.group('route'))
@@ -127,10 +127,10 @@ class InferredOralRouteParser(RouteParser):
 # NOTE: moved InhalationRouteParser above RouteParser here so that "2 PUFFS BY MOUTH DAILY" resolved to "into the lungs" instead of "by mouth"...
 #       however, left it in different order above for class inheritance
 parsers = [
-    InhalationRouteParser(),
+    # InhalationRouteParser(), # turned off for VUMC - TODO: need to create customer "settings"
     RouteParser(),
     TopicalRouteParser(),
-    InferredOralRouteParser()
+    # InferredOralRouteParser()
 ]
 
 #print(RouteParser().parse('take one by mouth daily'))

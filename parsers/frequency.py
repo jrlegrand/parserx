@@ -151,7 +151,7 @@ class FrequencyEveryDay(FrequencyParser):
 # Monday, Tuesday, Wednesday, and Friday
 # dayOfWeek = a
 class FrequencySpecificDayOfWeek(FrequencyParser):
-	pattern = r'(?:every|on|q)\s+(?P<day_of_week>(?:(?:\s*(?:and|&|\+|,)\s*)*(?:' + RE_DAYS_OF_WEEK + '))+)'
+	pattern = r'(?:every|on|q)\s?(?P<day_of_week>(?:(?:\s?(?:and|&|\+|,|\s)\s?)?(?:' + RE_DAYS_OF_WEEK + '))+)'
 	def normalize_match(self, match):
 		# TODO: normalize days of week to be comma or pipe delimited - tuesday and thursday -> tuesday|thursday or tuesday,thursday
 		day_of_week = match.group('day_of_week')
