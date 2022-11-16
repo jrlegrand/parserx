@@ -11,7 +11,7 @@ class DoseParser(Parser):
             # and join them with a | character
             # and add them to the dose_patterns array
             dose_patterns.append(r'|'.join(p))        
-        pattern = re.compile(r'(?:(?P<dose_negation>' + RE_DOSE_STRENGTH_NEGATION + r')\s?)?(?P<dose>' + RE_RANGE + r')\s?(?P<dose_unit>' + r'|'.join(dose_patterns) + r')', flags = re.I)
+        pattern = re.compile(r'(?:(?P<dose_negation>' + RE_DOSE_STRENGTH_NEGATION + r')\s?)?(?P<dose>' + RE_RANGE + r')\s?(?P<dose_unit>' + r'|'.join(dose_patterns) + r')(?!\s?\/\s?act)', flags = re.I)
         return pattern
     def normalize_match(self, match):
         # alternatively, if negation text is found before the dose, don't generate a match
@@ -111,15 +111,22 @@ class ApplyDoseUnitParser(DoseParser):
 
 class EachDoseUnitParser(DoseParser):
     def normalize_pattern(self):
-        dose_patterns = r'|'.join(ROUTES['miscellaneous'])
-        pattern = re.compile(r'(' + dose_patterns + r')', flags = re.I)
+        dose_patterns = []
+        for n, p in MISCELLANEOUS_ROUTES.items():
+            # add the name of the pattern to the list of matched patterns
+            p.append(n)
+            # and join them with a | character
+            # and add them to the dose_patterns array
+            dose_patterns.append(r'|'.join(p))
+        pattern = re.compile(r'(' + r'|'.join(dose_patterns) + r')', flags = re.I)
         return pattern
     def normalize_match(self, match):
+        dose = 1
         dose_unit = 'each'
         dose_text_start, dose_text_end = match.span()
         dose_text = match[0]
         dose_readable = self.get_readable(dose_unit=dose_unit)
-        return self.generate_match({'dose_unit': dose_unit, 'dose_text_start': dose_text_start, 'dose_text_end': dose_text_end, 'dose_text': dose_text, 'dose_readable': dose_readable})
+        return self.generate_match({'dose': dose, 'dose_unit': dose_unit, 'dose_text_start': dose_text_start, 'dose_text_end': dose_text_end, 'dose_text': dose_text, 'dose_readable': dose_readable})
 
 
 parsers = [
