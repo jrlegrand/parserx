@@ -21,3 +21,13 @@ Do not infer route (tab/cap by itself does not mean oral)
 Application = topical
 puff != "inhalation"
 Preferred units of measure (mg, units, etc) over count or volume (tablets, mL, etc)
+
+
+PROPOSED
+daily at bedtime == Nightly
+test strips / meters / DME / etc = dose/dose unit of 1 each and route of miscellaneous
+
+
+NOTES
+i am not going to map "or" to "oral" because it could also just mean "or"
+does "per nostril" really mean each nostril?  or is it more like "via" nostril - in which case we don't know if it's one or both nostrils?
