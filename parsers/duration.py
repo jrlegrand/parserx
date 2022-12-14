@@ -20,7 +20,7 @@ class DurationParser(Parser):
 
 # for x [more] days
 class DurationParserForXDays(DurationParser):
-    pattern = r'(?:for|x)\s*(?P<duration>' + RE_RANGE + r')\s*(?:more)?\s?(?P<duration_unit>year|month|week|day|yr\b|mon\b|wk\b|d\b)'
+    pattern = r'(?:for|\bf|x)\s*(?P<duration>' + RE_RANGE + r')\s*(?:more)?\s?(?P<duration_unit>year(?:s)|month(?:s)|week(?:s)|day(?:s)|yr(?:s)\b|mon(?:s)\b|wk(?:s)?|d\b|w\b)'
     def normalize_match(self, match):
         duration_range = split_range(match.group('duration'))
         duration_text_start, duration_text_end = match.span()
@@ -33,7 +33,7 @@ class DurationParserForXDays(DurationParser):
 
 # up to x days
 class DurationParserUpToXDays(DurationParser):
-    pattern = r'(?:for )?up to (?P<duration>' + RE_RANGE + r')\s?(?P<duration_unit>year|month|week|day|yr\b|mon\b|wk\b|d\b)'
+    pattern = r'(?:for )?up to (?P<duration>' + RE_RANGE + r')\s?(?P<duration_unit>year(?:s)|month(?:s)|week(?:s)|day(?:s)|yr(?:s)\b|mon(?:s)\b|wk(?:s)|d\b)'
     def normalize_match(self, match):
         duration_range = split_range(match.group('duration'))
         duration_text_start, duration_text_end = match.span()

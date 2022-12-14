@@ -2,7 +2,7 @@ import collections
 import re
 from fractions import Fraction
 
-RE_WRITTEN_NUMBERS = r'one(?:\s|-)?(?:quarter|half)|quarter|half|one point (?:one|two|three|four|five|six|seven|eight|nine)|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty(?:\s|-)?(?:one|two|three|four|five|six|seven|eight|nine)|twenty|thirty(?:\s|-)?five|thirty'
+RE_WRITTEN_NUMBERS = r'one(?:\s|-)?(?:quarter|half)|quarter|half|one point (?:one|two|three|four|five|six|seven|eight|nine)|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty(?:\s|-)?(?:one|two|three|four|five|six|seven|eight|nine)|twenty|thirty(?:\s|-)?five|thirty|forty|fifty'
 #one (?:and |& )one(?:-|\s)half| 
 
 # NOTE: keep the x-y at the beginning and x at the end so that it finds the x-y first without stopping
@@ -17,7 +17,7 @@ RE_WRITTEN_NUMBERS = r'one(?:\s|-)?(?:quarter|half)|quarter|half|one point (?:on
 # )
 RE_RANGE = r'(?:(?:' + RE_WRITTEN_NUMBERS + r'|(?:\d*(?:\.|/))?\d+)(?:\s*(?:to|-|or|/|&|and)\s*)(?:' + RE_WRITTEN_NUMBERS + r'|(?:\d*(?:\.|/))?\d+)|(?:\d*(?:\.|/))?\d+|(?:' + RE_WRITTEN_NUMBERS + r'))'
 
-RE_DAYS_OF_WEEK = r'monday|tuesday|wednesday|thursday|friday|saturday|sunday|mon\b|tue\b|tues\b|wed\b|thu\b|thur\b|thurs\b|fri\b|sat\b|sun\b|m\b|tu\b|w\b|th\b|t\b|f\b|sa\b|su\b|s\b|mwf'
+RE_DAYS_OF_WEEK = r'monday|tuesday|wednesday|thursday|friday|saturday|sunday|mon\b|tue\b|tues\b|wed\b|thu\b|thur\b|thurs\b|fri\b|sat\b|sun\b|m\b|tu\b|w\b|th\b|t\b|f\b|sa\b|su\b|mwf'
  
 """
   TODO: make all of the ac / pc / hs / etc
@@ -66,7 +66,7 @@ RE_DAYS_OF_WEEK = r'monday|tuesday|wednesday|thursday|friday|saturday|sunday|mon
 # NOTE: periodUnit 'day' should include pretty much all of 'when' array
 # for FHIR conversion: https://www.hl7.org/fhir/valueset-units-of-time.html
 PERIOD_UNIT = {
-  'day': [ 'daily', 'dialy', 'nightly', 'days', 'day', r'\bd\b', 'morning', 'morn', 'am', 'afternoon', 'aft', 'pm', 'evening at bedtime', 'bedtime', 'evening', 'eve', 'night', 'hs' ],
+  'day': [ 'daily', 'dialy', 'nightly', 'days', 'day', r'\bd\b', 'morning', 'morn', 'am', 'afternoon', 'aft', 'pm', r'evening at bed(?:\s)?time', r'bed(?:\s)?time', 'evening', 'eve', 'night', 'hs' ],
   'week': [ 'weekly', 'weeks', 'week', 'wks', 'wk', r'\bw\b' ],
   'month': [ 'monthly', 'months', 'month', 'mon', 'mo' ],
   'hour': [ 'hourly', 'hours', 'hour', 'hrs', 'hr', r'\bh\b' ],
@@ -77,35 +77,42 @@ PERIOD_UNIT = {
 
 # for FHIR conversion: https://www.hl7.org/fhir/valueset-days-of-week.html
 DAY_OF_WEEK = {
-  'monday': [ 'monday', 'mon', 'mo', 'm' ],
-  'tuesday': [ 'tuesday', 'tues', 'tue', 'tu' ],
-  'wednesday': [ 'wednesday', 'weds', 'wed', 'wd', 'w' ],
-  'thursday': [ 'thursday', 'thurs', 'thu', 'th' ],
-  'friday': [ 'friday', 'fri', 'fr', 'f' ],
-  'saturday': [ 'saturday', 'sat', 'sa' ],
-  'sunday': [ 'sunday', 'sun', 'su' ],
+  'monday': [ r'monday(?:s)?', 'mon', 'mo', 'm' ],
+  'tuesday': [ r'tuesday(?:s)?', 'tues', 'tue', 'tu' ],
+  'wednesday': [ r'wednesday(?:s)?', 'weds', 'wed', 'wd', 'w' ],
+  'thursday': [ r'thursday(?:s)?', 'thurs', 'thu', 'th' ],
+  'friday': [ r'friday(?:s)?', 'fri', 'fr', 'f' ],
+  'saturday': [ r'saturday(?:s)?', 'sat', 'sa' ],
+  'sunday': [ r'sunday(?:s)?', 'sun', 'su' ],
 }
  
 #(?:with|\bc\.|before|\ba|\ba\.|after|\bp|\bp\.|in the|at|every)
 WHEN = {
-  'in the morning': [ r'(?:in the|every|each)\s?(?:morn(?:ing)?|a m\b|am)', r'a m\b', r'\bam\b', r'\bqam\b', r'q am\b' ],
+  'in the morning': [ r'(?:in the|every|each)\s?(?:morning|morn(?!ing)|a m\b|am)', r'a m\b', r'\bam\b', r'\bqam\b', r'q am\b' ],
+  'in the morning with breakfast': [],
   'in the afternoon': [ r'(?:in the|every|each|at)\s?(?:aft(?:ernoon)?|p m\b|pm)', r'\bqpm\b', 'q afternoon' ],
-  'in the evening at bedtime': [r'(?:in the|every)\s?evening at bedtime'],
-  'in the evening': [ r'(?:in the|every|each)\s?eve(?:ning)?(?! at bedtime)' ],
-  'at night': [ r'(?:in the|at|every|each)\s?night', 'nightly' ],
-  'at bedtime': [ r'(?!eve(?:ning) )(?:in the|at|every|each)\s?bedtime', r'\bqhs\b', r'q hs\b', 'bedtime', r'\bhs\b' ],
-  'with meal': [ r'(?:with|each|every|at)?\s?meal(?:s)?', r'c c\b', r'\bcc\b' ],
-  'with breakfast': [ r'(?:with|each|every|at)? breakfast' ],
+  'in the evening at bedtime': [r'(?:in the|every)\s?evening at bed(?:\s)?time'],
+  'in the evening': [ r'(?:in the|every|each)\s?eve(?:ning)?(?! at bed(?:\s)?time)' ],
+  'at night': [ r'(?:in the|at|every|each)\s?night(?! at bed(?:\s)?time)', r'nightly(?! at bed(?:\s)?time)' ],
+  'at bedtime': [ r'(?!eve(?:ning) )(?:in the|at|every|before|every night at|nightly at|each)\s?bed(?:\s)?time', r'\bqhs\b', r'q hs\b', r'bed(?:\s)?time', r'\bhs\b', r'qpm\s?hs' ],
+  'with meal': [ r'(?:with|each|every|at)?\s?meal(?:s)?', r'c c\b', r'\bcc\b', 'with food', 'wf' ],
+  'with breakfast and lunch': [],
+  'with breakfast and dinner': [],
+  'with breakfast': [ r'(?:with|each|every|at)? breakfast(?! and lunch| and dinner)' ],
   'with lunch': [ r'(?:with|each|every|at)?\s?lunch', r'\bcd\b', r'c d\b' ],
-  'with dinner': [ r'(?:with|each|every|at)?\s?dinner', r'\bcv\b', r'c v\b' ],		
-  'before meal': [ r'before meal(?:s)?', r'\bac\b', r'a c\b' ],
-  'before breakfast': [ 'before breakfast', r'\bacm\b', r'a c m\b' ],
+  'with dinner': [ r'(?:with|each|every|at)?\s?dinner', r'\bcv\b', r'c v\b', r'with (?:the )?eve(?:ning)? meal' ],		
+  'before meal': [ r'before(?: a)? meal(?:s)?', r'\bac\b', r'a c\b' ],
+  'before breakfast': [ r'before (?:breakfast|morning meal|the first food beverage or medicine of the day)', r'(?:in the|every|each) morning before breakfast', r'\bacm\b', r'a c m\b', 'on an empty stomach in the morning', 'in the morning on an empty stomach', r'before the first meal of the day(?: on an empty stomach)?' ],
   'before lunch': [ 'before lunch', r'\bacd\b', r'a c d\b' ],
   'before dinner': [ 'before dinner', r'\bacv\b', r'a c v\b' ],
   'after meal': [ r'after meal(?:s)?', r'\bpc\b', r'p c\b' ],
-  'after breakfast': [ 'after breakfast', r'\bpcm\b', r'p c m\b' ],
+  'after breakfast and dinner': [],
+  'after breakfast': [ r'after breakfast(?! and dinner)', r'\bpcm\b', r'p c m\b' ],
   'after lunch': [ 'after lunch', r'\bpcd\b', r'p c d\b' ],
   'after dinner': [ 'after dinner', r'\bpcv\b', r'p c v\b' ],
+  'before transfusion': [],
+  'while awake': [],
+  'before each meal and at bedtime': [r'before (?:each )?meal(?:s)? and (?:at )?bed(?:\s)?time'],
 }
 
 METHODS = {
@@ -118,12 +125,12 @@ METHODS = {
   'administer': [],
   'dissolve': [],
   'shampoo': [],
-  'inhale': [r'inh\b', r'neb\b', r'nebuliz(?:ation|ed|er|e)'],
+  'inhale': [r'inh\b', r'neb\b', r'nebuliz(?:ation|ed|er|e)', r'\binl\b'],
   'insert': [],
   'use': [],
   'push': [],
   'give': [],
-  'take': [r'\btk(?:\b|\d)', r'^t(?:\b|\d)'],
+  'take': [r'\btk(?:\b|\d)', r'^t(?:\b|\d)', 'taking'],
   'swallow': [],
   'instill': [],
   'chew': [],
@@ -177,47 +184,54 @@ METHODS = {
 """
 
 # NOTE: topical routes are handled separately (below)
+# NOTE: affected ears == ear(s) because the ( and ) get stripped
 ROUTES = {
-	'by mouth': ['by oral route', 'oral', r'orally(?! disintegrating)', r'po\b', r'p o\b', r'oral\b'],
-  'in left ear': [r'(?:in to |into |in |to |per )?(?:the )?left ear', r'\ba\.s\.\b'],
-  'in right ear': [r'(?:in to |into |in |to |per )?(?:the )?right ear', r'\ba\.d\.\b'],
-  'in each ear': [r'(?:in to |into |in |to |per )?(?:both ears|each ear|(?!affected )ears)', r'\ba\.u\.\b', r'\bau\b'],
+	'by mouth': ['by oral route', 'oral', r'orally(?! disintegrating)', r'(?:\b|\d)po\b', r'(?:\b|\d)p o\b', r'oral\b', 'chew', r'(?:with food|with (?:a )?meal(?:s)?|empty stomach|\bwf\b)'],
+  'in left ear': [r'(?:in to |into |in |to |per )?(?:the )?left ear'],
+  'in right ear': [r'(?:in to |into |in |to |per )?(?:the )?right ear'],
+  'in each ear': [r'(?:in to |into |in |to |per )?(?:bilateral ears|both ears|each ear|(?<!affected )ears)', r'\bau\b'],
   'in affected ear': [r'(?:in to |into |in |to |per )?(?:the )?affected ear\b'],
-  'in ear(s)': ['by ear', 'otically', 'otic', r'(?:in to |into |in |to |per )?(?:the )?(?!affected )ear\b'],
+  'in ear(s)': ['by ear', 'otically', 'otic', r'(?:in to |into |in |to |per )?(?:the )?(?<!affected )ear\b', 'affected ears'],
   'in left nostril': [r'(?:in to |into |in |to |per )?(?:the )?left (?:nose|nostril|nare)'],
   'in right nostril': [r'(?:in to |into |in |to |per )?(?:the )?right (?:nose|nostril|nare)'],
-  'in each nostril': [r'(?:in to |into |in |to |per )?(?:both nostrils|each nostril|nostrils|each nare)', r'\bien\b'],
-  'in nostril(s)': ['by nose', 'nasally', 'nasal', 'intranasal', r'(?:in to |into |in |to |per )?(?:the )?(?!each|left|right|both)(?:affected)?(?:nose|nostril|nare)\b'],
-  'in left eye': [r'(?:in to |into |in |to |per )?(?:the )?left eye', r'\bo\.s\.\b', r'\bos\b'],
-  'in right eye': [r'(?:in to |into |in |to |per )?(?:the )?right eye', r'\bo\.d\.\b', r'\bod\b'],
-  'in each eye': [r'(?:in to |into |in |to |per )?(?:both eyes|each eye|(?!affected )eyes)', r'\bo\.u\.\b', r'\bou\b'],
+  'in each nostril': [r'(?:in to |into |in |to |per )?(?:both nostrils|each nostril|(?<!affected )nostrils|each nare|ea nare)', r'\bien\b'],
+  'in nostril(s)': [r'\bvn\b', 'by nose', 'nasally', r'nasal(?!.{0,100}nostril)', 'intranasal', r'(?:in to |into |in |to |per )?(?:the )?(?!each|left|right|both)(?:affected)?(?:nose|nostrils|nostril|nare)\b', 'affected nostrils'],
+  'in left eye': [r'(?:in to |into |in |to |per )?(?:the )?left eye', r'\bos\b'],
+  'in right eye': [r'(?:in to |into |in |to |per )?(?:the )?right eye', r'\bod\b'],
+  'in each eye': [r'(?:in to |into |in |to |per )?(?:both eyes|each eye|(?<!affected )eyes)', r'\bou\b'],
   'in affected eye': [r'(?:in to |into |in |to |per )?(?:the )?affected eye\b'],
-  'in eye(s)': ['by eye', 'ophthalmically', 'ophthalmic', 'ophth', r'(?:in to |into |in |to |per )?(?:the )?(?!affected )eye(?!\s?lid)\b'],
-  'vaginally': ['vaginal', r'(?:in to|into|in|per)(?: the)? vagina', r'p\.v\.', r'pv\b'],
+  'in eye(s)': ['by eye', 'ophthalmically', 'ophthalmic', 'ophth', r'(?:in to |into |in |to |per )?(?:the )?(?<!affected )eye(?!\s?lid)\b', 'affected eyes'],
+  'vaginally': ['vaginal', r'(?:in to|into|in|per|to)(?: the)? vagina', r'(?:\b|\d)pv\b'],
   'into the uterus': ['intrauterine', 'uterus'],
-  'under the tongue': ['sublingually', 'sublingual', r'under (?:the )?tongue', r'sub(?: |-)?lingual(?:ly)?', r'\bs\.l\.\b', r'\bsl\b'],
-  'under the skin': ['subcutaneously', 'subcutaneous', r'(?:into|in|under) (?:the )?skin', r'sub(?: |-)*cutaneous(?:ly)?', r'subq\b', r'sub\.q\.', r'sc\b', r'subcu\b', r's\.c\.', r'sq\b', r's\.q\.', 's/q'],
-  'rectally': ['rectal', r'p\.r\.\b', r'pr\b', r'in(?:to)* (?:the )?(?:butt|anus|rectum)'],
-  'into the muscle': ['intramuscularly', r'i\.m\.\b', r'\bim\b', 'intramuscular', r'in(?:to)?(?: the)? muscle' ],
-  'intravenously': [r'i\.v\.', r'\biv\b', 'intravenous'],
+  'under the tongue': ['sublingually', 'sublingual', r'under (?:the )?tongue', r'sub(?: |-)?lingual(?:ly)?', r'(?:\b|\d)sl\b'],
+  'under the skin': ['subcutaneously', 'subcutaneous', r'(?<!massage )(?:into|in|under) (?:the )?skin', r'sub(?: |-)*cutaneous(?:ly)?', r'(?:\b|\d)subq\b', r'(?:\b|\d)sc\b', r'(?:\b|\d)subcu\b', r'(?:\b|\d)sq\b', r'(?:\b|\d)s/q\b'],
+  'rectally': ['rectal', r'(?:\b|\d)pr\b', r'in(?:to)* (?:the )?(?:butt|anus|rectum)'],
+  'into the muscle': ['intramuscularly', r'\bim\b', 'intramuscular', r'in(?:to)?(?: the)? muscle', 'intramuscularrly'],
+  'intravenously': [r'(?<!schedule )\biv\b', 'intravenous'],
   'cutaneously': [r'\bcutaneous'],
   'to the skin': ['transdermally', 'transdermal', 'patch', 'patches'],
   'enterally': ['enteral'],
   'via g-tube': [r'(?:via|per) g(?:-| )?tube', 'gastrostomy'],
   'via j-tube': [r'(?:via|per) j(?:-| )?tube', 'jejunostomy'],
   'via ng-tube': [r'(?:via|per) (?:ng|n\.g\.)(?:-| )?tube', 'nasogastrically', 'nasogastricly', 'nasogastric'],
-  'to the teeth': ['dentally', 'dental', r'to(?: the)? teeth'],
-  'intra-articularly': [r'(?:in to|into|in|to|per) (?:the|one|both|two|all) joint', 'intra-articular'],
-  'via nebulizer': ['via nebulization', r'(?:via |per|using a |from the |by )?nebuliz(?:ation|ed|er|e)', r'neb\b'],
+  'to the teeth': ['dentally', r'dental(?! procedure)', r'to(?: the)? teeth'],
+  'intra-articularly': [r'(?:in to|into|in|per) (?:the|one|both|two|all) joint', 'intra-articular'],
+  'via nebulizer': ['via nebulization', r'(?:via |per|using a |from the |by )?nebuliz(?:ation|ed|er|e)', r'(?:\b|\d)neb\b'],
   'in urethra': [r'(?:into|via|within the|within) urethra', 'urethrally', 'urethral'],
   'on the tongue': ['translingual', 'translingually'],
   'between the cheek and gums': ['buccally', r'between (?:the )?cheek and (?:the )?gums', 'buccal', 'inside the cheek'],
   'to the gum': [],
   'to mucous membrane': [r'(?:to|on) (?:the )?mucous membrane(?:s)?', r'mucous membrane(?:s)?'],
-  'via injection': ['by injection route', r'(?:via |per )injection', r'injection?(?:s)?(?! intramuscularly| intravenously| cuteneously| subcutaneously| intra-articularly)'],
-  'swish and spit': [],
+  'via injection': ['by injection route', r'(?:via |per )injection', r'(?<!with )injection(?:s)?(?! intramuscularly| intravenously| cuteneously| subcutaneously| intra-articularly)'],
+  'swish and spit': [r'swish around (?:inside mouth )?and then expectorate', 'swish and expectorate'],
   'swish and swallow': [],
-  'miscellaneous': ['misc', 'device', 'strip', r'test(?:ing)?', r'check(?:ing)?', 'monitor'],
+  'subdermal': [],
+  'to the mouth or throat': [],
+  'scalp': ['scalp area'],
+}
+
+MISCELLANEOUS_ROUTES = {
+  'miscellaneous': ['misc', 'device', 'meter', 'needle', 'pen needle', 'strip', r'(?:test )?strip(?:s)', r'test(?:ing)?', r'check(?:ing|s)?', 'monitor'],
 }
 
 """
@@ -346,13 +360,17 @@ NOTE: other "routes" from FHIR
 """
 
 TOPICAL_ROUTES = {
-  'topically': [r'topical\b', 'application', 'apply', 'patch'],
-  'affected areas': [r'involved (?:areas|sites)'],
-  'affected area': [r'\baa\b', r'involved (?:area|site)\b'],
+  'topically': [r'topical\b', r'\btop\b', 'application', 'apply', 'patch'],
+  'affected areas': [r'(?:involved|affected|effected) (?:areas|sites)'],
+  'affected area': [r'\baa\b', r'(?:involved|affected|effected) (?:area|site)\b'],
+  'affected and surrounding areas': [],
+  # TODO: exclude back pain
   'back': [],
   'scalp': [],
   'torso': [],
   'arms': [],
+  'legs': [],
+  'abdomen': [],
   'arm': [],
   'eyelids': ['eye lids'],
   'eyelid': [r'eye lid\b'],
@@ -365,18 +383,23 @@ TOPICAL_ROUTES = {
   'buttocks': [r'butt\b'],
   'blood blister': [],
   'face': [],
+  'chest': [],
+  'shoulders': [],
 }
 
 INHALATION_ROUTES = {
-  'into the lungs': ['via inhalation', 'respiratory tract', r'(?:via |per |using a |from the )?inhal(?:ation|ed|er|e)', r'puff(?:s)?', r'inh\b', r'inhalation(?:s)?'],
+  'into the lungs': ['via inhalation', 'respiratory tract', r'(?:via |per |using a |from the )?(?<!with )(?<!with albuterol )inhal(?:ation|ed|er|e)(?!.{0,30}(?:spray|nebuliz))', r'inh\b', r'inhalation(?:s)?', r'puff(?:s)? by mouth'],
 }
 
 # TODO: add a lot more here (mL, mcg, g, etc)
+# NOTE: moved unit here - need to do more testing
 STRENGTH_UNITS = {
   'mg': [r'(?:milligram(?:s)?|mgs)\b'],
   'mcg': [r'(?:microgram(?:s)?|mcgs)\b'],
   'g': [r'(?:gm|gms|gram(?:s)?)\b'],
-  'international unit': [r'i\.u\.\b', r'iu\b', 'international units', r'int\'l unit',  'intl unit'],
+  'international unit': [r'i\.u\.\b', r'iu\b', 'international units', r'int\'l unit(?:s)?',  r'intl unit(?:s)?'],
+  # NOTE: don't want u at beginning of sig d/t 'u to test blood sugar' which should be 'use'
+  'unit': [r'units', r'un\b', r'(?<!^)u\b'],
   'mEq': [r'milliequivalent(?:s)?'],
 }
 
@@ -386,7 +409,8 @@ DOSE_STRENGTH_NEGATION = [
   'not to exceed',
   r'\bnmt',
   r'\bnte',
-  r'max(?:imum)? (?:daily )?(?:dose|amount)?\s?(?:=|is)?',
+  # NOTE: negating o and a prevents things like fosamax / topamax / zithromax
+  r'(?<!o|a)max(?:imum)? (?:daily )?(?:dose|amount)?\s?(?:=|is)?',
   r'mdd(?:\s?=)?',
   r'take with(?: a)?',
   r'combined dos(?:e|age) of',
@@ -428,17 +452,17 @@ DOSE_UNITS = {
   'lotion': [],
   'liquid dose form': [],
   # volume
-  'mL': [r'(?:milliliter)', r'mls\b'],
+  'mL': ['milliliter', r'mls\b', r'cc\b', 'mililiter'],
   'L': [r'(?:\bliter)'],
   'oz': ['ounce'],
   'cm': ['centimeter', r'cm\b', r'cms\b'],
-  'unit': [r'units'],
-  'teaspoon': [r'\btsp\b', 'teaspoons', 'teaspoonsful', 'teaspoonful', 'teaspoonfuls'],
-  'tablespoon': [r'\btbsp\b', 'tablespoon', 'tablespoonsful', 'tablespoonful', 'tablespoonfuls'],
+  'inch': [],
+  'teaspoon': [r'tsp\b', 'teaspoons', 'teaspoonsful', 'teaspoonful', 'teaspoonfuls'],
+  'tablespoon': [r'tbsp\b', 'tablespoon', 'tablespoonsful', 'tablespoonful', 'tablespoonfuls'],
   # tablet
   # TODO: add all synonyms to exclusion for tablet
   # ERROR: make sure "tablespoon" does not match on "tab" -- use a negative lookahead
-  'tablet': [r'(?<!film-coated)(?<!effervescentgastro-resistant)(?<!orodispersible)(?<!prolonged-release)(?<!vaginal)(?<!effervescent vaginal)(?<!modified-release)(?<!chewable)(?<!sublingual)(?<!buccalmuco-adhesive buccal)(?<!soluble)(?<!dispersible)(?<!delayed-release particles)(?<!oral)(?<!inhalation vapor)(?<!implantation)(?<!extended-release film coated)(?<!ultramicronized)(?<!extended-release)(?<!extended-release enteric coated)(?<!delayed-release)(?<!coated particles)(?<!sustained-release buccal)(?<!multilayer)\s*tab(?:let)?(?:s)?', r't\b'],
+  'tablet': [r'(?<!film-coated)(?<!effervescentgastro-resistant)(?<!orodispersible)(?<!prolonged-release)(?<!vaginal)(?<!effervescent vaginal)(?<!modified-release)(?<!chewable)(?<!sublingual)(?<!buccalmuco-adhesive buccal)(?<!soluble)(?<!dispersible)(?<!delayed-release particles)(?<!oral)(?<!inhalation vapor)(?<!implantation)(?<!extended-release film coated)(?<!ultramicronized)(?<!extended-release)(?<!extended-release enteric coated)(?<!delayed-release)(?<!coated particles)(?<!sustained-release buccal)(?<!multilayer)\s*tab(?:let)?(?:s)?', r'tb\b', r't\b', r'ts\b', r'a tab(?:let)?', r'whole tab(?:let)?'],
   'film-coated tablet': [r'(?:film-coated|film coated) tab(?:let)?(?:s)?'],
   'effervescent tablet': [r'effervescent tab(?:let)?(?:s)?'],
   'gastro-resistant tablet': [r'(?:gastro-resistant|gastro resistant) tab(?:let)?(?:s)?'],
@@ -466,7 +490,7 @@ DOSE_UNITS = {
   'sustained-release buccal tablet': [r'(?:sustained-release|sustained release|s.r.|sr) buccal tab(?:let)?(?:s)?'],
   'multilayer tablet': [r'(?:multilayer|multi-layer) tab(?:let)?(?:s)?'],		
   # capsule
-  'capsule': [r'cap(?:sule)?(?:s)?\b', r'c\b'],
+  'capsule': [r'cap(?:sule)?(?:s)?\b', r'c\b', r'cs\b', 'gelcap'],
   'hard capsule': [r'hard cap(?:sule)?(?:s)?\b'],
   'soft capsule': [r'soft cap(?:sule)?(?:s)?\b'],
   'vaginal capsule': [r'vaginal cap(?:sule)?(?:s)?\b'],
@@ -479,7 +503,6 @@ DOSE_UNITS = {
   'prolonged-release capsule': [r'(?:prolonged-release|prolonged release) cap(?:sule)?(?:s)?\b'],
   'coated pellets capsule': [r'coated pellets cap(?:sule)?(?:s)?\b'],
   'delayed-release capsule': [r'(?:delayed-release|delayed release|d.r.|dr) cap(?:sule)?(?:s)?\b'],
-  'oral capsule': [r'oral cap(?:sule)?(?:s)?\b'],
   'extended-release film coated capsule': [r'(?:extended-release|extended release|e.r.|er) (?:film coated|film-coated) cap(?:sule)?(?:s)?\b'],
   'extended-release coated capsule': [r'(?:extended-release|extended release|e.r.|er) coated cap(?:sule)?(?:s)?\b'],
   'extended-release capsule': [r'(?:extended-release|extended release|e.r.|er) cap(?:sule)?(?:s)?\b'],
@@ -502,7 +525,7 @@ DOSE_UNITS = {
   'ear drop': ['ear drops', 'otic drop'],
   'modified release drop': ['modified release drops', 'modified-release drop'],
   # spray
-  'spray': [],
+  'spray': [r'spr\b'],
   'oromucosal spray': [],
   'sublingual spray': [],
   'cutaneous spray': [],
@@ -518,7 +541,7 @@ DOSE_UNITS = {
   'cutaneous suspension spray': [],
   'cutaneous solution spray': [],
   # inhalation
-  'puff': [r'inhalation', r'puff', r'\bpuf\b', r'pressurized inhalation(?:s)?'],
+  'puff': [r'inhalation', r'puff', r'\bpuf\b', r'pressurized inhalation(?:s)?', r'\bpfs\b'],
   'pressurised inhalation solution': [],
   'pressurised inhalation suspension': [],
   'pressurised inhalation emulsion': [],
@@ -537,6 +560,7 @@ DOSE_UNITS = {
   'cutaneous aerosol': [],
   'metered dose aerosol': [],
   # gum
+  'gummie': ['gummy'],
   'gum': [],
   'oral gum': [],
   'medicated chewing-gum': [r'medicated chewing gum'],
@@ -554,11 +578,11 @@ DOSE_UNITS = {
   'implantable pellet': [],
   'pellet': [],
   # inhaler
-  'inhaler': [],
-  'metered dose powder inhaler': [],
-  'metered dose inhaler': [r'MDI', r'M.D.I.'],
-  'breath activated powder inhaler': [],
-  'breath activated inhaler': [],
+  #'inhaler': [],
+  #'metered dose powder inhaler': [],
+  #'metered dose inhaler': [r'MDI', r'M.D.I.'],
+  #'breath activated powder inhaler': [],
+  #'breath activated inhaler': [],
   # stick
   'ear stick': [],
   'nasal stick': [],
@@ -625,16 +649,27 @@ DOSE_UNITS = {
   'buccal film': [],
   'orodispersible film': [],
   'pen': [],
-  'applicatorful': ['applicatorsful'],
-  'application': [r'app\b', r'applic\b'],
+  'applicatorful': ['applicatorsful', 'applicator'],
+  # NOTE: have a separate parser for generic application keywords (i.e. 'apply')
+  'application': [ r'applic\b', r'appl\b', r'app\b'],
   'capful': [],
   'injection': [],
-  'packet': [],
-  'strip': [],
+  'packet': ['pkt'],
+  'strip': ['test strip'],
   'syringe': [],
   'vial': [],
-  'kit': [],
-  'each': ['eaches'],
+  'kit': ['meter kit'],
+  # NOTE: have a separate parser for generic each keywords (i.e. 'strips', 'meter')
+  # TODO: after standardized terminology re-architecture, prevent 'each' from triggering on 'into each nostril' type sigs
+  'each': ['eaches', 'pen needle', 'test strip'],
+  'vaginal ring': ['ring'],
+  'dose': [],
+  'swab': [],
+  'squirt': [],
+  'pump': [],
+  'troche': [],
+  'cartridge': ['cartridges'],
+  'device': [],
 }
 
 PAIN_SEVERITIES = {
@@ -659,6 +694,8 @@ PAIN_LOCATIONS = {
   'eye': [],
   'muscle/joint': [],
   'muscle': [],
+  'nerve': [],
+  'neuropathic': [],
   'joint': [],
   'throat': [],
   'back': [],
@@ -709,9 +746,12 @@ INDICATIONS = {
   'bladder irritation': [],
   'bladder spasm': [],
   'bleeding': [],
+  'blood glucose monitoring': [],
   'blood sugar less than': [],
+  'blood pressure': [],
   'bradycardia': [],
   'burning with urination': [],
+  'cholesterol': ['choleserol'],
   'chest pain': [],
   'cold sore': ['cold sores'],
   'cold': [],
@@ -725,6 +765,7 @@ INDICATIONS = {
   'demand feeding': [],
   'depression': [],
   'diarrhea': [],
+  'diabetes': ['type 2 diabetes'],
   'difficulty breathing': [],
   'discomfort': [],
   'dizziness': [],
@@ -753,16 +794,23 @@ INDICATIONS = {
   'hallucination': [],
   'headache': [],
   'heartburn': [],
+  'heart rate': ['heart rates', r'\bhr\b'],
   'hiccups': [],
+  'heart failure': [],
+  'heart': [],
   'hemorrhoids': [],
+  'hair': [],
   'high blood pressure': [],
   'high blood sugar': [],
+  'high cholesterol': ['hyperlipidemia'],
   'hives': [],
   'hypoglycemia': [],
+  'hypothyroidism': ['underactive thyroid'],
   'incontinence': [],
   'indigestion': [],
   'infection': [],
   'inflammation': [],
+  'inflammatory bowel disease': [r'\bibd\b'],
   'insomnia': [],
   'intercourse': [],
   'irritation': [],
@@ -772,6 +820,7 @@ INDICATIONS = {
   'low blood sugar': [],
   'low heart rate': [],
   'migraine': [],
+  'mood': [],
   'mucositis': [],
   'movement disorder': [],
   'muscle spasm': [],
@@ -779,15 +828,20 @@ INDICATIONS = {
   'nasal dryness': [],
   'nausea': [],
   'numbness': [],
+  'opioid dependence': [],
   'opioid reversal': [],
   'outbreak': [],
+  'overdose': [],
   'palpitations': [],
+  'panic attack': [],
   'perianal irritation': [],
   'pharyngitis': [],
+  'prostate': [],
   'rash': [],
   'reflux': [],
   'respiratory distress': [],
   'respiratory depression': [],
+  'restlessness': [],
   'rhinitis': [],
   'rigors': [],
   'seasonal allergies': [],
@@ -812,14 +866,18 @@ INDICATIONS = {
   'soreness': [],
   'spasm': [],
   'stomatitis': [],
+  'stroke': [],
   'swelling': [],
   'teething': [],
   'thrush': [],
   'thyroid': [],
+  'tick bite': [],
   'tremor': ['tremors'],
+  'ulcerative colitis': [],
   'unable to take po': [],
   'urge to smoke': [],
   'urinary burning': [],
+  'urinary tract infection': [r'\buti'],
   'urinary tract irritation': [],
   'urinary tract symptoms': [],
   'vertigo': [],
