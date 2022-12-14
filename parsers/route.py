@@ -11,7 +11,7 @@ class RouteParser(Parser):
             # and join them with a | character
             # and add them to the route_patterns array
             route_patterns.append(r'|'.join(p))
-        pattern = re.compile(r'\b(?P<route>' + r'|'.join(route_patterns) + r')\b', flags = re.I)
+        pattern = re.compile(r'(?P<route>' + r'|'.join(route_patterns) + r')', flags = re.I)
         return pattern
     def normalize_match(self, match):
         route = get_normalized(ROUTES, match.group('route'))
@@ -32,7 +32,7 @@ class InhalationRouteParser(RouteParser):
             # and join them with a | character
             # and add them to the route_patterns array
             route_patterns.append(r'|'.join(p))
-        pattern = re.compile(r'\b(?P<route>' + r'|'.join(route_patterns) + r')\b', flags = re.I)
+        pattern = re.compile(r'(?P<route>' + r'|'.join(route_patterns) + r')', flags = re.I)
         return pattern
     def normalize_match(self, match):
         route = get_normalized(INHALATION_ROUTES, match.group('route'))
@@ -51,7 +51,7 @@ class TopicalRouteParser(RouteParser):
             # and join them with a | character
             # and add them to the route_patterns array
             topical_route_patterns.append(r'|'.join(p))
-        pattern = re.compile(r'\b(?P<route>' + r'|'.join(topical_route_patterns) + r')\b', flags = re.I)
+        pattern = re.compile(r'(?P<route>' + r'|'.join(topical_route_patterns) + r')(?!\s?pain)', flags = re.I)
         return pattern
     def normalize_match(self, match):
         route = get_normalized(TOPICAL_ROUTES, match.group('route'))
@@ -113,8 +113,9 @@ class TopicalRouteParser(RouteParser):
         self.matches = matches
         return matches
 
+
 class InferredOralRouteParser(RouteParser):
-    pattern = r'\b(?P<route>(?!vaginal|sublingual)tab(?:let)?(?:s)?(?!.*(?:sublingual(?:ly)?|into|per|on the|between the|under|by sublingual route|by buccal route))|cap(?:sule)?(?:s)?|chew(?:able)?|\dpo|capful|pill)\b'
+    pattern = r'(?P<route>(?!vaginal|sublingual)tab(?:let)?(?:s)?(?!.*(?:sublingual(?:ly)?|into|per|on the|between the|under|by sublingual route|by buccal route))|cap(?:sule)?(?:s)?|chew(?:able)?|\dpo|capful|pill)'
     def normalize_pattern(self):
         return re.compile(self.pattern, flags = re.I)
     def normalize_match(self, match):
@@ -124,11 +125,48 @@ class InferredOralRouteParser(RouteParser):
         route_readable = self.get_readable(route=route)
         return self.generate_match({'route': route, 'route_text_start': route_text_start, 'route_text_end': route_text_end, 'route_text': route_text, 'route_readable': route_readable})
 
+
+# infers inhalation route for things like 'puffs' in the absence of other more specific routes
+class InferredInhalationRouteParser(RouteParser):
+    pattern = r'puff(?:s)?(?! in each nostril)(?! in the nose)(?! each nostril)(?! in nostril)'
+    def normalize_pattern(self):
+        return re.compile(self.pattern, flags = re.I)
+    def normalize_match(self, match):
+        route = 'into the lungs'
+        route_text_start, route_text_end = match.span()
+        route_text = match[0]
+        route_readable = self.get_readable(route=route)
+        return self.generate_match({'route': route, 'route_text_start': route_text_start, 'route_text_end': route_text_end, 'route_text': route_text, 'route_readable': route_readable})
+
+
+class MiscellaneousRouteParser(RouteParser):
+    def normalize_pattern(self):
+        dose_patterns = []
+        for n, p in MISCELLANEOUS_ROUTES.items():
+            # add the name of the pattern to the list of matched patterns
+            p.append(n)
+            # and join them with a | character
+            # and add them to the dose_patterns array
+            dose_patterns.append(r'|'.join(p))
+        pattern = re.compile(r'(' + r'|'.join(dose_patterns) + r')', flags = re.I)
+        return pattern
+    def normalize_match(self, match):
+        route = 'miscellaneous'
+        route_text_start, route_text_end = match.span()
+        route_text = match[0]
+        route_readable = self.get_readable(route=route)
+        return self.generate_match({'route': route, 'route_text_start': route_text_start, 'route_text_end': route_text_end, 'route_text': route_text, 'route_readable': route_readable})
+
+
+# NOTE: moved InhalationRouteParser above RouteParser here so that "2 PUFFS BY MOUTH DAILY" resolved to "into the lungs" instead of "by mouth"...
+#       however, left it in different order above for class inheritance
 parsers = [
-    RouteParser(),
     InhalationRouteParser(),
+    RouteParser(),
     TopicalRouteParser(),
-    InferredOralRouteParser()
+    # InferredOralRouteParser(), # turned off for VUMC - TODO: need to create customer "settings"
+    # InferredInhalationRouteParser(), # turned off for VUMC - TODO: need to create customer "settings"
+    MiscellaneousRouteParser(),
 ]
 
 #print(RouteParser().parse('take one by mouth daily'))
