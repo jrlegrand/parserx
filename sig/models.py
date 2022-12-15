@@ -122,6 +122,8 @@ class SigReviewed(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     # overall sig correct
     sig_correct = models.BooleanField(null=True)
+    # in the case of automatic feedback, the corrected sig from the user
+    sig_corrected = models.TextField(null=True)
     # status of individual sig components if overall sig not correct
     method_status = models.CharField(choices=STATUS_CHOICES, null=True, max_length=10)
     dose_status = models.CharField(choices=STATUS_CHOICES, null=True, max_length=10)
