@@ -140,7 +140,11 @@ class BulkSigCreateViewSet(mixins.CreateModelMixin,
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         print(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(
+                serializer.data, 
+                status=status.HTTP_201_CREATED, 
+                headers=headers
+        )
 
         # TODO: if sig has no sig_parsed with a sig_reviewed, return most recent parsed_sig with a disclaimer
         # TODO: if sig has at least one sig_parsed...
@@ -176,7 +180,11 @@ class CsvSigCreateViewSet(mixins.CreateModelMixin,
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         #print(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(
+                serializer.data, 
+                status=status.HTTP_201_CREATED, 
+                headers=headers
+        )
 
         # TODO: if sig has no sig_parsed with a sig_reviewed, return most recent parsed_sig with a disclaimer
         # TODO: if sig has at least one sig_parsed...
@@ -194,6 +202,20 @@ class SigReviewedViewSet(viewsets.ModelViewSet):
     queryset = SigReviewed.objects.all()
     serializer_class = SigReviewedSerializer
     permission_classes = [IsAdminUser, IsOwnerOrReadOnly]
+
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        many = isinstance(data, list)
+        print (data, many)
+        serializer = self.get_serializer(data=data, many=many)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+                serializer.data,
+                status=status.HTTP_201_CREATED,
+                headers=headers
+        )
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """
