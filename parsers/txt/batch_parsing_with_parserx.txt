@@ -1,0 +1,28 @@
+1.) Get auth token from ParseRx
+POST api.parserx.io/auth/token/login/
+Headers
+Content-Type application/json
+Body
+{
+	"username": "<username>",
+	"password": "<password>"
+}
+Response
+{
+    "auth_token": "<auth token>"
+}
+
+2.) Sumbit batch reviews to ParseRx
+POST api.parserx.io/sig_reviewed/
+Headers
+Content-Type application/json
+Authorization Token <auth token>
+Body
+[
+    {
+        "owner": <user_id>,
+        "sig_parsed": <sig_parsed_id>,
+        "sig_correct": "<true|false>",
+        "sig_corrected": "<sig_corrected>"        
+    }
+]
