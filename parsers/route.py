@@ -164,8 +164,8 @@ parsers = [
     InhalationRouteParser(),
     RouteParser(),
     TopicalRouteParser(),
-    # InferredOralRouteParser(), # turned off for VUMC - TODO: need to create customer "settings"
-    # InferredInhalationRouteParser(), # turned off for VUMC - TODO: need to create customer "settings"
+    InferredOralRouteParser(), # turned off for VUMC - TODO: need to create customer "settings"
+    InferredInhalationRouteParser(), # turned off for VUMC - TODO: need to create customer "settings"
     MiscellaneousRouteParser(),
 ]
 
