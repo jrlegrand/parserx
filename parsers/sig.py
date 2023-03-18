@@ -163,7 +163,7 @@ class SigParser(Parser):
     # parse a csv
     def parse_sig_csv(self):
         file_path='parsers/csv/'
-        file_name='vumc_phase_3_sigs'
+        file_name='file_name'
         csv_columns = self.match_keys
         # create an empty list to collect the data
         parsed_sigs = []
@@ -198,7 +198,7 @@ class SigParser(Parser):
     # parse and validate a csv
     def parse_validate_sig_csv(self):
         file_path='parsers/csv/'
-        file_name='sig_prd_20200707'
+        file_name='file_name'
         # create an empty list to collect the data
         parsed_sigs = []
         # open the file and read through it line by line
