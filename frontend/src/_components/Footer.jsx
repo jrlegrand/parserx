@@ -19,10 +19,7 @@ class Footer extends React.Component {
                 <Container>
                     <Row>
                     <Col>
-                        <p>&copy; 2022 ParseRx</p>
-                        <Link to="/disclaimer">Disclaimer</Link><br/>
-                        <Link to="/terms-of-service">Terms Of Service</Link><br/>
-                        <Link to="/privacy-policy">Privacy Policy</Link>
+                        <p>&copy; ParseRx</p>
                     </Col>
                     </Row>
                 </Container>

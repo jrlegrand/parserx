@@ -130,22 +130,6 @@ class HomePage extends React.Component {
                 </Col>
             </Row>
 
-            <Row className="featurette">
-                <Col md={{ span: 6, order: 2 }} className="text-center">
-                    <img width="50%" src={phoneConsultation} />
-                </Col>
-                <Col md={{ span: 6, order: 1 }}>
-                    <h1>Contact us</h1>
-                    <p>Interested in a demo, have a few questions, or just want to chat?</p>
-                    <h3><span className="material-icons green">send</span> Email</h3>
-                    <p>Shoot us a quick email at <a href="mailto:hello@parserx.io">hello@parserx.io</a>.</p>
-                    <h3><span className="material-icons purple">speaker_notes</span> Contact form</h3>
-                    <p>Send us a message via our easy to use <a href="https://joey708693.typeform.com/to/MNtm28sF" target="_blank"><span className="material-icons"><small>launch</small></span>contact form</a>.</p>
-                    <h3><span className="material-icons red">email</span> Mailing list</h3>
-                    <p>Get updates on new features by signing up for our <a href="https://mailchi.mp/d4318280990f/parserx-mailing-list" target="_blank"><span className="material-icons"><small>launch</small></span>mailing list</a>.</p>
-
-                </Col>
-            </Row>
             </Container>
             </div>
         );

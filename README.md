@@ -1,5 +1,5 @@
 # ParseRx
-Medication sig parser.
+Medication sig parser w/ API and frontend review tool.  Supports parsing individual sigs and batch parsing CSV sigs.  Supports feedback loop from "customers" via API call.
 
 
 ## Getting started
@@ -74,6 +74,8 @@ python manage.py runserver localhost:8000
 Recommend using Postman
 
 1.) Authenticate with user
+
+```
 POST localhost:8000/auth/token/login/
 Headers
 Content-Type application/json
@@ -86,8 +88,11 @@ Response
 {
     "auth_token": "<auth token>"
 }
+```
 
 2.) Run query via API
+
+```
 POST localhost:8000/sig/
 Headers
 Content-Type    application/json
@@ -96,6 +101,7 @@ Body
 {
     "sig_text": "take 1-2 tabs po qid prn anxiety x7d"
 }
+```
 
 
 ## Parsing / reparsing an entire CSV of sigs
@@ -106,11 +112,14 @@ NOTE: to change the csv file that the API runs:
     - The csv file is stored in parserx/parsers/csv
 
 Edit the name of the csv file in parserx.io/sig/views.py to be the csv you want to parse.
+
 ***NOTE: ensure you have converted it to just one column full of sigs with no header.
 
 Postman
 
 1.) Authenticate with superuser
+
+```
 POST localhost:8000/auth/token/login/
 Headers
 Content-Type application/json
@@ -123,12 +132,16 @@ Response
 {
     "auth_token": "<auth token>"
 }
+```
 
 2.) Run ParseRx on csv file via API
+
+```
 POST localhost:8000/csv_sig/
 Headers
 Content-Type	application/json
 Authorization	Token <auth token>
+```
 
 
 ## Submiting batch sig reviews to ParseRx via API (feedback loop)
@@ -136,6 +149,8 @@ Authorization	Token <auth token>
 This would be for a "customer" that is receiving parsed sigs and wants to send back some feedback as a batch every night via the API.
 
 1.) Get auth token from ParseRx
+
+```
 POST api.parserx.io/auth/token/login/
 Headers
 Content-Type application/json
@@ -148,8 +163,11 @@ Response
 {
     "auth_token": "<auth token>"
 }
+```
 
 2.) Sumbit batch reviews to ParseRx
+
+```
 POST api.parserx.io/sig_reviewed/
 Headers
 Content-Type application/json
@@ -162,4 +180,31 @@ Body
         "sig_correct": "<true|false>",
         "sig_corrected": "<sig_corrected>"        
     }
+
+    ...
+
 ]
+```
+
+
+## Starting the frontend
+
+If your API is hosted somewhere other than localhost:8000, go to frontend/webpack.config.js and change `apiUrl` (near the bottom) to the correct URL.
+
+```
+cd frontend
+npm install
+npm start
+```
+
+Go to localhost:8080
+
+Log in with superuser username and password.
+
+Once logged in, you should be taken back to the homepage.  You need to refresh the homepage to see additional options in the nav bar for "Review" and "Demo".
+
+Review - lets you review previously parsed sigs and mark them as correct or incorrect.  If incorrect, you can select which components are incorrect. This also gets stored in the database.
+
+Demo - lets you enter individual free text sigs and shows the parsed response.
+
+Sometimes a malformed parsed sig will prevent the Review page from loading. If this happens, either remove the sig from the database in MySQL phpMyadmin or enter 10 new sigs in the Demo page to clear it out.

@@ -24,12 +24,6 @@ class DocsPage extends React.Component {
                     <Col>
                         <h1>API Documentation</h1>
                         <div className="stackedit__html">
-                            <p>
-                                Before getting started,{" "}
-                                <a href="mailto:hello@parserx.io">request an API key</a>. Please review our{" "}
-                                <a href="https://parserx.io/terms-of-service">Terms Of Service</a> before deploying API
-                                integration to avoid any unexpected account issues.
-                            </p>
                             <h2 id="request-authentication">Request Authentication</h2>
                             <p>All requests must have an API key.</p>
                             <p>

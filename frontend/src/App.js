@@ -8,9 +8,6 @@ import { LoginPage } from './LoginPage';
 import { LogoutPage } from './LogoutPage';
 import { SigPage } from './SigPage';
 import { DocsPage } from './DocsPage';
-import { TermsOfServicePage } from './TermsOfServicePage';
-import { DisclaimerPage } from './DisclaimerPage';
-import { PrivacyPolicyPage } from './PrivacyPolicyPage';
 import { DemoPage } from './DemoPage';
 
 import './App.css';
@@ -67,9 +64,6 @@ class App extends React.Component {
                   <PrivateRoute exact path="/sig" component={SigPage} />
                   <PrivateRoute exact path="/demo" component={DemoPage} />
                   <Route path="/docs" component={DocsPage} />
-                  <Route path="/terms-of-service" component={TermsOfServicePage} />
-                  <Route path="/disclaimer" component={DisclaimerPage} />
-                  <Route path="/privacy-policy" component={PrivacyPolicyPage} />
                   <Route path="/" component={HomePage} />
                   <Route component={HomePage} />
                 </Switch>
