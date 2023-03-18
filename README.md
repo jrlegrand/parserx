@@ -1,5 +1,13 @@
 # ParseRx
-Medication sig parser w/ API and frontend review tool.  Supports parsing individual sigs and batch parsing CSV sigs.  Supports feedback loop from "customers" via API call.
+Medication sig parser.
+
+**Features:**
+- Custom Django Rest Framework API built in.
+- Custom ReactJS frontend review and demo tool w/ easy documentation reference.
+- API and Python module support parsing individual sigs and batch parsing CSV sigs.  
+- Supports feedback loop from "customers" via API call.
+- Accepts NDCs or RXCUIs via API call to infer things like method, route, or dose form if missing from sig text.
+- Version controls sigs that parse differently after code changes. API has logic built in to return the most recent version that is positively reviewed, OR will always return the most recent version if there are no reviews.
 
 
 ## Getting started
@@ -114,6 +122,8 @@ NOTE: to change the csv file that the API runs:
 Edit the name of the csv file in parserx.io/sig/views.py to be the csv you want to parse.
 
 ***NOTE: ensure you have converted it to just one column full of sigs with no header.
+
+This will create new versions of parsed sigs if code has changed to parse a sig differently.  Old versions will still be visible using the Review tool in the frontend.
 
 Postman
 
