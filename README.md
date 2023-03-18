@@ -4,29 +4,40 @@ Medication sig parser.
 
 ## Getting started
 
+Instructions for Linux:
+
+Create virutal environment
+
+```
 python3 -m venv venv
 source venv/bin/activate
-pip install django
-pip install djangorestframework
-pip install "djangorestframework-api-key==2.*"
-pip install django-cors-headers
-pip install djoser
+```
+
+Install dependencies
+
+```
+pip install -r requirements.txt
 sudo apt-get install python3-dev default-libmysqlclient-dev build-essential
-pip install mysqlclient
+```
 
 
 ## Initialize the database
 
 How to initially setup MySQL: https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04
+
 Info on MySQLClient: https://pypi.org/project/mysqlclient/
+
 Gunicorn/Nginx: https://realpython.com/django-nginx-gunicorn/#replacing-wsgiserver-with-gunicorn
 
+```
 sudo mysql
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password by 'mynewpassword';
 GRANT ALL PRIVILEGES ON parserx.* TO 'parserx'@'localhost' WITH GRANT OPTION;
+```
 
 Terminal
 
+```
 mysql -u parserx -p
 <enter password>
 drop database parserx;
@@ -39,6 +50,7 @@ python manage.py migrate
 python manage.py createsuperuser
 <follow createsuperuser prompts>
 python manage.py runserver 0.0.0.0:8000
+```
 
 Postman
 
