@@ -25,7 +25,7 @@ SECRET_KEY = '6)yv)a&b#q%j03b_pp7j=5&vs4et4hwlvv+tob#e_&ytro*ng'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS=['https://api.parserx.io']
 
@@ -102,7 +102,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'parserx',
         'USER': 'parserx',
-        'PASSWORD': 'password',
+        'PASSWORD': 'P@ssw0rd',
     }
 }
 

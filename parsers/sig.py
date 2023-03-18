@@ -120,7 +120,7 @@ class SigParser(Parser):
 
     def parse(self, sig_text):
         match_dict = dict(self.match_dict)
-        match_dict['original_sig_text'] = sig_text
+        #match_dict['original_sig_text'] = sig_text
         sig_text = self.get_normalized_sig_text(sig_text)
         match_dict['sig_text'] = sig_text
         for parser_type, parsers in self.parsers.items():
