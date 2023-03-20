@@ -218,3 +218,210 @@ Review - lets you review previously parsed sigs and mark them as correct or inco
 Demo - lets you enter individual free text sigs and shows the parsed response.
 
 Sometimes a malformed parsed sig will prevent the Review page from loading. If this happens, either remove the sig from the database in MySQL phpMyadmin or enter 10 new sigs in the Demo page to clear it out.
+
+## API documentation
+
+### Request authentication
+
+All requests must have an API key.
+
+Create your own API key at http://localhost:8000/admin
+
+**To authenticate:**
+
+Headers of your request must include:
+
+```
+Authorization: Api-Key <your API key here>
+Content-Type: application/json
+```
+
+Invalid API keys will result in an HTTP 401, Unauthorized error.
+
+### API resources
+
+The ParseRx API expects HTTP URL request parameters and returns JSON responses. All requests must include your API key.
+
+**Request**
+
+`POST /sig/` = Generate / return a parsed sig and information on review status.
+
+URL = http://localhost:8000/sig/
+
+Format = JSON
+
+Body
+
+- `sig_text` (REQUIRED) string - your sig text here
+- `ndc` (optional) numeric ndc11 string - if you want to infer sig elements by ndc
+- `rxcui` (optional) numeric rxcui string - if you want to infer sig elements by rxcui
+
+Example:
+
+```
+{
+    "sig_text": "tk 1-2 tab po qid x10d prn pain",
+    "ndc": "12345678911", 
+    "rxcui": "123456"
+}
+```
+
+NOTE: Depending on whether you submit a sig that ParseRx has parsed before, you will receive two different server responses.
+
+- HTTP 200, OK - ParseRx has parsed this sig before, so it is just returning that previously parsed sig from the database.
+- HTTP 201, Created - ParseRx has not parsed this sig before, so it is dynamically parsing it, saving it to the database, and returning the result.
+
+**Response**
+
+`sig_text`
+
+A string containing the modified sig_text from the request, converted to lower case, extraneous characters removed, and duplicate spaces converted to single spaces.
+
+`sig_parsed`
+
+A JSON object containing all the parsed components of the free text sig. See details of each component below.
+
+`sig_inferred`
+
+A JSON object containing all the inferred sig components if the request included an ndc or rxcui parameter. See details of each component below.
+
+This entire object will only appear if a valid ndc or rxcui are included as a request parameter. If both are included, ndc will take precedence over rxcui.
+
+`original_sig_text`
+
+A string containing the original, un-modified sig_text from the request.
+
+**Parsed sig components**
+
+`method`
+
+How the medication is administered (i.e. take, inject, inhale).
+
+`dose`
+
+`dose_max`
+
+`dose_unit`
+
+How much medication patient is instructed to take based on dosage (i.e. 2 tablets, 30 units, 1-2 puffs).
+
+Numbers represented as words in the sig will be converted to integers (i.e. “one” will be converted to 1).
+
+`strength`
+
+`strength_max`
+
+`strength_unit`
+
+How much medication the patient is instructed to take based on strength (i.e. 500 mg, 15 mL, 17 g).
+
+NOTE: ParseRx intentionally does not parse multiple ingredient strengths (i.e. if 5/325 mg is in a sig, it will return null for strength).
+
+`route`
+
+Route of administration of the medication (i.e. by mouth, via inhalation, in left eye).
+
+`frequency`
+
+`frequency_max`
+
+`period`
+
+`period_max`
+
+`period_unit`
+
+`time_duration`
+
+`time_duration_unit`
+
+`day_of_week`
+
+`time_of_day`
+
+`when`
+
+`offset`
+
+`bounds`
+
+`count`
+
+`frequency_readable`
+
+How often medication should be administered (i.e. every 4-6 hours, three times daily, once daily in the morning with meal).
+
+Due to the complexity and variety of medication instructions, these elements are based off of an existing standard - FHIR Timing.
+
+For convenience, a frequency_readable is generated to represent a human-readable representation of the sig frequency.
+
+`duration`
+
+`duration_max`
+
+`duration_unit`
+
+How long the patient is instructed to take the medication (i.e. for 7 days, for 7-10 days, for 28 days).
+
+NOTE: this is different from days’ supply, which represents how long a given supply of medication should last.
+
+`as_needed`
+
+`indication`
+
+Whether the medication should be taken “as needed” (i.e. PRN), and the specific reason the patient is taking the medication (i.e. for pain, for wheezing and shortness of breath, for insomnia).
+
+NOTE: indication may be populated even if as_needed is false. There are chronic indications represented in sigs as well (i.e. for cholesterol, for high blood pressure, for diabetes).
+
+`sig_reviewed_status`
+
+This is an indicator that a pharmacist / pharmacy resident has reviewed the sig.
+
+Depending on the review status of the sig, it will return either unreviewed, correct, incorrect, or unknown.
+
+`sig_reviewed`
+
+If sig_reviewed_status is unreviewed or unknown, this will be null.
+Otherwise, this will return an object containing the reviewed components of the parsed sig. See details of each component below.
+
+NOTE: ParseRx will be constantly improving, and as such, there may be multiple different versions of parsing a given sig. Each of these parsing versions will be reviewed by a pharmacist or pharmacy resident in time. If there exists a version that has a sig_reviewed_status of correct, this is the version that will be returned. Otherwise, the most recently parsed version of the sig will be returned.
+
+IMPORTANT: Pay close attention to the sig_reviewed_status and sig_reviewed object. It is your responsibility to use this information safely.
+
+**Reviewed sig components**
+
+`sig_correct`
+
+Whether the sig is considered to be parsed correctly overall or not.
+
+`method_status`
+
+`dose_status`
+
+`strength_status`
+
+`route_status`
+
+`frequency_status`
+
+`duration_status`
+
+`indication_status`
+
+If the sig is not considered to be parsed correctly overall, there may be values in these fields representing what the specific issue(s) are.
+
+- 0 = incorrect - ParseRx returned something for this component, but it was not correct
+- 1 = missing - ParseRx did not return anything for this component, when it should have
+- 2 = optimize - ParseRx returned something for this component, but it could be improved
+
+**Inferred sig components**
+
+`method`
+
+`dose_unit`
+
+`route`
+
+This entire object will only appear if a valid ndc or rxcui are included as a request parameter. If both are included, ndc will take precedence over rxcui.
+
+Any or all of the inferred sig components may be null if it is not possible to infer them.
